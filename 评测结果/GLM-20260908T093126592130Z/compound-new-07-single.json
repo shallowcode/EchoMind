@@ -1,0 +1,102 @@
+{
+  "id": "compound-new-07",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 4340.156800011755,
+  "request_ms": [
+    4337.21169999626
+  ],
+  "input_tokens": 2320,
+  "output_tokens": 126,
+  "usage_complete": true,
+  "model_cost": 0.002108,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_2bba62c2d9b1b849de5caf047d1231ae",
+      "request_id": "eval-compound-new-07-0",
+      "response": "我理解您遇到了登录报401错误并需要申请退款。关于登录问题，这属于技术故障，建议联系技术支持处理。关于退款申请，我需要您提供订单号和退款金额(单位为分)才能继续处理。请提供这些信息，我会帮您提交退款申请。",
+      "intent": "technical_login",
+      "entities": {
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "6792493394d9626699751a65f913ac535749f1739f1a77d7e602de6a84368d13",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 4316.006000008201,
+      "trace": {
+        "request_id": "eval-compound-new-07-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1026.3769000011962
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3101.536300004227
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2320,
+        "output_tokens": 126,
+        "model_calls": 2,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 510,
+            "output_tokens": 45,
+            "uncached_cost_estimate": 0.000498
+          },
+          {
+            "input_tokens": 1810,
+            "output_tokens": 81,
+            "uncached_cost_estimate": 0.00161
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 0.8,
+    "helpfulness": 0.9
+  },
+  "judge_error": null,
+  "judge_input_tokens": 278,
+  "judge_output_tokens": 43,
+  "judge_cost_estimate": 0.00030839999999999996
+}

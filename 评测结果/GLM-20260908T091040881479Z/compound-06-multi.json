@@ -1,0 +1,398 @@
+{
+  "id": "compound-06",
+  "group": "compound",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [
+    {
+      "id": "rf_d68ea45bf5b840089b20fd461ff88e26",
+      "tenant": "eval-compound-06-multi",
+      "user": "compound-06",
+      "order_id": "ORD1001",
+      "amount": 2000,
+      "status": "pending",
+      "idem": "94e633c07852792885098ebe7477a9f93cca8ca2c182b94a0f0d352cd9f6836c",
+      "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 11115.839799997048,
+  "request_ms": [
+    11113.238100006129
+  ],
+  "input_tokens": 12324,
+  "output_tokens": 644,
+  "usage_complete": true,
+  "model_cost": 0.011147200000000001,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_5efd1503334895f094516054f58c6d4e",
+      "request_id": "eval-compound-06-0",
+      "response": "【技术问题】\n根据知识库（id: 344c381b96874d125a878b040d04e01569259e8b5bf514535c24a2d2f70aef2c），401错误表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期 - 尝试重新登录\n2. 确认输入的用户名和密码是否正确\n3. 检查账号是否被锁定或存在异常\n4. 如果使用第三方登录，确认授权是否有效\n\n请勿在公开渠道分享您的密码或验证码。如果问题持续存在，请提供具体的错误发生时间和环境信息，以便进一步排查。\n\n【退款申请】\n您的退款申请已成功提交。申请详情：\n- 退款申请ID: rf_d68ea45bf5b840089b20fd461ff88e26\n- 订单号: ORD1001\n- 申请金额: 20元\n- 当前状态: 待审核\n- 申请原因: 重复购买\n\n请注意：这是沙箱环境，退款操作仅用于测试，不会发生真实资金转移。申请已提交至财务部门审核，审核通过后退款将按原支付渠道退回。审核结果将通过系统通知您。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical",
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：技术问题→technical；退款申请→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "344c381b96874d125a878b040d04e01569259e8b5bf514535c24a2d2f70aef2c",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.4381651282310486
+        },
+        {
+          "id": "2da2f2b7199a56a1474bc93f4ef7a79cf6416246989e5c289f7104351e9b5d65",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.6156961917877197
+        },
+        {
+          "id": "7b69283e8666fdf988477f6e2a9d66b6328e041ce88647a057285b15dad80be7",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.6474428176879883
+        }
+      ],
+      "tools_used": [
+        "order_lookup",
+        "knowledge_search",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "technical",
+          "agent": "technical",
+          "title": "技术问题",
+          "instruction": "只处理原始请求中的技术问题。检索相关知识，给出具体排查步骤并引用来源；不能承诺已修复。其他任务由同事负责。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据知识库（id: 344c381b96874d125a878b040d04e01569259e8b5bf514535c24a2d2f70aef2c），401错误表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期 - 尝试重新登录\n2. 确认输入的用户名和密码是否正确\n3. 检查账号是否被锁定或存在异常\n4. 如果使用第三方登录，确认授权是否有效\n\n请勿在公开渠道分享您的密码或验证码。如果问题持续存在，请提供具体的错误发生时间和环境信息，以便进一步排查。",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "401登录错误排查 EchoMind"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "344c381b96874d125a878b040d04e01569259e8b5bf514535c24a2d2f70aef2c",
+                    "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                    "title": "登录故障排查",
+                    "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                    "distance": 0.4381651282310486
+                  },
+                  {
+                    "id": "2da2f2b7199a56a1474bc93f4ef7a79cf6416246989e5c289f7104351e9b5d65",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.6156961917877197
+                  },
+                  {
+                    "id": "7b69283e8666fdf988477f6e2a9d66b6328e041ce88647a057285b15dad80be7",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.6474428176879883
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "401登录错误排查 EchoMind",
+                  "EchoMind 401登录错误排查方法",
+                  "EchoMind系统登录失败解决方案"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        },
+        {
+          "id": "task-2",
+          "kind": "refund",
+          "agent": "billing",
+          "title": "退款申请",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "refund_request"
+          ],
+          "status": "completed",
+          "answer": "您的退款申请已成功提交。申请详情：\n- 退款申请ID: rf_d68ea45bf5b840089b20fd461ff88e26\n- 订单号: ORD1001\n- 申请金额: 20元\n- 当前状态: 待审核\n- 申请原因: 重复购买\n\n请注意：这是沙箱环境，退款操作仅用于测试，不会发生真实资金转移。申请已提交至财务部门审核，审核通过后退款将按原支付渠道退回。审核结果将通过系统通知您。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-compound-06-multi",
+                "id": "ORD1001",
+                "user": "compound-06",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            },
+            {
+              "name": "refund_request",
+              "arguments": {
+                "order_id": "ORD1001",
+                "amount_cents": 2000,
+                "reason": "重复购买"
+              },
+              "success": true,
+              "result": {
+                "id": "rf_d68ea45bf5b840089b20fd461ff88e26",
+                "tenant": "eval-compound-06-multi",
+                "user": "compound-06",
+                "order_id": "ORD1001",
+                "amount": 2000,
+                "status": "pending",
+                "idem": "94e633c07852792885098ebe7477a9f93cca8ca2c182b94a0f0d352cd9f6836c",
+                "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+                "payment_ref": null
+              }
+            }
+          ],
+          "attempts": 3,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "9cc1d1c666992eadfe7024a601e798ff77bbe8c990c8d8921ccb3f2256e35011",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 11093.693999995594,
+      "trace": {
+        "request_id": "eval-compound-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1325.1642999966862
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1316.9944999972358
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2017.602900014026
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1034.3904000037583
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2408.852599997772
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4720.50670000317
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2716.7133999901125
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3959.284700002172
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 6.190899992361665,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-06-multi",
+              "id": "ORD1001",
+              "user": "compound-06",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "knowledge_search",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4307.081999999355,
+            "arguments": {
+              "query": "401登录错误排查 EchoMind"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "344c381b96874d125a878b040d04e01569259e8b5bf514535c24a2d2f70aef2c",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.4381651282310486
+                },
+                {
+                  "id": "2da2f2b7199a56a1474bc93f4ef7a79cf6416246989e5c289f7104351e9b5d65",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.6156961917877197
+                },
+                {
+                  "id": "7b69283e8666fdf988477f6e2a9d66b6328e041ce88647a057285b15dad80be7",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.6474428176879883
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "401登录错误排查 EchoMind",
+                "EchoMind 401登录错误排查方法",
+                "EchoMind系统登录失败解决方案"
+              ]
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 10.126799999852665,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 2000,
+              "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。"
+            },
+            "result": {
+              "id": "rf_d68ea45bf5b840089b20fd461ff88e26",
+              "tenant": "eval-compound-06-multi",
+              "user": "compound-06",
+              "order_id": "ORD1001",
+              "amount": 2000,
+              "status": "pending",
+              "idem": "94e633c07852792885098ebe7477a9f93cca8ca2c182b94a0f0d352cd9f6836c",
+              "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 12324,
+        "output_tokens": 644,
+        "model_calls": 8,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 48,
+            "uncached_cost_estimate": 0.0005048
+          },
+          {
+            "input_tokens": 1876,
+            "output_tokens": 52,
+            "uncached_cost_estimate": 0.0016048000000000002
+          },
+          {
+            "input_tokens": 2165,
+            "output_tokens": 90,
+            "uncached_cost_estimate": 0.001912
+          },
+          {
+            "input_tokens": 92,
+            "output_tokens": 35,
+            "uncached_cost_estimate": 0.00014360000000000002
+          },
+          {
+            "input_tokens": 328,
+            "output_tokens": 14,
+            "uncached_cost_estimate": 0.0002904
+          },
+          {
+            "input_tokens": 2302,
+            "output_tokens": 114,
+            "uncached_cost_estimate": 0.0020696000000000004
+          },
+          {
+            "input_tokens": 2587,
+            "output_tokens": 125,
+            "uncached_cost_estimate": 0.0023196
+          },
+          {
+            "input_tokens": 2463,
+            "output_tokens": 166,
+            "uncached_cost_estimate": 0.0023024
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 661,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0006068000000000001
+}

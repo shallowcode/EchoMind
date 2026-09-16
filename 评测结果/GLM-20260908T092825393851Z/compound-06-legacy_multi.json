@@ -1,0 +1,205 @@
+{
+  "id": "compound-06",
+  "group": "compound",
+  "variant": "legacy_multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_cf519318892643198cdacf63a5a72924",
+      "tenant": "eval-compound-06-legacy_multi",
+      "user": "compound-06",
+      "conv": "c_e696e5c60a8030898f1be95730b83de0",
+      "summary": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-06-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 8832.850199993118,
+  "request_ms": [
+    8830.486799997743
+  ],
+  "input_tokens": 9412,
+  "output_tokens": 662,
+  "usage_complete": true,
+  "model_cost": 0.0088536,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_e696e5c60a8030898f1be95730b83de0",
+      "request_id": "eval-compound-06-0",
+      "response": "您的退款申请已成功提交，工单编号为tk_cf519318892643198cdacf63a5a72924，状态为待审核。关于订单ORD1001，状态为已支付，订单总金额为50元（5000分），目前没有退款记录。关于您提到的重复购买和20元退款申请，需要确认：您希望退款的20元是指订单中的部分金额吗？还是您有另一笔20元的交易需要退款？请提供更多详细信息，以便为您准确处理退款申请。\n\n关于登录401错误问题，401错误通常表示认证失败，请确认以下几点：1) 您的账号密码是否正确；2) 是否使用了正确的登录方式；3) 最近是否修改过密码；4) 是否在其他设备上可以正常登录。请提供更多关于登录错误的具体信息，如错误发生时间、使用的设备或浏览器等，以便进一步协助解决问题。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical",
+        "billing"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.31, billing=0.33, general=0.20]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "cd7c45b830c5dfd63a02d896dfe57bcf718ec9afdecabb9c6b7ebeacbf04a591",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "legacy_multi",
+      "latency_ms": 8814.939599993522,
+      "trace": {
+        "request_id": "eval-compound-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1007.4428000079934
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2132.837400000426
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2425.9458000015
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1700.4648000001907
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2216.0658999928273
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2964.9700000009034
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.937099991366267,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-06-legacy_multi",
+              "id": "ORD1001",
+              "user": "compound-06",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "ticket_create",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 7.051100008538924,
+            "arguments": {
+              "summary": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。"
+            },
+            "result": {
+              "id": "tk_cf519318892643198cdacf63a5a72924",
+              "tenant": "eval-compound-06-legacy_multi",
+              "user": "compound-06",
+              "conv": "c_e696e5c60a8030898f1be95730b83de0",
+              "summary": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-06-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 9412,
+        "output_tokens": 662,
+        "model_calls": 6,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 51,
+            "uncached_cost_estimate": 0.0005108000000000001
+          },
+          {
+            "input_tokens": 2188,
+            "output_tokens": 88,
+            "uncached_cost_estimate": 0.0019264
+          },
+          {
+            "input_tokens": 1936,
+            "output_tokens": 108,
+            "uncached_cost_estimate": 0.0017648000000000002
+          },
+          {
+            "input_tokens": 2325,
+            "output_tokens": 93,
+            "uncached_cost_estimate": 0.002046
+          },
+          {
+            "input_tokens": 2181,
+            "output_tokens": 128,
+            "uncached_cost_estimate": 0.0020008
+          },
+          {
+            "input_tokens": 271,
+            "output_tokens": 194,
+            "uncached_cost_estimate": 0.0006048
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.9,
+    "accuracy": 0.8,
+    "completeness": 0.7,
+    "helpfulness": 0.8
+  },
+  "judge_error": null,
+  "judge_input_tokens": 554,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.0005372
+}

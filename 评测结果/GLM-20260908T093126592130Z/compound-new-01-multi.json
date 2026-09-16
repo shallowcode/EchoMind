@@ -1,0 +1,326 @@
+{
+  "id": "compound-new-01",
+  "group": "compound",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 8476.463600003626,
+  "request_ms": [
+    8377.324400004
+  ],
+  "input_tokens": 9412,
+  "output_tokens": 426,
+  "usage_complete": true,
+  "model_cost": 0.0083816,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_f1a574d5231e05347e6c05928e288391",
+      "request_id": "eval-compound-new-01-0",
+      "response": "【技术问题】\n根据知识库内容，401错误表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期 - 401通常是因为认证信息失效\n2. 尝试重新登录 - 不要公开密码或验证码\n3. 如果问题持续，请提供具体的登录接口路径、请求时间、响应内容摘要\n\n来源：登录故障排查 (id: 344ba8933c4d415748f9d67bc44fa5e69af7a0159a860afac23e2c8b1a59c263)\n\n【订单查询】\n订单 ORD1001 的支付状态为已支付(paid)，订单总金额为5000分，目前无退款记录。关于401错误，这可能是登录认证问题，建议您检查账号密码或联系技术支持解决登录问题。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical",
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：技术问题→technical；订单查询→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "344ba8933c4d415748f9d67bc44fa5e69af7a0159a860afac23e2c8b1a59c263",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.39165210723876953
+        },
+        {
+          "id": "b8914d6c13426858451f0ca24042ec10f3eece9f9a2839cd1dd8fa9548f028fe",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.5873105525970459
+        },
+        {
+          "id": "5ea1fb3e17b4ef1cd4fe4ce82d289ff33052ea0feb05b7cf0785117f39d3cb06",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.6458213925361633
+        }
+      ],
+      "tools_used": [
+        "order_lookup",
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "technical",
+          "agent": "technical",
+          "title": "技术问题",
+          "instruction": "只处理原始请求中的技术问题。检索相关知识，给出具体排查步骤并引用来源；不能承诺已修复。其他任务由同事负责。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据知识库内容，401错误表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期 - 401通常是因为认证信息失效\n2. 尝试重新登录 - 不要公开密码或验证码\n3. 如果问题持续，请提供具体的登录接口路径、请求时间、响应内容摘要\n\n来源：登录故障排查 (id: 344ba8933c4d415748f9d67bc44fa5e69af7a0159a860afac23e2c8b1a59c263)",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "401错误 登录失败 认证失败 排查步骤"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "344ba8933c4d415748f9d67bc44fa5e69af7a0159a860afac23e2c8b1a59c263",
+                    "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                    "title": "登录故障排查",
+                    "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                    "distance": 0.39165210723876953
+                  },
+                  {
+                    "id": "b8914d6c13426858451f0ca24042ec10f3eece9f9a2839cd1dd8fa9548f028fe",
+                    "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                    "title": "退款审核政策",
+                    "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                    "distance": 0.5873105525970459
+                  },
+                  {
+                    "id": "5ea1fb3e17b4ef1cd4fe4ce82d289ff33052ea0feb05b7cf0785117f39d3cb06",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.6458213925361633
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "401错误 登录失败 认证失败 排查步骤",
+                  "401认证错误 登录失败 解决方法"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        },
+        {
+          "id": "task-2",
+          "kind": "order",
+          "agent": "billing",
+          "title": "订单查询",
+          "instruction": "只核实原始请求中的订单状态，使用已提供订单号查询，并明确告知查得的状态。其他问题由同事负责。",
+          "required_tools": [
+            "order_lookup"
+          ],
+          "status": "completed",
+          "answer": "订单 ORD1001 的支付状态为已支付(paid)，订单总金额为5000分，目前无退款记录。关于401错误，这可能是登录认证问题，建议您检查账号密码或联系技术支持解决登录问题。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-compound-new-01-multi",
+                "id": "ORD1001",
+                "user": "compound-new-01",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "363c28eebdd556b2179ddfb9f4ed2e7c8dae1cd257b818167004f974db27a668",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 8356.120800002827,
+      "trace": {
+        "request_id": "eval-compound-new-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 866.5943999949377
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1132.9937999980757
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1425.9140000067418
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1136.12209999701
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1829.2373000003863
+          },
+          {
+            "name": "llm",
+            "duration_ms": 823.2270000007702
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2822.731799999019
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 3.5248000058345497,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-new-01-multi",
+              "id": "ORD1001",
+              "user": "compound-new-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "knowledge_search",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 2896.07440000691,
+            "arguments": {
+              "query": "401错误 登录失败 认证失败 排查步骤"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "344ba8933c4d415748f9d67bc44fa5e69af7a0159a860afac23e2c8b1a59c263",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.39165210723876953
+                },
+                {
+                  "id": "b8914d6c13426858451f0ca24042ec10f3eece9f9a2839cd1dd8fa9548f028fe",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.5873105525970459
+                },
+                {
+                  "id": "5ea1fb3e17b4ef1cd4fe4ce82d289ff33052ea0feb05b7cf0785117f39d3cb06",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.6458213925361633
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "401错误 登录失败 认证失败 排查步骤",
+                "401认证错误 登录失败 解决方法"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 9412,
+        "output_tokens": 426,
+        "model_calls": 7,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 510,
+            "output_tokens": 41,
+            "uncached_cost_estimate": 0.00049
+          },
+          {
+            "input_tokens": 2015,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.00171
+          },
+          {
+            "input_tokens": 1870,
+            "output_tokens": 60,
+            "uncached_cost_estimate": 0.001616
+          },
+          {
+            "input_tokens": 100,
+            "output_tokens": 45,
+            "uncached_cost_estimate": 0.00017
+          },
+          {
+            "input_tokens": 2112,
+            "output_tokens": 64,
+            "uncached_cost_estimate": 0.0018176000000000002
+          },
+          {
+            "input_tokens": 336,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.0003208
+          },
+          {
+            "input_tokens": 2469,
+            "output_tokens": 141,
+            "uncached_cost_estimate": 0.0022572
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 414,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0004092
+}

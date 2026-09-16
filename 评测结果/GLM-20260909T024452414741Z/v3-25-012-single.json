@@ -1,0 +1,126 @@
+{
+  "id": "v3-25-012",
+  "group": "handoff",
+  "family": "handoff.explicit_human",
+  "split": "development",
+  "workflow": "handoff",
+  "fixture": {},
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "ticket_closed": true,
+    "resolution_in_conversation": true
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_7ca260b0ca8d485f8016685ee144983b",
+      "tenant": "eval-v3-25-012-single",
+      "user": "v3-25-012",
+      "conv": "c_4824b89ff4a6e2b877baa06bfe575a35",
+      "summary": "这次咨询编号 CS25012，请转人工客服处理。",
+      "status": "closed",
+      "assignee": "staff",
+      "resolution": "测试客服已解决",
+      "idem": "eval-v3-25-012-0:ticket",
+      "version": 3
+    }
+  ],
+  "task_ms": 1211.8755999999848,
+  "request_ms": [
+    1174.7458999998344
+  ],
+  "input_tokens": 505,
+  "output_tokens": 33,
+  "usage_complete": true,
+  "model_cost": 0.00047,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_4824b89ff4a6e2b877baa06bfe575a35",
+      "request_id": "eval-v3-25-012-0",
+      "response": "已创建人工工单 tk_7ca260b0ca8d485f8016685ee144983b，状态为 open，等待客服接单。",
+      "intent": "human_handoff",
+      "entities": {},
+      "primary_agent": "escalation",
+      "agents": [
+        "escalation"
+      ],
+      "routing_reason": "人工接管请求进入持久化工单队列",
+      "routing_confidence": 0.9624999999999999,
+      "escalated": true,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "045745716ba00431f9b67c23f83ccc7b437b6acdd881e1722e5dbef8102c8fde",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 1154.6327999999448,
+      "trace": {
+        "request_id": "eval-v3-25-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 718.8068000000385
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "escalation",
+            "success": true,
+            "cached": false,
+            "duration_ms": 21.260999999867636,
+            "arguments": {
+              "summary": "这次咨询编号 CS25012，请转人工客服处理。"
+            },
+            "result": {
+              "id": "tk_7ca260b0ca8d485f8016685ee144983b",
+              "tenant": "eval-v3-25-012-single",
+              "user": "v3-25-012",
+              "conv": "c_4824b89ff4a6e2b877baa06bfe575a35",
+              "summary": "这次咨询编号 CS25012，请转人工客服处理。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-v3-25-012-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 505,
+        "output_tokens": 33,
+        "model_calls": 1,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 505,
+            "output_tokens": 33,
+            "uncached_cost_estimate": 0.00047
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

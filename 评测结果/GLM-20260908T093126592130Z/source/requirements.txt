@@ -1,0 +1,13 @@
+# Validated on Windows Python 3.14; container targets Python 3.12.
+anthropic==0.125.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+pydantic==2.13.5
+redis==6.4.0
+chromadb==1.5.9
+prometheus-client==0.26.0
+httpx==0.28.1
+python-dotenv==1.2.3
+python-multipart==0.0.32
+jsonschema==4.26.0
+mcp==1.30.0

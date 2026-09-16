@@ -1,0 +1,36 @@
+services:
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${SF_REDIS_PASSWORD:?Set SF_REDIS_PASSWORD}"]
+    volumes: ["sf-redis:/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep PONG"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    environment:
+      REDIS_PASSWORD: ${SF_REDIS_PASSWORD:?Set SF_REDIS_PASSWORD}
+  app:
+    build:
+      context: .
+      target: production
+    ports: ["127.0.0.1:8000:8000"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    environment:
+      SF_DB_PATH: /app/data/supportflow.sqlite3
+      SF_STORAGE: chroma
+      SF_CHROMA_PATH: /app/data/supportflow-chroma
+      SF_REDIS_URL: redis://:${SF_REDIS_PASSWORD}@redis:6379/0
+      SF_MODEL_BACKEND: ${SF_MODEL_BACKEND:-compatible}
+      SF_MODEL_URL: ${SF_MODEL_URL:-http://host.docker.internal:8081/v1}
+      SF_MODEL_NAME: ${SF_MODEL_NAME:-Qwen3-1.7B-Q8_0}
+      SF_MODEL_KEY: ${SF_MODEL_KEY:-}
+      SF_LOCAL_CHAT_TEMPLATE: ${SF_LOCAL_CHAT_TEMPLATE:-true}
+      SF_PUBLIC_URL: ${SF_PUBLIC_URL:-http://localhost:8000}
+      SF_BUSINESS_MODE: sandbox
+    volumes: ["sf-data:/app/data", "./skills:/app/skills:ro"]
+    depends_on:
+      redis: {condition: service_healthy}
+volumes:
+  sf-data:
+  sf-redis:

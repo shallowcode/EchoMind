@@ -1,0 +1,8 @@
+{
+  "tenant": "demo",
+  "id": "ORD1001",
+  "user": "alice",
+  "total": 5000,
+  "refunded": 0,
+  "status": "paid"
+}

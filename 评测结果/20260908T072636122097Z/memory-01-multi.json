@@ -1,0 +1,159 @@
+{
+  "id": "memory-01",
+  "group": "memory",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": false,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 40567.73329999123,
+  "request_ms": [
+    18984.202199993888,
+    21579.484199988656
+  ],
+  "input_tokens": 5729,
+  "output_tokens": 135,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_ba81c9276ad55990244f731277842f28",
+      "request_id": "eval-memory-01-0",
+      "response": "处理失败，请重试或转人工。",
+      "intent": "other",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "intent=other, group=other, primary=general, supporting=none, scores=[general=0.87, technical=0.00, billing=0.00]",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "degraded",
+      "versions": {
+        "knowledge": "ce3aaab3537e3fd3ceb0d7d0765b0654d43fdf6ff5494be18a5438dfb968423b",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 18953.799000009894,
+      "trace": {
+        "request_id": "eval-memory-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 10804.795699994429
+          },
+          {
+            "name": "llm",
+            "duration_ms": 7351.026800010004
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2008,
+        "output_tokens": 51,
+        "model_calls": 2,
+        "failures": [
+          "agent:general"
+        ]
+      },
+      "_http_status": 200
+    },
+    {
+      "conv_id": "c_ba81c9276ad55990244f731277842f28",
+      "request_id": "eval-memory-01-1",
+      "response": "订单状态为已支付，未退款。",
+      "intent": "query",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.87, technical=0.00, billing=0.00]",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "ce3aaab3537e3fd3ceb0d7d0765b0654d43fdf6ff5494be18a5438dfb968423b",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 21541.908200000762,
+      "trace": {
+        "request_id": "eval-memory-01-1",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 6883.874099992681
+          },
+          {
+            "name": "llm",
+            "duration_ms": 10384.626600003685
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3389.8991999885766
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 11.940599986701272,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-memory-01-multi",
+              "id": "ORD1001",
+              "user": "memory-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3721,
+        "output_tokens": 84,
+        "model_calls": 3,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

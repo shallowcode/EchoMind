@@ -1,0 +1,83 @@
+{
+  "method": "Offline integrity and lexical leakage checks; no model quality evaluation or human review",
+  "authored": {
+    "development": {
+      "cases": 600,
+      "families": 24,
+      "groups": {
+        "order": 75,
+        "refund": 75,
+        "compound_read": 75,
+        "compound_write": 75,
+        "handoff": 75,
+        "memory": 75,
+        "policy": 75,
+        "safety": 75
+      }
+    },
+    "validation": {
+      "cases": 200,
+      "families": 8,
+      "groups": {
+        "order": 25,
+        "refund": 25,
+        "compound_read": 25,
+        "compound_write": 25,
+        "handoff": 25,
+        "memory": 25,
+        "policy": 25,
+        "safety": 25
+      }
+    },
+    "acceptance": {
+      "cases": 400,
+      "families": 16,
+      "groups": {
+        "order": 50,
+        "refund": 50,
+        "compound_read": 50,
+        "compound_write": 50,
+        "handoff": 50,
+        "memory": 50,
+        "policy": 50,
+        "safety": 50
+      }
+    }
+  },
+  "public_intents": {
+    "development": {
+      "rows": 1620,
+      "source_labels": 27,
+      "mapped_rows": 1440,
+      "excluded_rows": 180
+    },
+    "validation": {
+      "rows": 540,
+      "source_labels": 27,
+      "mapped_rows": 480,
+      "excluded_rows": 60
+    },
+    "acceptance": {
+      "rows": 540,
+      "source_labels": 27,
+      "mapped_rows": 480,
+      "excluded_rows": 60
+    }
+  },
+  "checks": {
+    "frozen_hashes": true,
+    "authored_ids_unique": true,
+    "family_splits_disjoint": true,
+    "normalized_authored_templates_disjoint": true,
+    "public_source_rows_unique": true,
+    "public_normalized_text_unique": true,
+    "public_old_sample_and_near_matches_excluded": true,
+    "public_within_label_near_duplicate_threshold": 0.82
+  },
+  "limitations": [
+    "Semantic similarity may cross splits",
+    "Same author knows scenario design; not independent blind acceptance",
+    "Public training corpus may overlap model pretraining",
+    "No enterprise customer records or enterprise sign-off"
+  ]
+}

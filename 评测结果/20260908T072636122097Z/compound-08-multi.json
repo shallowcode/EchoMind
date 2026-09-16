@@ -1,0 +1,160 @@
+{
+  "id": "compound-08",
+  "group": "compound",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_4889f5efa82f4cf0869dbf9b18c8e060",
+      "tenant": "eval-compound-08-multi",
+      "user": "compound-08",
+      "conv": "c_479b0d78ad05061a9262c61711126509",
+      "summary": "创建工单：用户登录失败（401）",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-08-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 90941.35090000054,
+  "request_ms": [
+    90938.38439999672
+  ],
+  "input_tokens": 8706,
+  "output_tokens": 332,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_479b0d78ad05061a9262c61711126509",
+      "request_id": "eval-compound-08-0",
+      "response": "{\"status\": \"待办\", \"source\": \"客服\", \"items\": [\"核验订单状态和支付信息\", \"创建工单：用户登录失败（401）\"]}",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "15元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing",
+        "technical"
+      ],
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.08, technical=0.38, general=0.20]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "80f5fbad0c761341323a3d752143caf5225b3546c3b66881146385355d6e3667",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 90909.97039999638,
+      "trace": {
+        "request_id": "eval-compound-08-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 10042.123999999603
+          },
+          {
+            "name": "llm",
+            "duration_ms": 38308.87039999652
+          },
+          {
+            "name": "llm",
+            "duration_ms": 44094.79439999268
+          },
+          {
+            "name": "llm",
+            "duration_ms": 24967.370400001528
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4050.622900002054
+          },
+          {
+            "name": "llm",
+            "duration_ms": 7206.333499998436
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 213.8936000119429,
+            "arguments": {
+              "summary": "创建工单：用户登录失败（401）"
+            },
+            "result": {
+              "id": "tk_4889f5efa82f4cf0869dbf9b18c8e060",
+              "tenant": "eval-compound-08-multi",
+              "user": "compound-08",
+              "conv": "c_479b0d78ad05061a9262c61711126509",
+              "summary": "创建工单：用户登录失败（401）",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-08-0:ticket",
+              "version": 0
+            },
+            "error": null
+          },
+          {
+            "name": "ticket_create",
+            "agent": "technical",
+            "success": false,
+            "cached": false,
+            "duration_ms": 6.893300000228919,
+            "arguments": {
+              "summary": "申请退款：ORD1001，金额15元"
+            },
+            "result": null,
+            "error": "ValueError: Ticket idempotency payload mismatch"
+          }
+        ],
+        "input_tokens": 8706,
+        "output_tokens": 332,
+        "model_calls": 6,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.9,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

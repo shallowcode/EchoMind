@@ -1,0 +1,154 @@
+{
+  "created_utc": "20260908T093126592130Z",
+  "dataset_sha256": "ff1ef8134989d69d8801fef082ddae4bd73c432c42e00f3e3e578baa9f835fc3",
+  "dataset_version": "2.0-compound-regression",
+  "dataset_count": 8,
+  "evaluated_tasks": 8,
+  "subset": false,
+  "transport": "ASGI HTTP in-process: includes auth, service, DB, model HTTP; excludes external network/front proxy",
+  "concurrency_tasks": 2,
+  "warmup": "one model call excluded; cold per-arm tool/application caches",
+  "settings": {
+    "db_path": "data/supportflow.sqlite3",
+    "model_backend": "compatible",
+    "model_url": "https://open.bigmodel.cn/api/paas/v4",
+    "model_name": "glm-4.5-air",
+    "local_chat_template": false,
+    "supports_json_schema": false,
+    "model_thinking": "disabled",
+    "public_url": "http://localhost:8000",
+    "model_timeout": 90,
+    "request_timeout": 240.0,
+    "max_inflight": 4,
+    "max_tool_rounds": 3,
+    "storage": "chroma",
+    "chroma_path": "data/supportflow-chroma",
+    "skills_dir": "skills",
+    "token_ttl": 3600,
+    "model_input_price": null,
+    "model_output_price": null,
+    "pricing_profile": "glm-air-20260908",
+    "currency": "CNY",
+    "machine_hourly_cost": null,
+    "business_mode": "sandbox",
+    "business_currency": "CNY",
+    "payment_url": ""
+  },
+  "source_sha256": {
+    "supportflow\\api.py": "a151306b5f8aaf459a263fa73998777ec187af6f94fceec080a3018c93aa73c3",
+    "supportflow\\contracts.py": "531296a4141913e9080433eb39f2c58e5d72171403bcb8c66f604e91353e001b",
+    "supportflow\\knowledge.py": "346cc0e1b8e8ab364c5aeebe10d2222144d7d39abcb20784d1499c65e8d5d4ac",
+    "supportflow\\model.py": "e8050a636d30f9cf02f7c9dbf97fd037b83141ce9b79c380e3747a25302070b7",
+    "supportflow\\payments.py": "1cac4cc90c3b66cdcfd40ea2768159d40a99ec7ea3289a80ba156d8ba20a86a5",
+    "supportflow\\planning.py": "6bf939bbd34a47fce845d76e025fca3e95f73dfc73eefcdb1f0ad9148be2bb2a",
+    "supportflow\\pricing.py": "ebe3dc90284a4b88884cc88f1301ae645db70878a8acfe8ef2ba48df4891f0cb",
+    "supportflow\\protocol.py": "7140206bfbfa8f4b4a8b7ae70408a387703056c5735f3e5036a6dde39c5f79b6",
+    "supportflow\\service.py": "479161e678b14a3cac20e1475ebcf2d76b96f40389424135f5b966900ebcdd60",
+    "supportflow\\store.py": "1869368f9dba6b98c7a063335f13d16809bb99bb486c981d98e21b6d83b7eced",
+    "supportflow\\tools.py": "f784627d594a7594241b42226b173ae3194b18b2d7f359e3c73f17e7a14fc251",
+    "supportflow\\__init__.py": "b7c1a89b4650f1b702aafc32211ef308ef34f8ad55f4553c84a884c963264781",
+    "agents\\agent_orchestrator.py": "4f9d199eef99dc6822312d860474f4582cdac5b84e6f983f47b040a8a1eed783",
+    "core\\intent_recognizer.py": "ce3dfb4eef87ab7f84bec3d2ed8df1a1fa8ab959de57b044438a9636dd808d95",
+    "core\\llm_utils.py": "b0bf4cc194787b059a02c2049a773dceb1ff92df95f5d7d7bdc492ba355e93e7",
+    "core\\skill_loader.py": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+    "evaluation\\compare_runs.py": "99492c862659a777d5b89be784a0d551fe44125ec23dca0aa265e5ea5a806c8c",
+    "evaluation\\evaluator.py": "0c320755e171987f49d42925c89326036201a49d5a93f073e1df4abb5bcfdc60",
+    "evaluation\\full_chain.py": "bf85c3ae3aed635fa1031f2b2e5086f1527f6a421f5ac5cea16eb646d79fb7b2",
+    "evaluation\\public_intents.py": "d5f88482723bf688f922c7c002a38e56641240182026293feabae7284d1eb931",
+    "evaluation\\datasets\\compound-v1.json": "8c63b4554a27c12992ede40288197ffb4ec1e63ea08d1781012ae0e5593982db",
+    "evaluation\\datasets\\compound-v2.json": "ff1ef8134989d69d8801fef082ddae4bd73c432c42e00f3e3e578baa9f835fc3",
+    "evaluation\\datasets\\supportflow-v1.json": "9e5cbc4f460a0b0bb52ecb67c0d2d869381526c8c29d3021335619c71000455a",
+    "skills\\README.md": "3c86fc493c3c73c79e1f01bb85067c874fba59b61f21bb7e9a1bd381235c9aa5",
+    "skills\\billing_support\\SKILL.md": "60baeba56cb91d2113d529f999f2d14da67425ba11efdc5175c9cf90fbb7223f",
+    "skills\\general_customer_service\\SKILL.md": "840a45efc7e35abc75b97c37bd47703de53a73ec8844ca29f342f5babddbe037",
+    "skills\\technical_support\\SKILL.md": "7e730fb06966314f6530f478debe81bd2a854501f168c5406465df674dcb9cb6"
+  },
+  "source_changed_during_run": false,
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "fastapi": "0.141.1",
+    "httpx": "0.28.1",
+    "mcp": "1.30.0",
+    "chromadb": "1.5.9",
+    "pydantic": "2.13.5"
+  },
+  "model_manifest": null,
+  "summaries": {
+    "single": {
+      "tasks": 8,
+      "completed": 0,
+      "completion_rate": 0.0,
+      "completion_wilson_95": [
+        0,
+        0.3244156195108769
+      ],
+      "task_p95_ms": 11743.551699997624,
+      "request_p95_ms": 11740.531299990835,
+      "mean_input_tokens": 4741.875,
+      "mean_output_tokens": 297.25,
+      "mean_model_cost": 0.0045005,
+      "judge_valid": 8,
+      "judge_failed": 0,
+      "judge_means": {
+        "relevance": 0.9125,
+        "accuracy": 0.925,
+        "completeness": 0.8375,
+        "helpfulness": 0.875
+      },
+      "groups": {
+        "compound": {
+          "n": 8,
+          "completed": 0
+        }
+      }
+    },
+    "multi": {
+      "tasks": 8,
+      "completed": 8,
+      "completion_rate": 1.0,
+      "completion_wilson_95": [
+        0.6755843804891231,
+        1
+      ],
+      "task_p95_ms": 18034.908900008304,
+      "request_p95_ms": 18032.645900006173,
+      "mean_input_tokens": 12186.125,
+      "mean_output_tokens": 632.875,
+      "mean_model_cost": 0.01101465,
+      "judge_valid": 8,
+      "judge_failed": 0,
+      "judge_means": {
+        "relevance": 0.95,
+        "accuracy": 0.95625,
+        "completeness": 0.925,
+        "helpfulness": 0.925
+      },
+      "groups": {
+        "compound": {
+          "n": 8,
+          "completed": 8
+        }
+      }
+    }
+  },
+  "paired_completion_delta": 1,
+  "paired_bootstrap_95": [
+    1,
+    1
+  ],
+  "judge_same_model": true,
+  "cost_basis": "Per-call uncached list-price estimate; cache discounts/account credits not deducted; not an invoice. Pricing source https://bigmodel.cn/pricing checked 2026-09-08.",
+  "baseline": "single",
+  "evaluator_usage": {
+    "input_tokens": 7865,
+    "output_tokens": 676
+  },
+  "limitations": [
+    "Synthetic fixed authored suite; no claim of production quality",
+    "Small-sample uncertainty; do not treat threshold as statistical significance",
+    "Local desktop load is not isolated; model-call API fee excludes evaluator calls and infrastructure",
+    "Local CPU cost requires measured allocation price; absent cost is null",
+    "Human ticket actions simulated via authenticated staff HTTP API",
+    "SQLite lexical retrieval unless storage explicitly set chroma"
+  ]
+}

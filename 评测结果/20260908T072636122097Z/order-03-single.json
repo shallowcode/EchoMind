@@ -1,0 +1,108 @@
+{
+  "id": "order-03",
+  "group": "order",
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 14037.360500005889,
+  "request_ms": [
+    14032.89620000578
+  ],
+  "input_tokens": 3874,
+  "output_tokens": 97,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_3c547386f38f477794c1e8e91c2355b3",
+      "request_id": "eval-order-03-0",
+      "response": "订单状态为已支付，已结账。",
+      "intent": "order_status",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "815b69c6cd0fe01684d7236b66961787abdbbeb101c1ddb61f93f34266897df1",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 13997.787999993307,
+      "trace": {
+        "request_id": "eval-order-03-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 5081.146399999852
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4810.796499994467
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3770.889699997497
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 7.081900010234676,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-order-03-single",
+              "id": "ORD1001",
+              "user": "order-03",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3874,
+        "output_tokens": 97,
+        "model_calls": 3,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

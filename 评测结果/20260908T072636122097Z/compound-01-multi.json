@@ -1,0 +1,88 @@
+{
+  "id": "compound-01",
+  "group": "compound",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 10825.805200001923,
+  "request_ms": [
+    10819.810899993172
+  ],
+  "input_tokens": 2296,
+  "output_tokens": 58,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_ca22835b278b3f3237424f80033972e7",
+      "request_id": "eval-compound-01-0",
+      "response": "给用户的回答",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.13, general=0.32, billing=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "6e3a70cee21902da128e2a528a689546dc1ffac919da213879a290a7119bc1c5",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 10784.2229000089,
+      "trace": {
+        "request_id": "eval-compound-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 8006.664400003501
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1893.6487000028137
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2296,
+        "output_tokens": 58,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.6
+  },
+  "judge_error": null
+}

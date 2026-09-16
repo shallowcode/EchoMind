@@ -1,0 +1,20 @@
+{
+  "version": "demo-1.0",
+  "source": "Project-authored synthetic sandbox example; not real customer data",
+  "split": "demo",
+  "language": "zh",
+  "seed": 20260916,
+  "cases": [
+    {
+      "id": "demo-order-01",
+      "group": "order",
+      "turns": ["请查询订单 ORD1001 的付款状态。"],
+      "order": {"id": "ORD1001", "total_cents": 5000},
+      "expected": {
+        "tools": ["order_lookup"],
+        "answer_any": ["paid", "已支付", "已付款"],
+        "refund_count": 0
+      }
+    }
+  ]
+}

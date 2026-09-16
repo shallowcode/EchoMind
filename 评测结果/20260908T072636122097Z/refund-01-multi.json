@@ -1,0 +1,129 @@
+{
+  "id": "refund-01",
+  "group": "refund",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [
+    {
+      "id": "rf_6bd229e69fe742c9a4b5ebaf61aaf93c",
+      "tenant": "eval-refund-01-multi",
+      "user": "refund-01",
+      "order_id": "ORD1001",
+      "amount": 2000,
+      "status": "pending",
+      "idem": "4fdd1c8d58a34ab6bdf6c9970a35f0f8d79c784310b8c3eca649d718321c7e62",
+      "reason": "重复购买",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 20755.525499989744,
+  "request_ms": [
+    20752.373800001806
+  ],
+  "input_tokens": 4798,
+  "output_tokens": 155,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_39a7e633cab88eba11f853a0ec40bae9",
+      "request_id": "eval-refund-01-0",
+      "response": "退款申请已提交，待财务审核。请提供订单号、支付时间和支付渠道以确认退款流程。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.08, general=0.32, technical=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "refund_request"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "5005a255d6a2d920e2ce9cdec97176dea148724f8337d6260107c1b4c49f2ba8",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 20728.907100012293,
+      "trace": {
+        "request_id": "eval-refund-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 6504.437199997483
+          },
+          {
+            "name": "llm",
+            "duration_ms": 7626.116700004786
+          },
+          {
+            "name": "llm",
+            "duration_ms": 6310.317600000417
+          }
+        ],
+        "tools": [
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 7.972800012794323,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 2000,
+              "reason": "重复购买"
+            },
+            "result": {
+              "id": "rf_6bd229e69fe742c9a4b5ebaf61aaf93c",
+              "tenant": "eval-refund-01-multi",
+              "user": "refund-01",
+              "order_id": "ORD1001",
+              "amount": 2000,
+              "status": "pending",
+              "idem": "4fdd1c8d58a34ab6bdf6c9970a35f0f8d79c784310b8c3eca649d718321c7e62",
+              "reason": "重复购买",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4798,
+        "output_tokens": 155,
+        "model_calls": 3,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

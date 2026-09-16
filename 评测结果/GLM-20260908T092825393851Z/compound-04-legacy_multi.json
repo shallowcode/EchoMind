@@ -1,0 +1,127 @@
+{
+  "id": "compound-04",
+  "group": "compound",
+  "variant": "legacy_multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 5146.440900003654,
+  "request_ms": [
+    5144.4754999974975
+  ],
+  "input_tokens": 4422,
+  "output_tokens": 211,
+  "usage_complete": true,
+  "model_cost": 0.003959600000000001,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_1ff1a26810badcfc24a42748941f7210",
+      "request_id": "eval-compound-04-0",
+      "response": "我无法直接访问订单ORD1001的状态，可能是因为该订单不属于当前登录账户或需要其他权限。请确认：\n1. 您是否使用正确的账户登录？\n2. ORD1001是否是您本人的订单？\n\n关于401登录错误，请提供以下信息以便我进一步排查：\n- 错误发生的具体时间\n- 您使用的登录方式（密码/验证码/第三方登录）\n- 是否收到任何错误提示信息\n- 最近是否有更改密码或账户设置",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.13, general=0.32, billing=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "6c628d5e3b73f3212bfef11478b80e19f00f23ded06f15e885a803967979b6dd",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "legacy_multi",
+      "latency_ms": 5128.143199995975,
+      "trace": {
+        "request_id": "eval-compound-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1128.820400001132
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1287.7172000007704
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2532.931699999608
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_status",
+            "agent": "technical",
+            "success": false,
+            "cached": false,
+            "duration_ms": 5.304299993440509,
+            "arguments": {
+              "ticket_id": "ORD1001"
+            },
+            "result": null,
+            "error": "PermissionError: Ticket not accessible"
+          }
+        ],
+        "input_tokens": 4422,
+        "output_tokens": 211,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 46,
+            "uncached_cost_estimate": 0.0005008
+          },
+          {
+            "input_tokens": 1929,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.0016412
+          },
+          {
+            "input_tokens": 1982,
+            "output_tokens": 116,
+            "uncached_cost_estimate": 0.0018176000000000002
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.9,
+    "accuracy": 0.8,
+    "completeness": 0.7,
+    "helpfulness": 0.8
+  },
+  "judge_error": null,
+  "judge_input_tokens": 326,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.0003548
+}

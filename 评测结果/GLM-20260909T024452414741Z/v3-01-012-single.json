@@ -1,0 +1,131 @@
+{
+  "id": "v3-01-012",
+  "group": "order",
+  "family": "order.payment_status",
+  "split": "development",
+  "workflow": "order",
+  "fixture": {},
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_group_0": true,
+    "tool_arguments_0": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 3269.173900000169,
+  "request_ms": [
+    3266.1315999998806
+  ],
+  "input_tokens": 4222,
+  "output_tokens": 140,
+  "usage_complete": true,
+  "model_cost": 0.0036576000000000004,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_2332475b225b001ef775c0812ef4f884",
+      "request_id": "eval-v3-01-012-0",
+      "response": "已查询到订单 ORD100112 的支付状态：订单已支付完成。订单总金额为 50.00 元，当前无退款记录。",
+      "intent": "order_status",
+      "entities": {
+        "order_id": [
+          "ORD100112"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "8d4e24ac742741be215f1a97de325b38534f41679079bd7f1c653d7d7de1a432",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 3130.3108000001885,
+      "trace": {
+        "request_id": "eval-v3-01-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 891.0028999998758
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1021.750300000349
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1012.456999999813
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.271799999718496,
+            "arguments": {
+              "order_id": "ORD100112"
+            },
+            "result": {
+              "tenant": "eval-v3-01-012-single",
+              "id": "ORD100112",
+              "user": "v3-01-012",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4222,
+        "output_tokens": 140,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 506,
+            "output_tokens": 46,
+            "uncached_cost_estimate": 0.0004968
+          },
+          {
+            "input_tokens": 1807,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.0015436000000000002
+          },
+          {
+            "input_tokens": 1909,
+            "output_tokens": 45,
+            "uncached_cost_estimate": 0.0016172
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

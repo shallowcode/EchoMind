@@ -1,0 +1,180 @@
+{
+  "id": "handoff-04",
+  "group": "handoff",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "ticket_closed": true,
+    "resolution_in_conversation": true
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_ee658611135b425f85dce1f6539e831b",
+      "tenant": "eval-handoff-04-multi",
+      "user": "handoff-04",
+      "conv": "c_ddfa99abcdaf21b627ccc6697cc8d7f6",
+      "summary": "这个问题需要转人工。",
+      "status": "closed",
+      "assignee": "staff",
+      "resolution": "测试客服已解决",
+      "idem": "eval-handoff-04-0:ticket",
+      "version": 3
+    }
+  ],
+  "task_ms": 3153.757099993527,
+  "request_ms": [
+    3118.5867999884067
+  ],
+  "input_tokens": 3767,
+  "output_tokens": 147,
+  "usage_complete": true,
+  "model_cost": 0.0033076,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_ddfa99abcdaf21b627ccc6697cc8d7f6",
+      "request_id": "eval-handoff-04-0",
+      "response": "【人工工单】\n已为您创建人工客服工单，工单号：tk_ee658611135b425f85dce1f6539e831b。当前工单状态为待接单，请耐心等待客服人员处理。",
+      "intent": "human_handoff",
+      "entities": {},
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "显式子任务分工：人工工单→general",
+      "routing_confidence": 0.9249999999999999,
+      "escalated": true,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "handoff",
+          "agent": "general",
+          "title": "人工工单",
+          "instruction": "为原始请求创建人工工单，并给出真实工单号和等待接单状态。",
+          "required_tools": [
+            "ticket_create"
+          ],
+          "status": "completed",
+          "answer": "已为您创建人工客服工单，工单号：tk_ee658611135b425f85dce1f6539e831b。当前工单状态为待接单，请耐心等待客服人员处理。",
+          "observations": [
+            {
+              "name": "ticket_create",
+              "arguments": {
+                "summary": "用户要求转人工处理问题"
+              },
+              "success": true,
+              "result": {
+                "id": "tk_ee658611135b425f85dce1f6539e831b",
+                "tenant": "eval-handoff-04-multi",
+                "user": "handoff-04",
+                "conv": "c_ddfa99abcdaf21b627ccc6697cc8d7f6",
+                "summary": "这个问题需要转人工。",
+                "status": "open",
+                "assignee": null,
+                "resolution": null,
+                "idem": "eval-handoff-04-0:ticket",
+                "version": 0
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "66088b363d49b6a58ecaedb599e7e96c8b0e4ad7714c114b9a09fe42901825e7",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 3103.2656999886967,
+      "trace": {
+        "request_id": "eval-handoff-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 701.7461000068579
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1022.6796000060858
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1187.6668000040809
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 11.049600012484007,
+            "arguments": {
+              "summary": "这个问题需要转人工。"
+            },
+            "result": {
+              "id": "tk_ee658611135b425f85dce1f6539e831b",
+              "tenant": "eval-handoff-04-multi",
+              "user": "handoff-04",
+              "conv": "c_ddfa99abcdaf21b627ccc6697cc8d7f6",
+              "summary": "这个问题需要转人工。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-handoff-04-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3767,
+        "output_tokens": 147,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 497,
+            "output_tokens": 29,
+            "uncached_cost_estimate": 0.0004556
+          },
+          {
+            "input_tokens": 1549,
+            "output_tokens": 51,
+            "uncached_cost_estimate": 0.0013412
+          },
+          {
+            "input_tokens": 1721,
+            "output_tokens": 67,
+            "uncached_cost_estimate": 0.0015108
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 374,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0003772
+}

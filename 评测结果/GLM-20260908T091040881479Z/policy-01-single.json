@@ -1,0 +1,178 @@
+{
+  "id": "policy-01",
+  "group": "policy",
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 9885.932500008494,
+  "request_ms": [
+    9883.136799995555
+  ],
+  "input_tokens": 2684,
+  "output_tokens": 202,
+  "usage_complete": true,
+  "model_cost": 0.0025512,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_442389db34a64fd36a32cce23b6335e6",
+      "request_id": "eval-policy-01-0",
+      "response": "根据知识库（id: 9d10d25e56f2fbed643822b7b85206eb8ea7a2f0764657a1749b08f4ab521ae5），401登录失败表示认证失败，请检查以下内容：\n1. 登录态或Token是否过期\n2. 重新登录\n3. 不要公开密码或验证码\n\n如果问题仍然存在，建议您提供更多错误信息或创建工单寻求进一步帮助。",
+      "intent": "technical_login",
+      "entities": {
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "9d10d25e56f2fbed643822b7b85206eb8ea7a2f0764657a1749b08f4ab521ae5",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.3822723627090454
+        },
+        {
+          "id": "42ee56e77fe3e38b531a2e2769f60155bf60c7f5cdc162ee0a253a1dac935699",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.5523556470870972
+        },
+        {
+          "id": "41def40c77c8aa573de3a923e362283900ed0c3ee14922da6ee810e50f4b4beb",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.6200000047683716
+        }
+      ],
+      "tools_used": [
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "17e2b1e2f4cb1f1a9fdefbcfbea7c4fb5dcf387061e926c989541faa6ab1bdcf",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 9852.646700004698,
+      "trace": {
+        "request_id": "eval-policy-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 5292.8041999985
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1144.4936000043526
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3057.301599998027
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 159.42869998980314,
+            "arguments": {
+              "query": "401登录失败排查方法"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "9d10d25e56f2fbed643822b7b85206eb8ea7a2f0764657a1749b08f4ab521ae5",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.3822723627090454
+                },
+                {
+                  "id": "42ee56e77fe3e38b531a2e2769f60155bf60c7f5cdc162ee0a253a1dac935699",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.5523556470870972
+                },
+                {
+                  "id": "41def40c77c8aa573de3a923e362283900ed0c3ee14922da6ee810e50f4b4beb",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.6200000047683716
+                }
+              ],
+              "rerank_applied": false,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "401登录失败排查方法"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 2684,
+        "output_tokens": 202,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 500,
+            "output_tokens": 36,
+            "uncached_cost_estimate": 0.000472
+          },
+          {
+            "input_tokens": 810,
+            "output_tokens": 46,
+            "uncached_cost_estimate": 0.00074
+          },
+          {
+            "input_tokens": 1374,
+            "output_tokens": 120,
+            "uncached_cost_estimate": 0.0013392
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.9,
+    "accuracy": 0.8,
+    "completeness": 0.7,
+    "helpfulness": 0.8
+  },
+  "judge_error": null,
+  "judge_input_tokens": 319,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.00034920000000000003
+}

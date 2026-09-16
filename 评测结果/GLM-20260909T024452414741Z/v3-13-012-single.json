@@ -1,0 +1,139 @@
+{
+  "id": "v3-13-012",
+  "group": "compound_read",
+  "family": "compound_read.auth_payment",
+  "split": "development",
+  "workflow": "technical_order",
+  "fixture": {},
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_group_0": true,
+    "answer_group_1": false,
+    "answer_group_2": false,
+    "tool_arguments_0": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 5040.604600000279,
+  "request_ms": [
+    5038.546000000224
+  ],
+  "input_tokens": 4368,
+  "output_tokens": 269,
+  "usage_complete": true,
+  "model_cost": 0.0040324,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_f0eafd702cbd4d132d9b68a2d0da4a55",
+      "request_id": "eval-v3-13-012-0",
+      "response": "关于你的订单ORD101312，查询结果显示：\n\n订单状态：已支付\n订单金额：50.00元\n退款金额：0元\n\n订单已完成支付，目前没有退款记录。如果你对支付状态有疑问，可以提供支付时间或支付方式，我可以进一步帮你核实。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD101312"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "b543c2fcd077581711e132b31a60edb20def11cf8196d1b8a00eba88437cb68d",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 5023.6078000002635,
+      "trace": {
+        "request_id": "eval-v3-13-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 821.1138000001483
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2819.017000000258
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1211.2068000001273
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 2.6257999998051673,
+            "arguments": {
+              "order_id": "ORD101312"
+            },
+            "result": {
+              "tenant": "eval-v3-13-012-single",
+              "id": "ORD101312",
+              "user": "v3-13-012",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4368,
+        "output_tokens": 269,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 513,
+            "output_tokens": 45,
+            "uncached_cost_estimate": 0.0005004
+          },
+          {
+            "input_tokens": 1823,
+            "output_tokens": 154,
+            "uncached_cost_estimate": 0.0017664
+          },
+          {
+            "input_tokens": 2032,
+            "output_tokens": 70,
+            "uncached_cost_estimate": 0.0017656000000000002
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

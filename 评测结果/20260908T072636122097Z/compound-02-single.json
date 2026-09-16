@@ -1,0 +1,122 @@
+{
+  "id": "compound-02",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 63012.60839999304,
+  "request_ms": [
+    63009.927400009474
+  ],
+  "input_tokens": 3618,
+  "output_tokens": 194,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_7bed2506c1f597e72bc258a37de86801",
+      "request_id": "eval-compound-02-0",
+      "response": "订单ORD1001已付款，金额5000分，未退款。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "94e5677aa08677e2b2be789888f3044a34383e81342c4a28e36fbbe20b05f1bd",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 62989.32069999864,
+      "trace": {
+        "request_id": "eval-compound-02-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 16612.603699992178
+          },
+          {
+            "name": "llm",
+            "duration_ms": 5023.582499998156
+          },
+          {
+            "name": "llm",
+            "duration_ms": 8493.806800004677
+          },
+          {
+            "name": "llm",
+            "duration_ms": 16370.506399995065
+          },
+          {
+            "name": "llm",
+            "duration_ms": 16200.924899996608
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 3.050200000870973,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-02-single",
+              "id": "ORD1001",
+              "user": "compound-02",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3618,
+        "output_tokens": 194,
+        "model_calls": 5,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

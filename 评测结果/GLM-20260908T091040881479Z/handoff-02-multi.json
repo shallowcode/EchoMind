@@ -1,0 +1,180 @@
+{
+  "id": "handoff-02",
+  "group": "handoff",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "ticket_closed": true,
+    "resolution_in_conversation": true
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_4eebc0fef7994aedabaad59deeb50b79",
+      "tenant": "eval-handoff-02-multi",
+      "user": "handoff-02",
+      "conv": "c_22f5b8a2c8fffaeaa49471817d312270",
+      "summary": "我要人工客服，不要机器人。",
+      "status": "closed",
+      "assignee": "staff",
+      "resolution": "测试客服已解决",
+      "idem": "eval-handoff-02-0:ticket",
+      "version": 3
+    }
+  ],
+  "task_ms": 5341.493200001423,
+  "request_ms": [
+    4983.141399992746
+  ],
+  "input_tokens": 3775,
+  "output_tokens": 153,
+  "usage_complete": true,
+  "model_cost": 0.0033260000000000004,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_22f5b8a2c8fffaeaa49471817d312270",
+      "request_id": "eval-handoff-02-0",
+      "response": "【人工工单】\n已为您创建人工客服工单，工单号：tk_4eebc0fef7994aedabaad59deeb50b79。当前工单状态为待接单，请耐心等待人工客服人员与您联系。",
+      "intent": "human_handoff",
+      "entities": {},
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "显式子任务分工：人工工单→general",
+      "routing_confidence": 0.9249999999999999,
+      "escalated": true,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "handoff",
+          "agent": "general",
+          "title": "人工工单",
+          "instruction": "为原始请求创建人工工单，并给出真实工单号和等待接单状态。",
+          "required_tools": [
+            "ticket_create"
+          ],
+          "status": "completed",
+          "answer": "已为您创建人工客服工单，工单号：tk_4eebc0fef7994aedabaad59deeb50b79。当前工单状态为待接单，请耐心等待人工客服人员与您联系。",
+          "observations": [
+            {
+              "name": "ticket_create",
+              "arguments": {
+                "summary": "用户要求人工客服，不要机器人"
+              },
+              "success": true,
+              "result": {
+                "id": "tk_4eebc0fef7994aedabaad59deeb50b79",
+                "tenant": "eval-handoff-02-multi",
+                "user": "handoff-02",
+                "conv": "c_22f5b8a2c8fffaeaa49471817d312270",
+                "summary": "我要人工客服，不要机器人。",
+                "status": "open",
+                "assignee": null,
+                "resolution": null,
+                "idem": "eval-handoff-02-0:ticket",
+                "version": 0
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "f6feaaf7c2df5d7e300601b0e611a9bbea5f151df469ffa428b1a648a5698342",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 4813.616200000979,
+      "trace": {
+        "request_id": "eval-handoff-02-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1770.8920000004582
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1417.9004000034183
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1405.5183000018587
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 10.019699999247678,
+            "arguments": {
+              "summary": "我要人工客服，不要机器人。"
+            },
+            "result": {
+              "id": "tk_4eebc0fef7994aedabaad59deeb50b79",
+              "tenant": "eval-handoff-02-multi",
+              "user": "handoff-02",
+              "conv": "c_22f5b8a2c8fffaeaa49471817d312270",
+              "summary": "我要人工客服，不要机器人。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-handoff-02-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3775,
+        "output_tokens": 153,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 499,
+            "output_tokens": 36,
+            "uncached_cost_estimate": 0.00047120000000000007
+          },
+          {
+            "input_tokens": 1551,
+            "output_tokens": 52,
+            "uncached_cost_estimate": 0.0013448000000000002
+          },
+          {
+            "input_tokens": 1725,
+            "output_tokens": 65,
+            "uncached_cost_estimate": 0.00151
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 375,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.000378
+}

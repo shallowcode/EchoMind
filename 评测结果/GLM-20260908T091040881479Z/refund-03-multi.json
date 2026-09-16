@@ -1,0 +1,232 @@
+{
+  "id": "refund-03",
+  "group": "refund",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [
+    {
+      "id": "rf_a9fc6d128abd41fa957a521fb7bef023",
+      "tenant": "eval-refund-03-multi",
+      "user": "refund-03",
+      "order_id": "ORD1001",
+      "amount": 3000,
+      "status": "pending",
+      "idem": "a77f7d467cf55fbd9268827adc2dec9faf9746e4b6aea55d38b654b485ac4f7a",
+      "reason": "申请 ORD1001 退款30元，买错了。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 6540.981999991345,
+  "request_ms": [
+    6538.91940000176
+  ],
+  "input_tokens": 7392,
+  "output_tokens": 265,
+  "usage_complete": true,
+  "model_cost": 0.0064436,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_211560fbdb22531596a4b0450e72f84c",
+      "request_id": "eval-refund-03-0",
+      "response": "【退款申请】\n您的退款申请已成功提交，申请编号为 rf_a9fc6d128abd41fa957a521fb7bef023。退款金额为30元，当前状态为待审核。请注意，这是沙箱环境，退款操作仅测试账本，不发生真实资金转移。审核通过后，退款将原路退回，具体到账时间以支付渠道实际处理为准。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "30元"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：退款申请→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "refund",
+          "agent": "billing",
+          "title": "退款申请",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "refund_request"
+          ],
+          "status": "completed",
+          "answer": "您的退款申请已成功提交，申请编号为 rf_a9fc6d128abd41fa957a521fb7bef023。退款金额为30元，当前状态为待审核。请注意，这是沙箱环境，退款操作仅测试账本，不发生真实资金转移。审核通过后，退款将原路退回，具体到账时间以支付渠道实际处理为准。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-refund-03-multi",
+                "id": "ORD1001",
+                "user": "refund-03",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            },
+            {
+              "name": "refund_request",
+              "arguments": {
+                "order_id": "ORD1001",
+                "amount_cents": 3000,
+                "reason": "买错了"
+              },
+              "success": true,
+              "result": {
+                "id": "rf_a9fc6d128abd41fa957a521fb7bef023",
+                "tenant": "eval-refund-03-multi",
+                "user": "refund-03",
+                "order_id": "ORD1001",
+                "amount": 3000,
+                "status": "pending",
+                "idem": "a77f7d467cf55fbd9268827adc2dec9faf9746e4b6aea55d38b654b485ac4f7a",
+                "reason": "申请 ORD1001 退款30元，买错了。",
+                "payment_ref": null
+              }
+            }
+          ],
+          "attempts": 3,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "09ab4cf2f81461913987624a993cb7b42f309215001faa2a8b9a173f5e2c9b25",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 6523.659400001634,
+      "trace": {
+        "request_id": "eval-refund-03-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1235.1705999899423
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1148.1171999912476
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2195.9556999936467
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1683.1912000052398
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.430999997770414,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-refund-03-multi",
+              "id": "ORD1001",
+              "user": "refund-03",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 10.79119999485556,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 3000,
+              "reason": "申请 ORD1001 退款30元，买错了。"
+            },
+            "result": {
+              "id": "rf_a9fc6d128abd41fa957a521fb7bef023",
+              "tenant": "eval-refund-03-multi",
+              "user": "refund-03",
+              "order_id": "ORD1001",
+              "amount": 3000,
+              "status": "pending",
+              "idem": "a77f7d467cf55fbd9268827adc2dec9faf9746e4b6aea55d38b654b485ac4f7a",
+              "reason": "申请 ORD1001 退款30元，买错了。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 7392,
+        "output_tokens": 265,
+        "model_calls": 4,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 504,
+            "output_tokens": 40,
+            "uncached_cost_estimate": 0.00048320000000000004
+          },
+          {
+            "input_tokens": 2150,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.001818
+          },
+          {
+            "input_tokens": 2245,
+            "output_tokens": 85,
+            "uncached_cost_estimate": 0.001966
+          },
+          {
+            "input_tokens": 2493,
+            "output_tokens": 91,
+            "uncached_cost_estimate": 0.0021764
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 422,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0004156
+}

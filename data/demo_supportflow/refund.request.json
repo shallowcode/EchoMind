@@ -1,0 +1,6 @@
+{
+  "order_id": "ORD1001",
+  "amount_cents": 1000,
+  "reason": "合成演示：重复购买",
+  "idempotency_key": "demo-refund-0001"
+}

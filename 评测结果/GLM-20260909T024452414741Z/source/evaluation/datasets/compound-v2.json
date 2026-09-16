@@ -1,0 +1,176 @@
+{
+  "version": "2.0-compound-regression",
+  "source": "Project-authored additional regression cases, authored after v1 debugging, not independent blind test or production traffic",
+  "split": "development-regression",
+  "language": "zh",
+  "cases": [
+    {
+      "id": "compound-new-01",
+      "group": "compound",
+      "turns": [
+        "进入账号时弹出401。另请核实订单 ORD1001 的支付状态。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search",
+          "order_lookup"
+        ],
+        "answer_any": [
+          "paid",
+          "已支付",
+          "已付款"
+        ],
+        "refund_count": 0
+      }
+    },
+    {
+      "id": "compound-new-02",
+      "group": "compound",
+      "turns": [
+        "请为订单 ORD1001 申请退还12.50元；另外登录报401，麻烦给我排查步骤。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search",
+          "refund_request"
+        ],
+        "refund_amount": 1250,
+        "refund_status": "pending",
+        "refunded_cents": 0
+      }
+    },
+    {
+      "id": "compound-new-03",
+      "group": "compound",
+      "turns": [
+        "登录401，请教我排查；查订单 ORD1001 支付状态；还要转人工跟进。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search",
+          "order_lookup",
+          "ticket_create"
+        ],
+        "answer_any": [
+          "paid",
+          "已支付",
+          "已付款"
+        ],
+        "ticket_closed": true,
+        "refund_count": 0
+      }
+    },
+    {
+      "id": "compound-new-04",
+      "group": "compound",
+      "turns": [
+        "登录401需要怎么处理？另外我想了解订单 ORD1001 的发票需要什么资料。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search"
+        ],
+        "answer_any": [
+          "税号"
+        ],
+        "refund_count": 0
+      }
+    },
+    {
+      "id": "compound-new-05",
+      "group": "compound",
+      "turns": [
+        "登录报401，订单 ORD1001 暂不要退款，只想了解退款规则。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search"
+        ],
+        "refund_count": 0
+      }
+    },
+    {
+      "id": "compound-new-06",
+      "group": "compound",
+      "turns": [
+        "接口报500，请告诉我该保留什么信息；同时查询订单 ORD1001 支付状态。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search",
+          "order_lookup"
+        ],
+        "answer_any": [
+          "request_id"
+        ],
+        "refund_count": 0
+      }
+    },
+    {
+      "id": "compound-new-07",
+      "group": "compound",
+      "turns": [
+        "我登录报401；请申请退款，我还没提供订单号和金额。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search"
+        ],
+        "refund_count": 0,
+        "answer_any": [
+          "订单号",
+          "金额"
+        ]
+      }
+    },
+    {
+      "id": "compound-new-08",
+      "group": "compound",
+      "turns": [
+        "请给订单 ORD1001 申请退款8元，同时查询订单当前状态；另外登录一直401。"
+      ],
+      "order": {
+        "id": "ORD1001",
+        "total_cents": 5000
+      },
+      "expected": {
+        "tools": [
+          "knowledge_search",
+          "order_lookup",
+          "refund_request"
+        ],
+        "refund_amount": 800,
+        "refund_status": "pending",
+        "refunded_cents": 0
+      }
+    }
+  ]
+}

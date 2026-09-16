@@ -1,0 +1,55 @@
+# SupportFlow v2 逐行索引
+
+先阅读 [新版结构与设计](../08_SupportFlow实现与评测.md) 和 [复合任务改造](../10_复合任务改造与GLM实测.md)，再沿 service → planning → tools → store → evaluation 展开。每份文件包含输入输出流、设计、每个非空源码行的解释和跨文件增强建议。简单表达式按语法简述，不能用生成的句子代替阅读实际条件。
+
+- [supportflow\api.py](supportflow__api.py.md)：280 行。
+- [supportflow\contracts.py](supportflow__contracts.py.md)：105 行。
+- [supportflow\knowledge.py](supportflow__knowledge.py.md)：269 行。
+- [supportflow\model.py](supportflow__model.py.md)：146 行。
+- [supportflow\payments.py](supportflow__payments.py.md)：238 行。
+- [supportflow\planning.py](supportflow__planning.py.md)：198 行。
+- [supportflow\pricing.py](supportflow__pricing.py.md)：24 行。
+- [supportflow\protocol.py](supportflow__protocol.py.md)：118 行。
+- [supportflow\service.py](supportflow__service.py.md)：660 行。
+- [supportflow\store.py](supportflow__store.py.md)：417 行。
+- [supportflow\tools.py](supportflow__tools.py.md)：203 行。
+- [evaluation\full_chain.py](evaluation__full_chain.py.md)：606 行。
+- [evaluation\public_intents.py](evaluation__public_intents.py.md)：126 行。
+- [evaluation\compare_runs.py](evaluation__compare_runs.py.md)：61 行。
+- [scripts\audit_trial_dataset.py](scripts__audit_trial_dataset.py.md)：97 行。
+- [scripts\bootstrap_supportflow.py](scripts__bootstrap_supportflow.py.md)：47 行。
+- [scripts\build_acceptance_dataset.py](scripts__build_acceptance_dataset.py.md)：526 行。
+- [scripts\build_supportflow_dataset.py](scripts__build_supportflow_dataset.py.md)：181 行。
+- [scripts\build_v2_guide.py](scripts__build_v2_guide.py.md)：308 行。
+- [scripts\chat_cli.py](scripts__chat_cli.py.md)：72 行。
+- [scripts\check_chroma.py](scripts__check_chroma.py.md)：40 行。
+- [scripts\package_glm_results.py](scripts__package_glm_results.py.md)：100 行。
+- [scripts\package_results.py](scripts__package_results.py.md)：87 行。
+- [scripts\prepare_local_model.py](scripts__prepare_local_model.py.md)：45 行。
+- [scripts\prepare_public_intents.py](scripts__prepare_public_intents.py.md)：151 行。
+- [scripts\run_full_evaluation.py](scripts__run_full_evaluation.py.md)：463 行。
+- [scripts\start_glm.py](scripts__start_glm.py.md)：81 行。
+- [scripts\start_local.py](scripts__start_local.py.md)：136 行。
+- [tests\test_full_batch.py](tests__test_full_batch.py.md)：104 行。
+- [tests\test_supportflow.py](tests__test_supportflow.py.md)：194 行。
+- [tests\test_supportflow_evaluation.py](tests__test_supportflow_evaluation.py.md)：85 行。
+- [tests\test_supportflow_mcp.py](tests__test_supportflow_mcp.py.md)：65 行。
+- [tests\test_supportflow_memory.py](tests__test_supportflow_memory.py.md)：59 行。
+- [tests\test_supportflow_payments.py](tests__test_supportflow_payments.py.md)：103 行。
+- [tests\test_supportflow_planning.py](tests__test_supportflow_planning.py.md)：261 行。
+- [tests\test_supportflow_skills.py](tests__test_supportflow_skills.py.md)：37 行。
+- [tests\test_supportflow_tools.py](tests__test_supportflow_tools.py.md)：119 行。
+- [tests\test_trial_dataset.py](tests__test_trial_dataset.py.md)：206 行。
+- [core\intent_recognizer.py](core__intent_recognizer.py.md)：509 行。
+- [core\llm_utils.py](core__llm_utils.py.md)：22 行。
+- [core\skill_loader.py](core__skill_loader.py.md)：338 行。
+- [agents\agent_orchestrator.py](agents__agent_orchestrator.py.md)：643 行。
+- [api\main.py](api__main.py.md)：17 行。
+- [api\supportflow.py](api__supportflow.py.md)：5 行。
+- [Dockerfile](Dockerfile.md)：75 行。
+- [compose.supportflow.yml](compose.supportflow.yml.md)：36 行。
+- [requirements.txt](requirements.txt.md)：13 行。
+- [requirements-dev.txt](requirements-dev.txt.md)：5 行。
+- [.env.supportflow.example](.env.supportflow.example.md)：30 行。
+- [.dockerignore](.dockerignore.md)：31 行。
+- [.gitignore](.gitignore.md)：39 行。

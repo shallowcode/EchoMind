@@ -1,0 +1,188 @@
+{
+  "id": "refund-04",
+  "group": "refund",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [
+    {
+      "id": "rf_0692279989cf4b7984e024fed7832b97",
+      "tenant": "eval-refund-04-multi",
+      "user": "refund-04",
+      "order_id": "ORD1001",
+      "amount": 500,
+      "status": "pending",
+      "idem": "c57d27771c770ea777ae0e25c6101ed9d9eafa850e46fb4379ccd222265702c6",
+      "reason": "请为 ORD1001 申请退款5元，商品缺件。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 4416.113100000075,
+  "request_ms": [
+    4413.978600001428
+  ],
+  "input_tokens": 5011,
+  "output_tokens": 201,
+  "usage_complete": true,
+  "model_cost": 0.0044108,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_0a939523c9a40ceca8ef68c0dd29153a",
+      "request_id": "eval-refund-04-0",
+      "response": "【退款申请】\n您的退款申请已提交成功。申请详情：订单号 ORD1001，退款金额 5元，退款原因：商品缺件。当前状态：待财务审核。退款申请提交后，将由财务团队进行审核，审核通过后会按原支付渠道退回。请注意，这是沙箱环境，退款操作仅测试账本，不发生真实资金转移。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "5元"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：退款申请→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "refund",
+          "agent": "billing",
+          "title": "退款申请",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "refund_request"
+          ],
+          "status": "completed",
+          "answer": "您的退款申请已提交成功。申请详情：订单号 ORD1001，退款金额 5元，退款原因：商品缺件。当前状态：待财务审核。退款申请提交后，将由财务团队进行审核，审核通过后会按原支付渠道退回。请注意，这是沙箱环境，退款操作仅测试账本，不发生真实资金转移。",
+          "observations": [
+            {
+              "name": "refund_request",
+              "arguments": {
+                "order_id": "ORD1001",
+                "amount_cents": 500,
+                "reason": "商品缺件"
+              },
+              "success": true,
+              "result": {
+                "id": "rf_0692279989cf4b7984e024fed7832b97",
+                "tenant": "eval-refund-04-multi",
+                "user": "refund-04",
+                "order_id": "ORD1001",
+                "amount": 500,
+                "status": "pending",
+                "idem": "c57d27771c770ea777ae0e25c6101ed9d9eafa850e46fb4379ccd222265702c6",
+                "reason": "请为 ORD1001 申请退款5元，商品缺件。",
+                "payment_ref": null
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "db52093eb5426e5df5b666fc6f16e0b924613da06550488e0727777d23da7d7c",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 4398.274300008779,
+      "trace": {
+        "request_id": "eval-refund-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 983.5541999927955
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1411.5179000073113
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1808.0415000003995
+          }
+        ],
+        "tools": [
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.589399996912107,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 500,
+              "reason": "请为 ORD1001 申请退款5元，商品缺件。"
+            },
+            "result": {
+              "id": "rf_0692279989cf4b7984e024fed7832b97",
+              "tenant": "eval-refund-04-multi",
+              "user": "refund-04",
+              "order_id": "ORD1001",
+              "amount": 500,
+              "status": "pending",
+              "idem": "c57d27771c770ea777ae0e25c6101ed9d9eafa850e46fb4379ccd222265702c6",
+              "reason": "请为 ORD1001 申请退款5元，商品缺件。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 5011,
+        "output_tokens": 201,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 506,
+            "output_tokens": 43,
+            "uncached_cost_estimate": 0.0004908
+          },
+          {
+            "input_tokens": 2152,
+            "output_tokens": 67,
+            "uncached_cost_estimate": 0.0018556000000000002
+          },
+          {
+            "input_tokens": 2353,
+            "output_tokens": 91,
+            "uncached_cost_estimate": 0.0020644
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 419,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.00041320000000000007
+}

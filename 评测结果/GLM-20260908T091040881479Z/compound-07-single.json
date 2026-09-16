@@ -1,0 +1,242 @@
+{
+  "id": "compound-07",
+  "group": "compound",
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [
+    {
+      "id": "rf_207642bbf67e49c8ad1f033bc7285e5f",
+      "tenant": "eval-compound-07-single",
+      "user": "compound-07",
+      "order_id": "ORD1001",
+      "amount": 500,
+      "status": "pending",
+      "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+      "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 10140.701800002716,
+  "request_ms": [
+    10138.59250000678
+  ],
+  "input_tokens": 3022,
+  "output_tokens": 385,
+  "usage_complete": true,
+  "model_cost": 0.0040476,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_74138c3771cec8e7d8c995eeb152f08b",
+      "request_id": "eval-compound-07-0",
+      "response": "关于登录401错误：根据知识库(c54efd24756d6257628cb1c35b49578cb5ca023966d79e265e8937de1ebe2ae3)，401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。\n\n关于ORD1001退款：已成功提交退款申请，金额5元(500分)，状态为待审核。退款申请ID为rf_207642bbf67e49c8ad1f033bc7285e5f。根据退款审核政策(8bfbe50344cb267a4573bdf5890f294a2c7ad4b3c756c4f022a6dbb07daa0b46)，提交后需由财务审核通过才能执行退款。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "5元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "c54efd24756d6257628cb1c35b49578cb5ca023966d79e265e8937de1ebe2ae3",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.387639582157135
+        },
+        {
+          "id": "8bfbe50344cb267a4573bdf5890f294a2c7ad4b3c756c4f022a6dbb07daa0b46",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.5475310683250427
+        },
+        {
+          "id": "d40e06e5d697e2d275f6f5d2ffcbb550ab71981069a4fc9115a35260db2d0986",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.5926293730735779
+        }
+      ],
+      "tools_used": [
+        "knowledge_search",
+        "order_lookup",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "7170ca90e656943854f087b1cdca0f897a6771e97ba05250661d035897782906",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 10119.277300007525,
+      "trace": {
+        "request_id": "eval-compound-07-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1676.899099998991
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3744.7670999972615
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4284.711400003289
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 185.9449999901699,
+            "arguments": {
+              "query": "登录错误401处理方法"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "c54efd24756d6257628cb1c35b49578cb5ca023966d79e265e8937de1ebe2ae3",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.387639582157135
+                },
+                {
+                  "id": "8bfbe50344cb267a4573bdf5890f294a2c7ad4b3c756c4f022a6dbb07daa0b46",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.5475310683250427
+                },
+                {
+                  "id": "d40e06e5d697e2d275f6f5d2ffcbb550ab71981069a4fc9115a35260db2d0986",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.5926293730735779
+                }
+              ],
+              "rerank_applied": false,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "登录错误401处理方法"
+              ]
+            },
+            "error": null
+          },
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.357800004072487,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-07-single",
+              "id": "ORD1001",
+              "user": "compound-07",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 7.853700008126907,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 500,
+              "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。"
+            },
+            "result": {
+              "id": "rf_207642bbf67e49c8ad1f033bc7285e5f",
+              "tenant": "eval-compound-07-single",
+              "user": "compound-07",
+              "order_id": "ORD1001",
+              "amount": 500,
+              "status": "pending",
+              "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+              "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3022,
+        "output_tokens": 385,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 513,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0004984000000000001
+          },
+          {
+            "input_tokens": 839,
+            "output_tokens": 126,
+            "uncached_cost_estimate": 0.0009232
+          },
+          {
+            "input_tokens": 1670,
+            "output_tokens": 215,
+            "uncached_cost_estimate": 0.002626
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 571,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0005348
+}

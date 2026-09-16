@@ -1,0 +1,85 @@
+{
+  "id": "policy-01",
+  "group": "policy",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 31470.09829999297,
+  "request_ms": [
+    31465.332600011607
+  ],
+  "input_tokens": 2265,
+  "output_tokens": 110,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_deee2713551eac2e5633f50c408704f5",
+      "request_id": "eval-policy-01-0",
+      "response": "401登录失败可能由认证失败引起，需检查Token是否过期、请求签名是否包含正确时间戳，以及当前环境是否使用了对应的API Key。建议补充请求信息以便进一步排查。",
+      "intent": "technical_crash",
+      "entities": {
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical"
+      ],
+      "routing_reason": "intent=technical_crash, group=technical, primary=technical, supporting=none, scores=[technical=1.31, general=0.10, billing=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "f7259d830706a8d8340cb8dddc1b24e1d11892259af22907c14da7bd4b2b3dd6",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 31434.190800006036,
+      "trace": {
+        "request_id": "eval-policy-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 7810.095699998783
+          },
+          {
+            "name": "llm",
+            "duration_ms": 23267.103200007114
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2265,
+        "output_tokens": 110,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

@@ -1,0 +1,205 @@
+{
+  "created_utc": "20260908T072636122097Z",
+  "dataset_sha256": "9e5cbc4f460a0b0bb52ecb67c0d2d869381526c8c29d3021335619c71000455a",
+  "dataset_version": "1.0",
+  "dataset_count": 24,
+  "evaluated_tasks": 24,
+  "subset": false,
+  "transport": "ASGI HTTP in-process: includes auth, service, DB, model HTTP; excludes external network/front proxy",
+  "concurrency_tasks": 2,
+  "warmup": "one model call excluded; cold per-arm tool/application caches",
+  "settings": {
+    "db_path": "data/supportflow.sqlite3",
+    "model_backend": "compatible",
+    "model_url": "http://127.0.0.1:8081/v1",
+    "model_name": "Qwen3-1.7B-Q8_0",
+    "local_chat_template": true,
+    "public_url": "http://localhost:8000",
+    "model_timeout": 90,
+    "request_timeout": 180,
+    "max_inflight": 4,
+    "max_tool_rounds": 3,
+    "storage": "chroma",
+    "chroma_path": "data/supportflow-chroma",
+    "skills_dir": "skills",
+    "token_ttl": 3600,
+    "model_input_price": 0.0,
+    "model_output_price": 0.0,
+    "currency": "CNY",
+    "machine_hourly_cost": null,
+    "business_mode": "sandbox",
+    "business_currency": "CNY",
+    "payment_url": ""
+  },
+  "source_sha256": {
+    "supportflow\\api.py": "a151306b5f8aaf459a263fa73998777ec187af6f94fceec080a3018c93aa73c3",
+    "supportflow\\contracts.py": "f3ae1948b5fc3da077f5ee076207e5368c6360a5c0ef211d4662e536fc4a168e",
+    "supportflow\\knowledge.py": "346cc0e1b8e8ab364c5aeebe10d2222144d7d39abcb20784d1499c65e8d5d4ac",
+    "supportflow\\model.py": "281ef0f68c57e88f5c84c7bd2489d83103e9dc8be934f1605c1a4ef879c6fcf8",
+    "supportflow\\payments.py": "1cac4cc90c3b66cdcfd40ea2768159d40a99ec7ea3289a80ba156d8ba20a86a5",
+    "supportflow\\protocol.py": "7140206bfbfa8f4b4a8b7ae70408a387703056c5735f3e5036a6dde39c5f79b6",
+    "supportflow\\service.py": "bfda5c2950cfaff9b5acd00aa7f1a8cd585c48202ff279d4b7db561621a95a73",
+    "supportflow\\store.py": "277220f4cf15cb662edd884329a00e6a51be5514d6623988390287b5b37f5084",
+    "supportflow\\tools.py": "f784627d594a7594241b42226b173ae3194b18b2d7f359e3c73f17e7a14fc251",
+    "supportflow\\__init__.py": "b7c1a89b4650f1b702aafc32211ef308ef34f8ad55f4553c84a884c963264781",
+    "agents\\agent_orchestrator.py": "4f9d199eef99dc6822312d860474f4582cdac5b84e6f983f47b040a8a1eed783",
+    "core\\intent_recognizer.py": "ce3dfb4eef87ab7f84bec3d2ed8df1a1fa8ab959de57b044438a9636dd808d95",
+    "core\\llm_utils.py": "b0bf4cc194787b059a02c2049a773dceb1ff92df95f5d7d7bdc492ba355e93e7",
+    "core\\skill_loader.py": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+    "evaluation\\compare_runs.py": "99492c862659a777d5b89be784a0d551fe44125ec23dca0aa265e5ea5a806c8c",
+    "evaluation\\evaluator.py": "0c320755e171987f49d42925c89326036201a49d5a93f073e1df4abb5bcfdc60",
+    "evaluation\\full_chain.py": "09170a725a495285c4c55642a22933fa45091065347b81c070e5f11c5f8f04c4",
+    "evaluation\\public_intents.py": "d5f88482723bf688f922c7c002a38e56641240182026293feabae7284d1eb931",
+    "evaluation\\datasets\\supportflow-v1.json": "9e5cbc4f460a0b0bb52ecb67c0d2d869381526c8c29d3021335619c71000455a",
+    "skills\\README.md": "3c86fc493c3c73c79e1f01bb85067c874fba59b61f21bb7e9a1bd381235c9aa5",
+    "skills\\billing_support\\SKILL.md": "60baeba56cb91d2113d529f999f2d14da67425ba11efdc5175c9cf90fbb7223f",
+    "skills\\general_customer_service\\SKILL.md": "840a45efc7e35abc75b97c37bd47703de53a73ec8844ca29f342f5babddbe037",
+    "skills\\technical_support\\SKILL.md": "7e730fb06966314f6530f478debe81bd2a854501f168c5406465df674dcb9cb6"
+  },
+  "source_changed_during_run": false,
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "dependencies": {
+    "fastapi": "0.141.1",
+    "httpx": "0.28.1",
+    "mcp": "1.30.0",
+    "chromadb": "1.5.9",
+    "pydantic": "2.13.5"
+  },
+  "model_manifest": {
+    "llama.zip": {
+      "source": "https://github.com/ggml-org/llama.cpp/releases/download/b10853/llama-b10853-bin-win-cpu-x64.zip",
+      "sha256": "10b520be35483161a0746de3d05d66a36ce3e2bb6b243d806564ff798e28f01c",
+      "bytes": 18417116
+    },
+    "Qwen3-0.6B-Q8_0.gguf": {
+      "source": "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf",
+      "sha256": "9465e63a22add5354d9bb4b99e90117043c7124007664907259bd16d043bb031",
+      "bytes": 639446688
+    },
+    "Qwen3-1.7B-Q8_0.gguf": {
+      "source": "https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/90862c4b9d2787eaed51d12237eafdfe7c5f6077/Qwen3-1.7B-Q8_0.gguf",
+      "sha256": "061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a",
+      "bytes": 1834426016
+    }
+  },
+  "summaries": {
+    "single": {
+      "tasks": 24,
+      "completed": 10,
+      "completion_rate": 0.4166666666666667,
+      "completion_wilson_95": [
+        0.24467347246538232,
+        0.6116566235061137
+      ],
+      "task_p95_ms": 59227.40010000416,
+      "request_p95_ms": 54314.061299999594,
+      "mean_input_tokens": 2936.4166666666665,
+      "mean_output_tokens": 113.91666666666667,
+      "mean_model_cost": 0.0,
+      "judge_valid": 24,
+      "judge_failed": 0,
+      "judge_means": {
+        "relevance": 0.7979166666666667,
+        "accuracy": 0.8104166666666667,
+        "completeness": 0.7895833333333333,
+        "helpfulness": 0.7895833333333333
+      },
+      "groups": {
+        "compound": {
+          "n": 8,
+          "completed": 0
+        },
+        "handoff": {
+          "n": 4,
+          "completed": 4
+        },
+        "memory": {
+          "n": 1,
+          "completed": 0
+        },
+        "order": {
+          "n": 4,
+          "completed": 3
+        },
+        "policy": {
+          "n": 2,
+          "completed": 1
+        },
+        "refund": {
+          "n": 4,
+          "completed": 1
+        },
+        "safety": {
+          "n": 1,
+          "completed": 1
+        }
+      }
+    },
+    "multi": {
+      "tasks": 24,
+      "completed": 12,
+      "completion_rate": 0.5,
+      "completion_wilson_95": [
+        0.31427131627763083,
+        0.6857286837223692
+      ],
+      "task_p95_ms": 90941.35090000054,
+      "request_p95_ms": 90938.38439999672,
+      "mean_input_tokens": 4961.25,
+      "mean_output_tokens": 170.70833333333334,
+      "mean_model_cost": 0.0,
+      "judge_valid": 24,
+      "judge_failed": 0,
+      "judge_means": {
+        "relevance": 0.9083333333333333,
+        "accuracy": 0.8958333333333334,
+        "completeness": 0.85,
+        "helpfulness": 0.8666666666666667
+      },
+      "groups": {
+        "compound": {
+          "n": 8,
+          "completed": 0
+        },
+        "handoff": {
+          "n": 4,
+          "completed": 4
+        },
+        "memory": {
+          "n": 1,
+          "completed": 0
+        },
+        "order": {
+          "n": 4,
+          "completed": 3
+        },
+        "policy": {
+          "n": 2,
+          "completed": 1
+        },
+        "refund": {
+          "n": 4,
+          "completed": 3
+        },
+        "safety": {
+          "n": 1,
+          "completed": 1
+        }
+      }
+    }
+  },
+  "paired_completion_delta": 0.08333333333333333,
+  "paired_bootstrap_95": [
+    -0.08333333333333333,
+    0.25
+  ],
+  "judge_same_model": true,
+  "limitations": [
+    "Synthetic fixed authored suite; no claim of production quality",
+    "Small-sample uncertainty; do not treat threshold as statistical significance",
+    "Local desktop load is not isolated; model-call API fee excludes evaluator calls and infrastructure",
+    "Local CPU cost requires measured allocation price; absent cost is null",
+    "Human ticket actions simulated via authenticated staff HTTP API",
+    "SQLite lexical retrieval unless storage explicitly set chroma"
+  ]
+}

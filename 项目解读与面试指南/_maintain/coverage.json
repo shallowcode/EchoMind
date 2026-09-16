@@ -1,0 +1,473 @@
+{
+  "files": [
+    {
+      "path": "api/main.py",
+      "doc": "逐文件/api/main.py.md",
+      "lines": 651,
+      "sha256": "79c86ac7708f4904f8b161dfb4a0ee0e0cf614234efe4b88e0fe1a88727a561e",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 24
+    },
+    {
+      "path": "agents/agent_orchestrator.py",
+      "doc": "逐文件/agents/agent_orchestrator.py.md",
+      "lines": 641,
+      "sha256": "7f2ccf43c9133a9c3616dd1ec4ca7f18f4e9f6af514903eaafa007e1ea10e269",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 37
+    },
+    {
+      "path": "core/intent_recognizer.py",
+      "doc": "逐文件/core/intent_recognizer.py.md",
+      "lines": 507,
+      "sha256": "242fc4034a21bcf3458a33f37583c3cee0d26338f4d37f76892f488bafb4cda4",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 23
+    },
+    {
+      "path": "mcp/tool_manager.py",
+      "doc": "逐文件/mcp/tool_manager.py.md",
+      "lines": 465,
+      "sha256": "f76b914a3565ddc44011ad9910cd99bcd054813d4845b724f5a8221bb8b3d09c",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 27
+    },
+    {
+      "path": "mcp/knowledge_base.py",
+      "doc": "逐文件/mcp/knowledge_base.py.md",
+      "lines": 260,
+      "sha256": "5869466a02ebfe3115f5107a75a51832a5dee9a56131036a31eef3d656373750",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 11
+    },
+    {
+      "path": "memory/conversation_memory.py",
+      "doc": "逐文件/memory/conversation_memory.py.md",
+      "lines": 382,
+      "sha256": "91721d26bac423d9bd127f2d15dd1fcd1d3f21524dc7e426edae53d5df20cf9c",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 20
+    },
+    {
+      "path": "core/skill_loader.py",
+      "doc": "逐文件/core/skill_loader.py.md",
+      "lines": 338,
+      "sha256": "26618d02cde5592955bd45b7a6752e6fbfa3e06de76ed325658f5257f142aaaf",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 22
+    },
+    {
+      "path": "core/llm_utils.py",
+      "doc": "逐文件/core/llm_utils.py.md",
+      "lines": 22,
+      "sha256": "b0bf4cc194787b059a02c2049a773dceb1ff92df95f5d7d7bdc492ba355e93e7",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 1
+    },
+    {
+      "path": "monitor/performance_monitor.py",
+      "doc": "逐文件/monitor/performance_monitor.py.md",
+      "lines": 317,
+      "sha256": "40f0068eed4386efa591717915a7c8f68bf5d53c7d166c88d95d066290aa3d62",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 19
+    },
+    {
+      "path": "evaluation/evaluator.py",
+      "doc": "逐文件/evaluation/evaluator.py.md",
+      "lines": 501,
+      "sha256": "0c320755e171987f49d42925c89326036201a49d5a93f073e1df4abb5bcfdc60",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 24
+    },
+    {
+      "path": "monitor/__init__.py",
+      "doc": "逐文件/monitor/__init__.py.md",
+      "lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "redacted": false,
+      "kind": "python",
+      "symbols": 0
+    },
+    {
+      "path": "Dockerfile",
+      "doc": "逐文件/Dockerfile.md",
+      "lines": 72,
+      "sha256": "a55c501400c8f7511734f5f0826653d2165105c9775b5009cdcdcb090d43aeb1",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "docker-compose.yml",
+      "doc": "逐文件/docker-compose.yml.md",
+      "lines": 142,
+      "sha256": "c5314854187da7c9f57f5592b9301ad5fcc8e848eae858a4ed8df219f09a25bb",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "build-image.sh",
+      "doc": "逐文件/build-image.sh.md",
+      "lines": 228,
+      "sha256": "3e0edfbe434680fcc2c84e5b40534b300668adc26eeab4c035ecd4056879b052",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "docker-deploy.sh",
+      "doc": "逐文件/docker-deploy.sh.md",
+      "lines": 342,
+      "sha256": "32bd102cb9bb88c7ea1f2fe74be97cbbdccaaafcb82a338c869c0e700e47188d",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "run-image.sh",
+      "doc": "逐文件/run-image.sh.md",
+      "lines": 355,
+      "sha256": "3dc430aa1c04f7e1a34292163cc7ecde518d2eef7b8a3f675333e4f176930aa7",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "config/nginx/nginx.conf",
+      "doc": "逐文件/config/nginx/nginx.conf.md",
+      "lines": 155,
+      "sha256": "58df9ca46ddf4589df63bc4537689e223f4c3d0025022cef63adf0a2ff41dbf0",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "config/prometheus.yml",
+      "doc": "逐文件/config/prometheus.yml.md",
+      "lines": 26,
+      "sha256": "0ba284e25ab6868f88a78023fda9dadda4c30388e7df46e28434696f1a5ba339",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "requirements.txt",
+      "doc": "逐文件/requirements.txt.md",
+      "lines": 23,
+      "sha256": "bba3bdc81532cc6f95e1e4a0bdf8109ec5cb8f1012fbb131bc119360fe1de3c9",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": ".env",
+      "doc": "逐文件/.env.md",
+      "lines": 30,
+      "sha256": null,
+      "redacted": true,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": ".env.example",
+      "doc": "逐文件/.env.example.md",
+      "lines": 55,
+      "sha256": "8fc9ec32837b5000d24196d755b5efd9f85cfbddd88acd4ff03fd2083175b28b",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": ".env.example.env",
+      "doc": "逐文件/.env.example.env.md",
+      "lines": 147,
+      "sha256": "f04980df9e55420a09c420d63db5e130d0f8a136b093901d8c05c349de56e0d4",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": ".gitignore",
+      "doc": "逐文件/.gitignore.md",
+      "lines": 36,
+      "sha256": "ff0d37769413969e9a3bd44b1c4dee6c60eb5ac9723a22fe165ca7d53a4271f2",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": ".dockerignore",
+      "doc": "逐文件/.dockerignore.md",
+      "lines": 25,
+      "sha256": "bade6b1b17c7e83314ce5db614c480fb3393d5fa82e2f640eaa8575dcaf347a9",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "skills/general_customer_service/SKILL.md",
+      "doc": "逐文件/skills/general_customer_service/SKILL.md.md",
+      "lines": 67,
+      "sha256": "840a45efc7e35abc75b97c37bd47703de53a73ec8844ca29f342f5babddbe037",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "skills/technical_support/SKILL.md",
+      "doc": "逐文件/skills/technical_support/SKILL.md.md",
+      "lines": 99,
+      "sha256": "7e730fb06966314f6530f478debe81bd2a854501f168c5406465df674dcb9cb6",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "skills/billing_support/SKILL.md",
+      "doc": "逐文件/skills/billing_support/SKILL.md.md",
+      "lines": 109,
+      "sha256": "60baeba56cb91d2113d529f999f2d14da67425ba11efdc5175c9cf90fbb7223f",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "skills/README.md",
+      "doc": "逐文件/skills/README.md.md",
+      "lines": 62,
+      "sha256": "3c86fc493c3c73c79e1f01bb85067c874fba59b61f21bb7e9a1bd381235c9aa5",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "data/demo_docs/sample_knowledge.json",
+      "doc": "逐文件/data/demo_docs/sample_knowledge.json.md",
+      "lines": 26,
+      "sha256": "f0f728e92302a541154c49b2040f3964e5ffee2403a58379c64f4d4720337d72",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "data/demo_docs/troubleshooting.md",
+      "doc": "逐文件/data/demo_docs/troubleshooting.md.md",
+      "lines": 49,
+      "sha256": "07255ef5ec4bb8ade2050ad3673069696f9f63633f4f40a6245cec13b6c7ebfa",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "data/eval/baseline.json",
+      "doc": "逐文件/data/eval/baseline.json.md",
+      "lines": 244,
+      "sha256": "4527f73b73ed1d11392121c53b3c6bb7d27b746b4264a67f7fd897a0dbe30d7e",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "README.md",
+      "doc": "逐文件/README.md.md",
+      "lines": 1392,
+      "sha256": "493eb6c7262bf1f5f0ecd45bb16e89d79df8aa790206f6e2afd1f1a3fda524e4",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/重点代码.md",
+      "doc": "逐文件/wiki/重点代码.md.md",
+      "lines": 916,
+      "sha256": "f956ac309b2fa8d8a69382da545ee4fcda5768a391ad88e4772ddcd4d6c62a7b",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/简历包装.md",
+      "doc": "逐文件/wiki/简历包装.md.md",
+      "lines": 151,
+      "sha256": "27bbe11905b4e2bf188d80ca8b66333b7ad85a677559d45105bc11d89b30ef9a",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/NexusOps企业智能运营协同中枢.md",
+      "doc": "逐文件/wiki/NexusOps企业智能运营协同中枢.md.md",
+      "lines": 386,
+      "sha256": "da3b4200c6fe6baef2345dc9baa799992993f0d524af19ba93048a3bd33b6d23",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/架构图.md",
+      "doc": "逐文件/wiki/架构图.md.md",
+      "lines": 88,
+      "sha256": "5a83baff3256d8319e05d80392a889ecdeb822fc9b52d12b6ee53438d3a0e664",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/01-overall-architecture.svg",
+      "doc": "逐文件/wiki/assets/architecture/01-overall-architecture.svg.md",
+      "lines": 302,
+      "sha256": "376a1a446ab2b7ed2a114a794bb1309246110968a465f2dd224960a01b2d48af",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/02-chat-flow.svg",
+      "doc": "逐文件/wiki/assets/architecture/02-chat-flow.svg.md",
+      "lines": 195,
+      "sha256": "d0e10b7103b1aac9c1bdd26db8d45e65aae896f416f39858e5f9aff5ff19a4df",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/03-agent-skills.svg",
+      "doc": "逐文件/wiki/assets/architecture/03-agent-skills.svg.md",
+      "lines": 181,
+      "sha256": "9313626f58fa9ed18a52cd616939bf70e9505dfad170e2d18326ce7133f7fbea",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/04-data-storage.svg",
+      "doc": "逐文件/wiki/assets/architecture/04-data-storage.svg.md",
+      "lines": 148,
+      "sha256": "b7db491493c4962bb142f67eb8c30126c1353cf79320240bb8be0f97691495bf",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/05-monitor-eval.svg",
+      "doc": "逐文件/wiki/assets/architecture/05-monitor-eval.svg.md",
+      "lines": 196,
+      "sha256": "170f13402a40a4d6c2ef272406e4bc30964a9db511190554e17fc348eb868f63",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/architecture/06-deployment.svg",
+      "doc": "逐文件/wiki/assets/architecture/06-deployment.svg.md",
+      "lines": 75,
+      "sha256": "6aca9825a0768abfe11b72ab8993fe9c34daeed4adeb15343d3a12033783d7c9",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    },
+    {
+      "path": "wiki/assets/posters/echomind-update-poster.svg",
+      "doc": "逐文件/wiki/assets/posters/echomind-update-poster.svg.md",
+      "lines": 198,
+      "sha256": "6fd11b2afd7d1f5ad69a37a62132639b7e2921c21baf7b5e8533fb38db447dd3",
+      "redacted": false,
+      "kind": "text",
+      "symbols": 0
+    }
+  ],
+  "excluded": [
+    {
+      "path": ".DS_Store",
+      "reason": "操作系统目录展示元数据。"
+    },
+    {
+      "path": ".idea/.gitignore",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/claudeCodeTabState.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/EchoMind.iml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/inspectionProfiles/profiles_settings.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/misc.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/modules.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/vcs.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": ".idea/workspace.xml",
+      "reason": "IDE 的项目/编辑器/工作区配置，不参与应用请求链路；不复制本机编辑历史。"
+    },
+    {
+      "path": "data/.DS_Store",
+      "reason": "操作系统目录展示元数据。"
+    },
+    {
+      "path": "data/chroma/1f7ec483-dfba-4ddc-8919-72c86652ac76/data_level0.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/1f7ec483-dfba-4ddc-8919-72c86652ac76/header.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/1f7ec483-dfba-4ddc-8919-72c86652ac76/length.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/1f7ec483-dfba-4ddc-8919-72c86652ac76/link_lists.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/563fc5ab-16c6-43e6-ae77-08bf025fb028/data_level0.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/563fc5ab-16c6-43e6-ae77-08bf025fb028/header.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/563fc5ab-16c6-43e6-ae77-08bf025fb028/length.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/563fc5ab-16c6-43e6-ae77-08bf025fb028/link_lists.bin",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "data/chroma/chroma.sqlite3",
+      "reason": "Chroma 持久化 SQLite/HNSW 文件，由存储库管理；不是 Python 源码，未读取用户历史内容。"
+    },
+    {
+      "path": "wiki/.DS_Store",
+      "reason": "操作系统目录展示元数据。"
+    }
+  ]
+}

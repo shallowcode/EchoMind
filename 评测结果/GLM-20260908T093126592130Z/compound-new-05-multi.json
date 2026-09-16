@@ -1,0 +1,517 @@
+{
+  "id": "compound-new-05",
+  "group": "compound",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 18034.908900008304,
+  "request_ms": [
+    18032.645900006173
+  ],
+  "input_tokens": 13963,
+  "output_tokens": 871,
+  "usage_complete": true,
+  "model_cost": 0.012912400000000001,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_46341774c7cc3fa33160da44bd46595b",
+      "request_id": "eval-compound-new-05-0",
+      "response": "【技术问题】\n根据知识库（id: bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17），登录401表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期\n2. 尝试重新登录\n3. 确认账号状态是否正常\n\n请勿在公开渠道提供密码或验证码。如果问题持续存在，请提供具体的登录接口路径和请求时间，以便进一步排查。\n\n【退款说明】\n根据查询结果，我了解到订单状态必须通过订单查询工具核实，需要订单号并校验当前登录用户和租户（来源：775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1）。\n\n同时注意到您提到登录报401错误，这表示认证失败，可能需要检查登录态或Token是否过期（来源：bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17）。\n\n由于当前登录状态存在问题，暂时无法直接查询订单ORD1001的具体状态。建议您先解决登录问题，然后我可以帮您查询订单状态并告知适用的退款规则。您需要我协助解决登录问题吗？",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical",
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：技术问题→technical；退款说明→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.620239794254303
+        },
+        {
+          "id": "1b9ef19f69996fd3377d9250c0b5fe8d7fbdbcd8b5b00b1d4fd517138d82ea34",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.7392995953559875
+        },
+        {
+          "id": "a67f42fa543f1335f63d26b5e72c519c55eacc5bc837cbd5882a668d6a440b20",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.6674366593360901
+        },
+        {
+          "id": "775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.6018440127372742
+        },
+        {
+          "id": "b54289cef6a962ff8cc42eb379d44f2c3c5d48a31ac6932a19a4e47477e72622",
+          "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+          "title": "人工服务流程",
+          "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+          "distance": 0.667670726776123
+        }
+      ],
+      "tools_used": [
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "technical",
+          "agent": "technical",
+          "title": "技术问题",
+          "instruction": "只处理原始请求中的技术问题。检索相关知识，给出具体排查步骤并引用来源；不能承诺已修复。其他任务由同事负责。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据知识库（id: bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17），登录401表示认证失败。请按以下步骤排查：\n\n1. 检查登录态或Token是否过期\n2. 尝试重新登录\n3. 确认账号状态是否正常\n\n请勿在公开渠道提供密码或验证码。如果问题持续存在，请提供具体的登录接口路径和请求时间，以便进一步排查。",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "登录401错误排查方法"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17",
+                    "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                    "title": "登录故障排查",
+                    "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                    "distance": 0.3794206380844116
+                  },
+                  {
+                    "id": "1b9ef19f69996fd3377d9250c0b5fe8d7fbdbcd8b5b00b1d4fd517138d82ea34",
+                    "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                    "title": "退款审核政策",
+                    "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                    "distance": 0.5434685945510864
+                  },
+                  {
+                    "id": "a67f42fa543f1335f63d26b5e72c519c55eacc5bc837cbd5882a668d6a440b20",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.5889497995376587
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "登录401错误排查方法",
+                  "401错误排查方法",
+                  "登录401错误解决方法"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        },
+        {
+          "id": "task-2",
+          "kind": "refund_policy",
+          "agent": "billing",
+          "title": "退款说明",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据查询结果，我了解到订单状态必须通过订单查询工具核实，需要订单号并校验当前登录用户和租户（来源：775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1）。\n\n同时注意到您提到登录报401错误，这表示认证失败，可能需要检查登录态或Token是否过期（来源：bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17）。\n\n由于当前登录状态存在问题，暂时无法直接查询订单ORD1001的具体状态。建议您先解决登录问题，然后我可以帮您查询订单状态并告知适用的退款规则。您需要我协助解决登录问题吗？",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "EchoMind 订单退款规则"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "1b9ef19f69996fd3377d9250c0b5fe8d7fbdbcd8b5b00b1d4fd517138d82ea34",
+                    "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                    "title": "退款审核政策",
+                    "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                    "distance": 0.7392995953559875
+                  },
+                  {
+                    "id": "775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.5668888092041016
+                  },
+                  {
+                    "id": "b54289cef6a962ff8cc42eb379d44f2c3c5d48a31ac6932a19a4e47477e72622",
+                    "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+                    "title": "人工服务流程",
+                    "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+                    "distance": 0.667670726776123
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "EchoMind 订单退款规则",
+                  "EchoMind 订单退款政策",
+                  "EchoMind 订单退款流程"
+                ]
+              }
+            },
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "EchoMind 订单状态查询规则"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.6018440127372742
+                  },
+                  {
+                    "id": "bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17",
+                    "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                    "title": "登录故障排查",
+                    "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                    "distance": 0.620239794254303
+                  },
+                  {
+                    "id": "a67f42fa543f1335f63d26b5e72c519c55eacc5bc837cbd5882a668d6a440b20",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.6674366593360901
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "EchoMind 订单状态查询规则",
+                  "如何查询 EchoMind 订单状态"
+                ]
+              }
+            }
+          ],
+          "attempts": 3,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "e33bf4a55821ae1c1afce402bf4c73ded9ad7d0840a076406138c850e6ce58ee",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 18012.106299996958,
+      "trace": {
+        "request_id": "eval-compound-new-05-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 3207.372699995176
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1412.567699997453
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2142.405599995982
+          },
+          {
+            "name": "llm",
+            "duration_ms": 747.6758999982849
+          },
+          {
+            "name": "llm",
+            "duration_ms": 788.1411999987904
+          },
+          {
+            "name": "llm",
+            "duration_ms": 736.6751999943517
+          },
+          {
+            "name": "llm",
+            "duration_ms": 735.180700008641
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2988.459000000148
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3954.0622999920743
+          },
+          {
+            "name": "llm",
+            "duration_ms": 819.3652999907499
+          },
+          {
+            "name": "llm",
+            "duration_ms": 728.4352999995463
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4108.205600001384
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 2203.069700000924,
+            "arguments": {
+              "query": "登录401错误排查方法"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.3794206380844116
+                },
+                {
+                  "id": "1b9ef19f69996fd3377d9250c0b5fe8d7fbdbcd8b5b00b1d4fd517138d82ea34",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.5434685945510864
+                },
+                {
+                  "id": "a67f42fa543f1335f63d26b5e72c519c55eacc5bc837cbd5882a668d6a440b20",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.5889497995376587
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "登录401错误排查方法",
+                "401错误排查方法",
+                "登录401错误解决方法"
+              ]
+            },
+            "error": null
+          },
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 2292.1126000001095,
+            "arguments": {
+              "query": "EchoMind 订单退款规则"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "1b9ef19f69996fd3377d9250c0b5fe8d7fbdbcd8b5b00b1d4fd517138d82ea34",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.7392995953559875
+                },
+                {
+                  "id": "775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.5668888092041016
+                },
+                {
+                  "id": "b54289cef6a962ff8cc42eb379d44f2c3c5d48a31ac6932a19a4e47477e72622",
+                  "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+                  "title": "人工服务流程",
+                  "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+                  "distance": 0.667670726776123
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "EchoMind 订单退款规则",
+                "EchoMind 订单退款政策",
+                "EchoMind 订单退款流程"
+              ]
+            },
+            "error": null
+          },
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 1966.173799999524,
+            "arguments": {
+              "query": "EchoMind 订单状态查询规则"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "775264ccc0ad604665679adb4ffcccd3ae2ec26a972393a5465926e84968ebd1",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.6018440127372742
+                },
+                {
+                  "id": "bbcf2d9188bdeb625c3760cb5a8923421f60d36e11076b1036281eb25be6ac17",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.620239794254303
+                },
+                {
+                  "id": "a67f42fa543f1335f63d26b5e72c519c55eacc5bc837cbd5882a668d6a440b20",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.6674366593360901
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "EchoMind 订单状态查询规则",
+                "如何查询 EchoMind 订单状态"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 13963,
+        "output_tokens": 871,
+        "model_calls": 12,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 512,
+            "output_tokens": 40,
+            "uncached_cost_estimate": 0.0004896
+          },
+          {
+            "input_tokens": 1868,
+            "output_tokens": 51,
+            "uncached_cost_estimate": 0.0015964
+          },
+          {
+            "input_tokens": 1967,
+            "output_tokens": 91,
+            "uncached_cost_estimate": 0.0017556000000000002
+          },
+          {
+            "input_tokens": 91,
+            "output_tokens": 31,
+            "uncached_cost_estimate": 0.00013480000000000002
+          },
+          {
+            "input_tokens": 91,
+            "output_tokens": 32,
+            "uncached_cost_estimate": 0.00013680000000000002
+          },
+          {
+            "input_tokens": 327,
+            "output_tokens": 14,
+            "uncached_cost_estimate": 0.00028960000000000005
+          },
+          {
+            "input_tokens": 327,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.00031360000000000003
+          },
+          {
+            "input_tokens": 2451,
+            "output_tokens": 133,
+            "uncached_cost_estimate": 0.0022268
+          },
+          {
+            "input_tokens": 2588,
+            "output_tokens": 195,
+            "uncached_cost_estimate": 0.0024604
+          },
+          {
+            "input_tokens": 92,
+            "output_tokens": 34,
+            "uncached_cost_estimate": 0.00014160000000000003
+          },
+          {
+            "input_tokens": 328,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.00031440000000000005
+          },
+          {
+            "input_tokens": 3321,
+            "output_tokens": 198,
+            "uncached_cost_estimate": 0.0030528
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.9,
+    "completeness": 0.7,
+    "helpfulness": 0.8
+  },
+  "judge_error": null,
+  "judge_input_tokens": 544,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.0005292000000000001
+}

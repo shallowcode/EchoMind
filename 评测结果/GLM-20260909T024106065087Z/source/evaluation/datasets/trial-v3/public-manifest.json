@@ -1,0 +1,172 @@
+{
+  "source": "https://huggingface.co/datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset/resolve/430d1a89bd93bd1fa23c16f29dd53e73f0087443/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11.csv",
+  "revision": "430d1a89bd93bd1fa23c16f29dd53e73f0087443",
+  "license": "CDLA-Sharing-1.0",
+  "license_url": "https://cdla.dev/sharing-1-0/",
+  "attribution": "Bitext Innovations, 2024",
+  "source_sha256": "6f81102b0100b97b8468eb04368033a23206bf1fde9d53500d5806ec1001a434",
+  "source_type": "public hybrid synthetic training corpus, not customer traffic",
+  "purpose": "English intent evaluation only; not transactional or Chinese task completion",
+  "near_duplicate_method": "one representative per within-intent connected component, character-trigram Jaccard >= .82; old 54-example sample and lexical near matches excluded",
+  "limitations": [
+    "Semantic duplicates and cross-label lexical neighbors may remain",
+    "Model pretraining overlap unknown",
+    "No independent human adjudication of ontology mapping"
+  ],
+  "source_rows": 26872,
+  "sampled": 2700,
+  "per_label": {
+    "cancel_order": {
+      "available_rows_after_exposure_filter": 968,
+      "candidate_clusters": 117,
+      "selected": 100
+    },
+    "change_order": {
+      "available_rows_after_exposure_filter": 992,
+      "candidate_clusters": 345,
+      "selected": 100
+    },
+    "change_shipping_address": {
+      "available_rows_after_exposure_filter": 970,
+      "candidate_clusters": 380,
+      "selected": 100
+    },
+    "check_cancellation_fee": {
+      "available_rows_after_exposure_filter": 948,
+      "candidate_clusters": 355,
+      "selected": 100
+    },
+    "check_invoice": {
+      "available_rows_after_exposure_filter": 993,
+      "candidate_clusters": 355,
+      "selected": 100
+    },
+    "check_payment_methods": {
+      "available_rows_after_exposure_filter": 995,
+      "candidate_clusters": 382,
+      "selected": 100
+    },
+    "check_refund_policy": {
+      "available_rows_after_exposure_filter": 991,
+      "candidate_clusters": 323,
+      "selected": 100
+    },
+    "complaint": {
+      "available_rows_after_exposure_filter": 997,
+      "candidate_clusters": 369,
+      "selected": 100
+    },
+    "contact_customer_service": {
+      "available_rows_after_exposure_filter": 997,
+      "candidate_clusters": 326,
+      "selected": 100
+    },
+    "contact_human_agent": {
+      "available_rows_after_exposure_filter": 997,
+      "candidate_clusters": 379,
+      "selected": 100
+    },
+    "create_account": {
+      "available_rows_after_exposure_filter": 995,
+      "candidate_clusters": 341,
+      "selected": 100
+    },
+    "delete_account": {
+      "available_rows_after_exposure_filter": 992,
+      "candidate_clusters": 348,
+      "selected": 100
+    },
+    "delivery_options": {
+      "available_rows_after_exposure_filter": 970,
+      "candidate_clusters": 255,
+      "selected": 100
+    },
+    "delivery_period": {
+      "available_rows_after_exposure_filter": 996,
+      "candidate_clusters": 357,
+      "selected": 100
+    },
+    "edit_account": {
+      "available_rows_after_exposure_filter": 995,
+      "candidate_clusters": 303,
+      "selected": 100
+    },
+    "get_invoice": {
+      "available_rows_after_exposure_filter": 994,
+      "candidate_clusters": 314,
+      "selected": 100
+    },
+    "get_refund": {
+      "available_rows_after_exposure_filter": 995,
+      "candidate_clusters": 357,
+      "selected": 100
+    },
+    "newsletter_subscription": {
+      "available_rows_after_exposure_filter": 996,
+      "candidate_clusters": 329,
+      "selected": 100
+    },
+    "payment_issue": {
+      "available_rows_after_exposure_filter": 997,
+      "candidate_clusters": 370,
+      "selected": 100
+    },
+    "place_order": {
+      "available_rows_after_exposure_filter": 996,
+      "candidate_clusters": 391,
+      "selected": 100
+    },
+    "recover_password": {
+      "available_rows_after_exposure_filter": 993,
+      "candidate_clusters": 386,
+      "selected": 100
+    },
+    "registration_problems": {
+      "available_rows_after_exposure_filter": 997,
+      "candidate_clusters": 376,
+      "selected": 100
+    },
+    "review": {
+      "available_rows_after_exposure_filter": 995,
+      "candidate_clusters": 382,
+      "selected": 100
+    },
+    "set_up_shipping_address": {
+      "available_rows_after_exposure_filter": 994,
+      "candidate_clusters": 367,
+      "selected": 100
+    },
+    "switch_account": {
+      "available_rows_after_exposure_filter": 994,
+      "candidate_clusters": 301,
+      "selected": 100
+    },
+    "track_order": {
+      "available_rows_after_exposure_filter": 991,
+      "candidate_clusters": 283,
+      "selected": 100
+    },
+    "track_refund": {
+      "available_rows_after_exposure_filter": 983,
+      "candidate_clusters": 253,
+      "selected": 100
+    }
+  },
+  "splits": {
+    "development": {
+      "path": ".runtime\\datasets\\bitext-v2\\development.json",
+      "count": 1620,
+      "sha256": "fa5844e240411ef74acd4680b2b92a7a93ff387ad531cefd2ecb194daff435db"
+    },
+    "validation": {
+      "path": ".runtime\\datasets\\bitext-v2\\validation.json",
+      "count": 540,
+      "sha256": "55c417e6db7988b87595a58240bfa6b1315a22e2cb0865bef1b7f0d2e2e67fad"
+    },
+    "acceptance": {
+      "path": ".runtime\\datasets\\bitext-v2\\acceptance.json",
+      "count": 540,
+      "sha256": "156db3cbc458545a55c6a2df97e96ad1bdcc9ea2e3eeaab9b153985ddcf34f9b"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "id": "compound-04",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 5570.001400003093,
+  "request_ms": [
+    5567.924500006484
+  ],
+  "input_tokens": 4299,
+  "output_tokens": 254,
+  "usage_complete": true,
+  "model_cost": 0.0039472000000000005,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_202762d16ce0cd81ddfa69edae0d637e",
+      "request_id": "eval-compound-04-0",
+      "response": "已查询到您的订单ORD1001状态：订单已支付完成，金额50元，无退款记录。关于账户登录401错误，这通常表示身份验证失败。建议您尝试以下步骤：1. 检查用户名和密码是否正确；2. 清除浏览器缓存和Cookie后重新登录；3. 确认账户未被锁定或禁用。如果问题仍然存在，建议联系技术支持团队进行进一步排查。您需要我帮您创建技术支持工单吗？",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "82f7e2010f3415b53bac9cefb720f4cfb91a5f00b2332b47483905181d816f7f",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 5552.607799996622,
+      "trace": {
+        "request_id": "eval-compound-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1001.5911000082269
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2188.945200003218
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2160.7232999958796
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.476100002648309,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-04-single",
+              "id": "ORD1001",
+              "user": "compound-04",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4299,
+        "output_tokens": 254,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 40,
+            "uncached_cost_estimate": 0.0004888000000000001
+          },
+          {
+            "input_tokens": 1820,
+            "output_tokens": 101,
+            "uncached_cost_estimate": 0.001658
+          },
+          {
+            "input_tokens": 1968,
+            "output_tokens": 113,
+            "uncached_cost_estimate": 0.0018004000000000002
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 0.9,
+    "helpfulness": 0.9
+  },
+  "judge_error": null,
+  "judge_input_tokens": 323,
+  "judge_output_tokens": 43,
+  "judge_cost_estimate": 0.0003444
+}

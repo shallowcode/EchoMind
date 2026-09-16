@@ -1,0 +1,92 @@
+{
+  "id": "compound-06",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 14106.757499990636,
+  "request_ms": [
+    14103.396699996665
+  ],
+  "input_tokens": 1169,
+  "output_tokens": 65,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_f04f77406519afc9f0b5c05cdc63a7cd",
+      "request_id": "eval-compound-06-0",
+      "response": "给用户的回答",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "ba3895fcf549b01ea340cc6448a37145bae1c88ad644aaffc90b32f998928dd3",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 14075.30919999408,
+      "trace": {
+        "request_id": "eval-compound-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 11686.115100004827
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2120.469100002083
+          }
+        ],
+        "tools": [],
+        "input_tokens": 1169,
+        "output_tokens": 65,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.5,
+    "accuracy": 0.5,
+    "completeness": 0.5,
+    "helpfulness": 0.5
+  },
+  "judge_error": null
+}

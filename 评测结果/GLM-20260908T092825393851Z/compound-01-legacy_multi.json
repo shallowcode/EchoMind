@@ -1,0 +1,165 @@
+{
+  "id": "compound-01",
+  "group": "compound",
+  "variant": "legacy_multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_a82673c2a9b54a36adda54daae36a187",
+      "tenant": "eval-compound-01-legacy_multi",
+      "user": "compound-01",
+      "conv": "c_88cf95251573b6d99770e68ba7078784",
+      "summary": "登录提示401，同时请查询 ORD1001 的订单状态。",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-01-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 12103.703300002962,
+  "request_ms": [
+    12101.505899991025
+  ],
+  "input_tokens": 4578,
+  "output_tokens": 218,
+  "usage_complete": true,
+  "model_cost": 0.0040984,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_88cf95251573b6d99770e68ba7078784",
+      "request_id": "eval-compound-01-0",
+      "response": "已为您创建工单 tk_a82673c2a9b54a36adda54daae36a187，关于登录401错误和订单ORD1001状态查询。关于订单ORD1001，系统提示无法访问该工单，可能是因为该订单ID不正确或您没有查看权限。请确认订单ID是否正确，或者提供更多订单相关信息以便我们进一步查询。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.13, general=0.32, billing=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "5ddafa6ae16b3c4b5873495a6c7d3adde60c159b3f9a2b5361a8a501a2a9f6a0",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "legacy_multi",
+      "latency_ms": 12085.6105999992,
+      "trace": {
+        "request_id": "eval-compound-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 2419.424700012314
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2982.846300001256
+          },
+          {
+            "name": "llm",
+            "duration_ms": 6492.6135999994585
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.386100005940534,
+            "arguments": {
+              "summary": "登录提示401，同时请查询 ORD1001 的订单状态。"
+            },
+            "result": {
+              "id": "tk_a82673c2a9b54a36adda54daae36a187",
+              "tenant": "eval-compound-01-legacy_multi",
+              "user": "compound-01",
+              "conv": "c_88cf95251573b6d99770e68ba7078784",
+              "summary": "登录提示401，同时请查询 ORD1001 的订单状态。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-01-0:ticket",
+              "version": 0
+            },
+            "error": null
+          },
+          {
+            "name": "ticket_status",
+            "agent": "technical",
+            "success": false,
+            "cached": false,
+            "duration_ms": 4.1662000003270805,
+            "arguments": {
+              "ticket_id": "ORD1001"
+            },
+            "result": null,
+            "error": "PermissionError: Ticket not accessible"
+          }
+        ],
+        "input_tokens": 4578,
+        "output_tokens": 218,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 507,
+            "output_tokens": 40,
+            "uncached_cost_estimate": 0.00048560000000000004
+          },
+          {
+            "input_tokens": 1925,
+            "output_tokens": 88,
+            "uncached_cost_estimate": 0.001716
+          },
+          {
+            "input_tokens": 2146,
+            "output_tokens": 90,
+            "uncached_cost_estimate": 0.0018968000000000001
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.7
+  },
+  "judge_error": null,
+  "judge_input_tokens": 428,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.00043640000000000004
+}

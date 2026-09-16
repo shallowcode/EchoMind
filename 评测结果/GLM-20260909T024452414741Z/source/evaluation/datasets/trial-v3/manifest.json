@@ -1,0 +1,28 @@
+{
+  "version": "3.0",
+  "provenance": "Self-authored trial acceptance preparation; no enterprise partner or customer records",
+  "generation": "48 template families x 25 parameter fixtures; not 1200 independent natural-language scenarios",
+  "review_status": "human_review_pending",
+  "evaluation_status": "Builder does not execute any model evaluation",
+  "split_unit": "whole template family",
+  "splits": {
+    "development": {
+      "cases": 600,
+      "families": 24,
+      "customer_turns": 700,
+      "sha256": "b2f0e404394683e67326d1300fc1a161afff614c0d6df9ce2c33e744217f3c9e"
+    },
+    "validation": {
+      "cases": 200,
+      "families": 8,
+      "customer_turns": 225,
+      "sha256": "97fa39174aa85f54c2074b7d6f7e5ea0e01b87673740d9f79f94062f9cb94c73"
+    },
+    "acceptance": {
+      "cases": 400,
+      "families": 16,
+      "customer_turns": 800,
+      "sha256": "c9b1a596ff56c1859fdef348475883dd102d6cfcfd7a29aa7f52cf1027ab9fc0"
+    }
+  }
+}

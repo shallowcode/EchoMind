@@ -1,0 +1,86 @@
+{
+  "id": "refund-02",
+  "group": "refund",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 8047.557800004142,
+  "request_ms": [
+    8039.60809999262
+  ],
+  "input_tokens": 2538,
+  "output_tokens": 79,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_3d6e206ac19713b8c990ca174fd5d3a9",
+      "request_id": "eval-refund-02-0",
+      "response": "需要核验订单状态和实际支付金额。请提供订单号、支付时间和支付渠道，我会根据这些信息继续判断。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "10元"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.08, general=0.32, technical=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "9b993a29283f547deee8a978eef360fe06457ce66ff768500871795b9c3a8282",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 7989.758099996834,
+      "trace": {
+        "request_id": "eval-refund-02-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 2687.510100004147
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4499.947100004647
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2538,
+        "output_tokens": 79,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.7,
+    "accuracy": 0.8,
+    "completeness": 0.6,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

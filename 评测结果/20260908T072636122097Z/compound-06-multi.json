@@ -1,0 +1,133 @@
+{
+  "id": "compound-06",
+  "group": "compound",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": false,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 74043.42709999764,
+  "request_ms": [
+    74039.70239999762
+  ],
+  "input_tokens": 9314,
+  "output_tokens": 305,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_5efd1503334895f094516054f58c6d4e",
+      "request_id": "eval-compound-06-0",
+      "response": "订单状态已确认为已支付（paid），未退款。退款申请需核实订单状态和实际支付金额。请提供订单号、支付时间和支付渠道，我会根据这些信息继续判断。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "general",
+        "billing"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.31, billing=0.33, general=0.20]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "degraded",
+      "versions": {
+        "knowledge": "9cc1d1c666992eadfe7024a601e798ff77bbe8c990c8d8921ccb3f2256e35011",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 74013.71980000113,
+      "trace": {
+        "request_id": "eval-compound-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 6856.526699993992
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4309.35949999548
+          },
+          {
+            "name": "llm",
+            "duration_ms": 10231.72299998987
+          },
+          {
+            "name": "llm",
+            "duration_ms": 30149.009300002945
+          },
+          {
+            "name": "llm",
+            "duration_ms": 10314.8319000029
+          },
+          {
+            "name": "llm",
+            "duration_ms": 25235.526300006313
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 8.416299999225885,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-06-multi",
+              "id": "ORD1001",
+              "user": "compound-06",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 9314,
+        "output_tokens": 305,
+        "model_calls": 6,
+        "failures": [
+          "agent:general"
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

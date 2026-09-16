@@ -1,0 +1,223 @@
+{
+  "type": "external-intent-only",
+  "model": "Qwen3-1.7B-Q8_0",
+  "source": "https://huggingface.co/datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset/resolve/430d1a89bd93bd1fa23c16f29dd53e73f0087443/Bitext_Sample_Customer_Support_Training_Dataset_27K_responses-v11.csv",
+  "license": "CDLA-Sharing-1.0",
+  "dataset_sha256": "98f908386fe7b00e510bb57b6116204a3bab229f920b29daceeed27360b94a02",
+  "source_sha256": "6f81102b0100b97b8468eb04368033a23206bf1fde9d53500d5806ec1001a434",
+  "mapping": {
+    "cancel_order": "request",
+    "change_order": "request",
+    "change_shipping_address": "request",
+    "check_cancellation_fee": "billing",
+    "check_invoice": "invoice",
+    "check_payment_methods": "billing",
+    "check_refund_policy": "refund",
+    "complaint": "complaint",
+    "contact_human_agent": "human_handoff",
+    "create_account": "account",
+    "delete_account": "account",
+    "delivery_options": "logistics",
+    "delivery_period": "logistics",
+    "edit_account": "account",
+    "get_invoice": "invoice",
+    "get_refund": "refund",
+    "payment_issue": "payment_issue",
+    "place_order": "request",
+    "recover_password": "account_security",
+    "registration_problems": "account",
+    "set_up_shipping_address": "request",
+    "switch_account": "account",
+    "track_order": "order_status",
+    "track_refund": "refund"
+  },
+  "sampled": 54,
+  "evaluated": 48,
+  "excluded_labels": [
+    "contact_customer_service",
+    "newsletter_subscription",
+    "review"
+  ],
+  "accuracy": 0.4791666666666667,
+  "macro_f1": 0.5247007894066718,
+  "per_class_f1": {
+    "account": 0.5882352941176471,
+    "account_security": 0.0,
+    "billing": 0.3333333333333333,
+    "complaint": 0.0,
+    "human_handoff": 0.6666666666666666,
+    "invoice": 0.8571428571428571,
+    "logistics": 0.5714285714285714,
+    "order_status": 1.0,
+    "payment_issue": 0.5,
+    "refund": 0.6666666666666666,
+    "request": 0.5882352941176471
+  },
+  "confusion": [
+    {
+      "expected": "request",
+      "predicted": "request",
+      "n": 5
+    },
+    {
+      "expected": "request",
+      "predicted": "other",
+      "n": 2
+    },
+    {
+      "expected": "request",
+      "predicted": "query",
+      "n": 1
+    },
+    {
+      "expected": "billing",
+      "predicted": "billing",
+      "n": 1
+    },
+    {
+      "expected": "billing",
+      "predicted": "other",
+      "n": 1
+    },
+    {
+      "expected": "invoice",
+      "predicted": "invoice",
+      "n": 3
+    },
+    {
+      "expected": "invoice",
+      "predicted": "billing",
+      "n": 1
+    },
+    {
+      "expected": "billing",
+      "predicted": "query",
+      "n": 1
+    },
+    {
+      "expected": "billing",
+      "predicted": "request",
+      "n": 1
+    },
+    {
+      "expected": "refund",
+      "predicted": "request",
+      "n": 1
+    },
+    {
+      "expected": "refund",
+      "predicted": "refund",
+      "n": 3
+    },
+    {
+      "expected": "complaint",
+      "predicted": "escalation",
+      "n": 1
+    },
+    {
+      "expected": "complaint",
+      "predicted": "other",
+      "n": 1
+    },
+    {
+      "expected": "human_handoff",
+      "predicted": "human_handoff",
+      "n": 1
+    },
+    {
+      "expected": "human_handoff",
+      "predicted": "other",
+      "n": 1
+    },
+    {
+      "expected": "account",
+      "predicted": "account",
+      "n": 5
+    },
+    {
+      "expected": "account",
+      "predicted": "account_security",
+      "n": 1
+    },
+    {
+      "expected": "logistics",
+      "predicted": "logistics",
+      "n": 2
+    },
+    {
+      "expected": "logistics",
+      "predicted": "other",
+      "n": 1
+    },
+    {
+      "expected": "logistics",
+      "predicted": "query",
+      "n": 1
+    },
+    {
+      "expected": "account",
+      "predicted": "other",
+      "n": 2
+    },
+    {
+      "expected": "refund",
+      "predicted": "payment_issue",
+      "n": 1
+    },
+    {
+      "expected": "payment_issue",
+      "predicted": "payment_issue",
+      "n": 1
+    },
+    {
+      "expected": "payment_issue",
+      "predicted": "technical",
+      "n": 1
+    },
+    {
+      "expected": "account_security",
+      "predicted": "account",
+      "n": 1
+    },
+    {
+      "expected": "account_security",
+      "predicted": "query",
+      "n": 1
+    },
+    {
+      "expected": "account",
+      "predicted": "escalation",
+      "n": 1
+    },
+    {
+      "expected": "account",
+      "predicted": "technical",
+      "n": 1
+    },
+    {
+      "expected": "request",
+      "predicted": "logistics",
+      "n": 1
+    },
+    {
+      "expected": "request",
+      "predicted": "account",
+      "n": 1
+    },
+    {
+      "expected": "order_status",
+      "predicted": "order_status",
+      "n": 2
+    },
+    {
+      "expected": "refund",
+      "predicted": "query",
+      "n": 1
+    }
+  ],
+  "limitations": [
+    "Synthetic English public training corpus, not live production traffic",
+    "Many-to-one ontology mapping disclosed",
+    "No refund/order execution score in this report"
+  ]
+}

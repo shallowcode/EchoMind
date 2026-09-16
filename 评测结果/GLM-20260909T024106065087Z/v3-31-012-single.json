@@ -1,0 +1,193 @@
+{
+  "id": "v3-31-012",
+  "group": "memory",
+  "family": "memory.remember_order",
+  "split": "development",
+  "workflow": "memory_order",
+  "fixture": {},
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_group_0": true,
+    "tool_arguments_0": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 4711.740199999895,
+  "request_ms": [
+    1935.2615000000242,
+    2774.056299999984
+  ],
+  "input_tokens": 6666,
+  "output_tokens": 185,
+  "usage_complete": true,
+  "model_cost": 0.0057028,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_8a0b6e26a2074b4fbd9c335aa262493c",
+      "request_id": "eval-v3-31-012-0",
+      "response": "已记录您的订单号 ORD103112。请问您需要查询该订单的状态，还是有其他问题需要处理？",
+      "intent": "query",
+      "entities": {
+        "order_id": [
+          "ORD103112"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "218a0ecb189f9f53125c046837ee3fc888998fd9a2d7a1df269f5fee5dae3abc",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 1892.2479999998814,
+      "trace": {
+        "request_id": "eval-v3-31-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 759.6846999999798
+          },
+          {
+            "name": "llm",
+            "duration_ms": 848.097899999857
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2303,
+        "output_tokens": 71,
+        "model_calls": 2,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 501,
+            "output_tokens": 35,
+            "uncached_cost_estimate": 0.0004708
+          },
+          {
+            "input_tokens": 1802,
+            "output_tokens": 36,
+            "uncached_cost_estimate": 0.0015136000000000001
+          }
+        ]
+      },
+      "_http_status": 200
+    },
+    {
+      "conv_id": "c_8a0b6e26a2074b4fbd9c335aa262493c",
+      "request_id": "eval-v3-31-012-1",
+      "response": "根据查询结果，订单 ORD103112 的状态已显示为\"已支付\"。订单总金额为50元，目前没有退款记录。",
+      "intent": "query",
+      "entities": {
+        "order_id": [
+          "ORD103112"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "218a0ecb189f9f53125c046837ee3fc888998fd9a2d7a1df269f5fee5dae3abc",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 2631.589800000029,
+      "trace": {
+        "request_id": "eval-v3-31-012-1",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 677.2673000000395
+          },
+          {
+            "name": "llm",
+            "duration_ms": 794.1046999999344
+          },
+          {
+            "name": "llm",
+            "duration_ms": 952.6038000001336
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.744999999933498,
+            "arguments": {
+              "order_id": "ORD103112"
+            },
+            "result": {
+              "tenant": "eval-v3-31-012-single",
+              "id": "ORD103112",
+              "user": "v3-31-012",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4363,
+        "output_tokens": 114,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 543,
+            "output_tokens": 35,
+            "uncached_cost_estimate": 0.0005044
+          },
+          {
+            "input_tokens": 1860,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.001576
+          },
+          {
+            "input_tokens": 1960,
+            "output_tokens": 35,
+            "uncached_cost_estimate": 0.001638
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

@@ -1,0 +1,354 @@
+{
+  "id": "compound-05",
+  "group": "compound",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true,
+    "login_evidence": true,
+    "login_answer": true
+  },
+  "refunds": [
+    {
+      "id": "rf_6c384c82591842a1911d7bb69e891ddc",
+      "tenant": "eval-compound-05-multi",
+      "user": "compound-05",
+      "order_id": "ORD1001",
+      "amount": 1000,
+      "status": "pending",
+      "idem": "0b02c9af964cf515f7846e6837a52d981175776b1c52922ed3ecc750a37360cf",
+      "reason": "登录报401；请帮我申请订单 ORD1001 退款10元，原因买错。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 18293.56530000223,
+  "request_ms": [
+    18291.542000006302
+  ],
+  "input_tokens": 9852,
+  "output_tokens": 497,
+  "usage_complete": true,
+  "model_cost": 0.0088756,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_8569bf683b9ecfa1a8832db883d5e561",
+      "request_id": "eval-compound-05-0",
+      "response": "【技术问题】\n根据知识库（id: 993fa9bee39efe873964ef9c9e5158d97259acc367227b19924898430c26609e），登录401表示认证失败。请检查以下内容：\n\n1. 登录态或Token是否过期\n2. 是否使用了正确的API Key或签名\n3. 请求时间戳是否在有效范围内\n4. 账号是否被锁定或存在权限问题\n\n建议您重新登录，不要公开密码或验证码。如果问题持续存在，请提供request_id以便进一步排查。\n\n【退款申请】\n您的退款申请已成功提交，申请ID为 rf_6c384c82591842a1911d7bb69e891ddc。订单 ORD1001 退款金额为10元（1000分），当前状态为待审核。请注意，当前是沙箱环境，退款操作只测试账本，不发生真实资金转移。审核结果将通过系统通知您。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "10元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "technical",
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：技术问题→technical；退款申请→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "993fa9bee39efe873964ef9c9e5158d97259acc367227b19924898430c26609e",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.3686929941177368
+        },
+        {
+          "id": "81621245fbfe512fe436989bd70d8148d442c4a112a456cfba53ce139154abfd",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.5081152319908142
+        },
+        {
+          "id": "09ef4fe58744ec601b573b90232d5b0e42ae4ad6069ec5a3ec7e259c77c0b62c",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.5338585376739502
+        }
+      ],
+      "tools_used": [
+        "refund_request",
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "technical",
+          "agent": "technical",
+          "title": "技术问题",
+          "instruction": "只处理原始请求中的技术问题。检索相关知识，给出具体排查步骤并引用来源；不能承诺已修复。其他任务由同事负责。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据知识库（id: 993fa9bee39efe873964ef9c9e5158d97259acc367227b19924898430c26609e），登录401表示认证失败。请检查以下内容：\n\n1. 登录态或Token是否过期\n2. 是否使用了正确的API Key或签名\n3. 请求时间戳是否在有效范围内\n4. 账号是否被锁定或存在权限问题\n\n建议您重新登录，不要公开密码或验证码。如果问题持续存在，请提供request_id以便进一步排查。",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "登录401错误排查"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "993fa9bee39efe873964ef9c9e5158d97259acc367227b19924898430c26609e",
+                    "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                    "title": "登录故障排查",
+                    "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                    "distance": 0.3686929941177368
+                  },
+                  {
+                    "id": "81621245fbfe512fe436989bd70d8148d442c4a112a456cfba53ce139154abfd",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.5081152319908142
+                  },
+                  {
+                    "id": "09ef4fe58744ec601b573b90232d5b0e42ae4ad6069ec5a3ec7e259c77c0b62c",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.5338585376739502
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "登录401错误排查",
+                  "401错误排查方法",
+                  "登录401错误解决步骤"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        },
+        {
+          "id": "task-2",
+          "kind": "refund",
+          "agent": "billing",
+          "title": "退款申请",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "refund_request"
+          ],
+          "status": "completed",
+          "answer": "您的退款申请已成功提交，申请ID为 rf_6c384c82591842a1911d7bb69e891ddc。订单 ORD1001 退款金额为10元（1000分），当前状态为待审核。请注意，当前是沙箱环境，退款操作只测试账本，不发生真实资金转移。审核结果将通过系统通知您。",
+          "observations": [
+            {
+              "name": "refund_request",
+              "arguments": {
+                "order_id": "ORD1001",
+                "amount_cents": 1000,
+                "reason": "买错"
+              },
+              "success": true,
+              "result": {
+                "id": "rf_6c384c82591842a1911d7bb69e891ddc",
+                "tenant": "eval-compound-05-multi",
+                "user": "compound-05",
+                "order_id": "ORD1001",
+                "amount": 1000,
+                "status": "pending",
+                "idem": "0b02c9af964cf515f7846e6837a52d981175776b1c52922ed3ecc750a37360cf",
+                "reason": "登录报401；请帮我申请订单 ORD1001 退款10元，原因买错。",
+                "payment_ref": null
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "e6cb6e62a260a34e20078c405ff9afe9a5f1e597499b23cc002246c4d82caaaa",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 18275.865999996313,
+      "trace": {
+        "request_id": "eval-compound-05-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 3636.6123000043444
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1582.2956999909366
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1799.0881000005174
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4066.3993999914965
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1957.1892999956617
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2881.340400010231
+          },
+          {
+            "name": "llm",
+            "duration_ms": 8420.250700000906
+          }
+        ],
+        "tools": [
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 27.404499996919185,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 1000,
+              "reason": "登录报401；请帮我申请订单 ORD1001 退款10元，原因买错。"
+            },
+            "result": {
+              "id": "rf_6c384c82591842a1911d7bb69e891ddc",
+              "tenant": "eval-compound-05-multi",
+              "user": "compound-05",
+              "order_id": "ORD1001",
+              "amount": 1000,
+              "status": "pending",
+              "idem": "0b02c9af964cf515f7846e6837a52d981175776b1c52922ed3ecc750a37360cf",
+              "reason": "登录报401；请帮我申请订单 ORD1001 退款10元，原因买错。",
+              "payment_ref": null
+            },
+            "error": null
+          },
+          {
+            "name": "knowledge_search",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4464.968600004795,
+            "arguments": {
+              "query": "登录401错误排查"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "993fa9bee39efe873964ef9c9e5158d97259acc367227b19924898430c26609e",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.3686929941177368
+                },
+                {
+                  "id": "81621245fbfe512fe436989bd70d8148d442c4a112a456cfba53ce139154abfd",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.5081152319908142
+                },
+                {
+                  "id": "09ef4fe58744ec601b573b90232d5b0e42ae4ad6069ec5a3ec7e259c77c0b62c",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.5338585376739502
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "登录401错误排查",
+                "401错误排查方法",
+                "登录401错误解决步骤"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 9852,
+        "output_tokens": 497,
+        "model_calls": 7,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 513,
+            "output_tokens": 39,
+            "uncached_cost_estimate": 0.0004884
+          },
+          {
+            "input_tokens": 1875,
+            "output_tokens": 50,
+            "uncached_cost_estimate": 0.0016
+          },
+          {
+            "input_tokens": 90,
+            "output_tokens": 31,
+            "uncached_cost_estimate": 0.000134
+          },
+          {
+            "input_tokens": 2167,
+            "output_tokens": 131,
+            "uncached_cost_estimate": 0.0019956
+          },
+          {
+            "input_tokens": 326,
+            "output_tokens": 14,
+            "uncached_cost_estimate": 0.0002888
+          },
+          {
+            "input_tokens": 2443,
+            "output_tokens": 91,
+            "uncached_cost_estimate": 0.0021364
+          },
+          {
+            "input_tokens": 2438,
+            "output_tokens": 141,
+            "uncached_cost_estimate": 0.0022324000000000003
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 609,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0005652000000000001
+}

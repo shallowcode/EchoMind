@@ -1,0 +1,171 @@
+{
+  "id": "v3-37-012",
+  "group": "policy",
+  "family": "policy.refund_consult",
+  "split": "development",
+  "workflow": "policy_refund",
+  "fixture": {},
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 5100.906099999975,
+  "request_ms": [
+    5098.953600000186
+  ],
+  "input_tokens": 4685,
+  "output_tokens": 224,
+  "usage_complete": true,
+  "model_cost": 0.004196,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_38d897576899cf9c1568581953ce0d4e",
+      "request_id": "eval-v3-37-012-0",
+      "response": "抱歉，我没有找到与CS37012相关的具体退款审核规则信息。我可以为您提供一般退款流程的说明：\n\n1. 退款申请需要提交订单号、退款金额和退款原因\n2. 所有退款申请都会提交给财务部门进行审核\n3. 审核通过后，退款会原路返回至您的支付账户\n4. 退款处理时间通常为3-5个工作日，具体到账时间取决于支付渠道\n\n如果您需要了解特定订单的退款政策，请提供订单号，我可以帮您查询详细信息。",
+      "intent": "query",
+      "entities": {},
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.77,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "f3d032a12d33768db074aabdcda62964dcb3ed174d705eee226b08f11ee1cf6f",
+          "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+          "title": "登录故障排查",
+          "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+          "distance": 0.5310155153274536
+        },
+        {
+          "id": "d4022845b584d158e394be5b6217d6387d88368de184e54e93c6b3305f81b6e7",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.5325736999511719
+        },
+        {
+          "id": "8f9de92c51cff5dd93aa904220cbc471fc9beee4e0698ebf1e8130193c4c1f7d",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.589465320110321
+        }
+      ],
+      "tools_used": [
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "b0b3259e25486f66f0b1567131952f6b9caeaf486ec1979733da9f89a31f0c7b",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 5084.163100000296,
+      "trace": {
+        "request_id": "eval-v3-37-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 841.7011000001366
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1839.2010000002301
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2065.2766000002885
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 163.73920000023645,
+            "arguments": {
+              "query": "退款审核规则 CS37012"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "f3d032a12d33768db074aabdcda62964dcb3ed174d705eee226b08f11ee1cf6f",
+                  "content": "登录401表示认证失败，请检查登录态或Token是否过期，重新登录，不要公开密码或验证码。500需要保留request_id并联系技术人员。",
+                  "title": "登录故障排查",
+                  "version": "dd5097bbb2b512937a93d0379b81bdede71db29f5db97de24b2123c17ff09507",
+                  "distance": 0.5310155153274536
+                },
+                {
+                  "id": "d4022845b584d158e394be5b6217d6387d88368de184e54e93c6b3305f81b6e7",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.5325736999511719
+                },
+                {
+                  "id": "8f9de92c51cff5dd93aa904220cbc471fc9beee4e0698ebf1e8130193c4c1f7d",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.589465320110321
+                }
+              ],
+              "rerank_applied": false,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "退款审核规则 CS37012"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4685,
+        "output_tokens": 224,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 41,
+            "uncached_cost_estimate": 0.0004908
+          },
+          {
+            "input_tokens": 1804,
+            "output_tokens": 61,
+            "uncached_cost_estimate": 0.0015652
+          },
+          {
+            "input_tokens": 2370,
+            "output_tokens": 122,
+            "uncached_cost_estimate": 0.00214
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

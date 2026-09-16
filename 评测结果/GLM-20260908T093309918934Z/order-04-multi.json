@@ -1,0 +1,162 @@
+{
+  "id": "order-04",
+  "group": "order",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 2846.1777999909827,
+  "request_ms": [
+    2843.2936999888625
+  ],
+  "input_tokens": 1893,
+  "output_tokens": 113,
+  "usage_complete": true,
+  "model_cost": 0.0017404,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_78ed8846ff5e60f081c12c0c40c0423f",
+      "request_id": "eval-order-04-0",
+      "response": "【订单查询】\n订单编号 ORD1001 的当前状态是已支付(paid)。",
+      "intent": "order_status",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：订单查询→billing",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "order",
+          "agent": "billing",
+          "title": "订单查询",
+          "instruction": "只核实原始请求中的订单状态，使用已提供订单号查询，并明确告知查得的状态。其他问题由同事负责。",
+          "required_tools": [
+            "order_lookup"
+          ],
+          "status": "completed",
+          "answer": "订单编号 ORD1001 的当前状态是已支付(paid)。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-order-04-multi",
+                "id": "ORD1001",
+                "user": "order-04",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "6524cf08fcdb86ead4dd7f6ada8b6aa68b2746169a659049b873419b9bbaa61a",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 2820.5812999949558,
+      "trace": {
+        "request_id": "eval-order-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 965.574400004698
+          },
+          {
+            "name": "llm",
+            "duration_ms": 864.5046000019647
+          },
+          {
+            "name": "llm",
+            "duration_ms": 638.8233000034234
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 2.954800002044067,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-order-04-multi",
+              "id": "ORD1001",
+              "user": "order-04",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 1893,
+        "output_tokens": 113,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 503,
+            "output_tokens": 41,
+            "uncached_cost_estimate": 0.0004844
+          },
+          {
+            "input_tokens": 649,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0006072
+          },
+          {
+            "input_tokens": 741,
+            "output_tokens": 28,
+            "uncached_cost_estimate": 0.0006488
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 206,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.00024280000000000002
+}

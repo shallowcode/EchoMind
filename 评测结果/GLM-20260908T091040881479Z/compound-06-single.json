@@ -1,0 +1,186 @@
+{
+  "id": "compound-06",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [
+    {
+      "id": "rf_152199ca0e65493a801113d834a74ce7",
+      "tenant": "eval-compound-06-single",
+      "user": "compound-06",
+      "order_id": "ORD1001",
+      "amount": 2000,
+      "status": "pending",
+      "idem": "94e633c07852792885098ebe7477a9f93cca8ca2c182b94a0f0d352cd9f6836c",
+      "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 6570.750400001998,
+  "request_ms": [
+    6567.645899995114
+  ],
+  "input_tokens": 3418,
+  "output_tokens": 195,
+  "usage_complete": true,
+  "model_cost": 0.0031244000000000003,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_f04f77406519afc9f0b5c05cdc63a7cd",
+      "request_id": "eval-compound-06-0",
+      "response": "您的退款申请已提交成功，申请ID为rf_152199ca0e65493a801113d834a74ce7，金额为20元，当前状态为待审核。财务审核通过后，退款将处理到您的原支付账户。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "ba3895fcf549b01ea340cc6448a37145bae1c88ad644aaffc90b32f998928dd3",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 6548.18320000777,
+      "trace": {
+        "request_id": "eval-compound-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1255.6802999897627
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2088.6150000005728
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1454.4273000065004
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1468.4598000021651
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.760600004578009,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-06-single",
+              "id": "ORD1001",
+              "user": "compound-06",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.688399994047359,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 2000,
+              "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。"
+            },
+            "result": {
+              "id": "rf_152199ca0e65493a801113d834a74ce7",
+              "tenant": "eval-compound-06-single",
+              "user": "compound-06",
+              "order_id": "ORD1001",
+              "amount": 2000,
+              "status": "pending",
+              "idem": "94e633c07852792885098ebe7477a9f93cca8ca2c182b94a0f0d352cd9f6836c",
+              "reason": "无法登录出现401，还要申请 ORD1001 退款20元，重复买了。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 3418,
+        "output_tokens": 195,
+        "model_calls": 4,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 48,
+            "uncached_cost_estimate": 0.0005048
+          },
+          {
+            "input_tokens": 837,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.0007676
+          },
+          {
+            "input_tokens": 932,
+            "output_tokens": 35,
+            "uncached_cost_estimate": 0.0008156
+          },
+          {
+            "input_tokens": 1138,
+            "output_tokens": 63,
+            "uncached_cost_estimate": 0.0010364
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 0.8,
+    "helpfulness": 0.9
+  },
+  "judge_error": null,
+  "judge_input_tokens": 425,
+  "judge_output_tokens": 43,
+  "judge_cost_estimate": 0.000426
+}

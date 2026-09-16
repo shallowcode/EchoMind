@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.venv-supportflow/
+.runtime/
+artifacts/
+venv/
+
+# 环境变量（含敏感信息）
+.env
+.env.*
+!.env.example
+!.env.example.env
+!.env.supportflow.example
+
+# 数据目录
+data/*
+!data/README.md
+!data/demo_docs/
+!data/demo_supportflow/
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 本地工具缓存
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ChromaDB 本地数据
+*.sqlite3
+*.sqlite3-*
+*.sqlite
+*.sqlite-*
+*.db
+*.gguf
+*.safetensors
+
+# 备份文件
+*~
+*.bak
+docker-compose(1).yml

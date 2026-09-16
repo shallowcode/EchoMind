@@ -1,0 +1,112 @@
+{
+  "id": "order-01",
+  "group": "order",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 30416.29660000035,
+  "request_ms": [
+    30271.521999995457
+  ],
+  "input_tokens": 5191,
+  "output_tokens": 129,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_7c5d91babffecff73733385ccdce04c0",
+      "request_id": "eval-order-01-0",
+      "response": "订单 ORD1001 的付款状态已确认，当前状态为已支付（paid），总金额为 5000 分。",
+      "intent": "query",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "intent=query, group=query, primary=general, supporting=none, scores=[general=0.87, technical=0.00, billing=0.00]",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "dcc54922ca30e7c760652d5d0c6379410dfb1fc20e9e28ef676deca7cd29b8eb",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 30234.394400002202,
+      "trace": {
+        "request_id": "eval-order-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 4247.458099998767
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2218.986899999436
+          },
+          {
+            "name": "llm",
+            "duration_ms": 15920.048500003759
+          },
+          {
+            "name": "llm",
+            "duration_ms": 7505.712400001357
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.000900007667951,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-order-01-multi",
+              "id": "ORD1001",
+              "user": "order-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 5191,
+        "output_tokens": 129,
+        "model_calls": 4,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

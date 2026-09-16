@@ -1,0 +1,130 @@
+{
+  "id": "order-03",
+  "group": "order",
+  "variant": "single",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 3243.406199995661,
+  "request_ms": [
+    3240.103900010581
+  ],
+  "input_tokens": 4200,
+  "output_tokens": 120,
+  "usage_complete": true,
+  "model_cost": 0.0036,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_3c547386f38f477794c1e8e91c2355b3",
+      "request_id": "eval-order-03-0",
+      "response": "订单 ORD1001 的状态为已支付(paid)，订单总金额为50元，目前没有退款记录。",
+      "intent": "order_status",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "815b69c6cd0fe01684d7236b66961787abdbbeb101c1ddb61f93f34266897df1",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 3042.117999997572,
+      "trace": {
+        "request_id": "eval-order-03-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 986.7971999919973
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1003.628899998148
+          },
+          {
+            "name": "llm",
+            "duration_ms": 851.3107999897329
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.185800004051998,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-order-03-single",
+              "id": "ORD1001",
+              "user": "order-03",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4200,
+        "output_tokens": 120,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 502,
+            "output_tokens": 46,
+            "uncached_cost_estimate": 0.0004936000000000001
+          },
+          {
+            "input_tokens": 1803,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0015304000000000001
+          },
+          {
+            "input_tokens": 1895,
+            "output_tokens": 30,
+            "uncached_cost_estimate": 0.001576
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 209,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0002452
+}

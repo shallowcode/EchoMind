@@ -1,0 +1,143 @@
+{
+  "id": "compound-07",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [
+    {
+      "id": "rf_0456844fc6024b4784e334cf3af4b3a3",
+      "tenant": "eval-compound-07-single",
+      "user": "compound-07",
+      "order_id": "ORD1001",
+      "amount": 500,
+      "status": "pending",
+      "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+      "reason": "缺件",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 54319.536899987725,
+  "request_ms": [
+    54314.061299999594
+  ],
+  "input_tokens": 4215,
+  "output_tokens": 291,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_74138c3771cec8e7d8c995eeb152f08b",
+      "request_id": "eval-compound-07-0",
+      "response": "退款申请已成功创建，待财务审核，订单ORD1001退款金额5元，原因：缺件。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "5元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "refund_request"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "7170ca90e656943854f087b1cdca0f897a6771e97ba05250661d035897782906",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 54276.524300003075,
+      "trace": {
+        "request_id": "eval-compound-07-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 4469.205200002762
+          },
+          {
+            "name": "llm",
+            "duration_ms": 20498.098500000197
+          },
+          {
+            "name": "llm",
+            "duration_ms": 12424.96280001069
+          },
+          {
+            "name": "llm",
+            "duration_ms": 10375.735900001018
+          },
+          {
+            "name": "llm",
+            "duration_ms": 5749.029600003269
+          }
+        ],
+        "tools": [
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.957300003501587,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 500,
+              "reason": "缺件"
+            },
+            "result": {
+              "id": "rf_0456844fc6024b4784e334cf3af4b3a3",
+              "tenant": "eval-compound-07-single",
+              "user": "compound-07",
+              "order_id": "ORD1001",
+              "amount": 500,
+              "status": "pending",
+              "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+              "reason": "缺件",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4215,
+        "output_tokens": 291,
+        "model_calls": 5,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

@@ -1,0 +1,159 @@
+{
+  "id": "compound-04",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_1e45498838e04b1cadd73426a17af1f9",
+      "tenant": "eval-compound-04-single",
+      "user": "compound-04",
+      "conv": "c_202762d16ce0cd81ddfa69edae0d637e",
+      "summary": "账户登录报错问题处理",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-04-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 41644.64990000124,
+  "request_ms": [
+    41641.187800007174
+  ],
+  "input_tokens": 8087,
+  "output_tokens": 264,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_202762d16ce0cd81ddfa69edae0d637e",
+      "request_id": "eval-compound-04-0",
+      "response": "已创建工单处理账户登录报错问题。请提供登录凭证，我将协助您解决登录问题。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "ticket_create"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "82f7e2010f3415b53bac9cefb720f4cfb91a5f00b2332b47483905181d816f7f",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 41563.284699994256,
+      "trace": {
+        "request_id": "eval-compound-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 4116.188900006819
+          },
+          {
+            "name": "llm",
+            "duration_ms": 5602.442500006873
+          },
+          {
+            "name": "llm",
+            "duration_ms": 8685.132399987197
+          },
+          {
+            "name": "llm",
+            "duration_ms": 16770.033299995703
+          },
+          {
+            "name": "llm",
+            "duration_ms": 5838.9237000083085
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 6.9481999962590635,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-04-single",
+              "id": "ORD1001",
+              "user": "compound-04",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "ticket_create",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.481199987931177,
+            "arguments": {
+              "summary": "账户登录报错问题处理"
+            },
+            "result": {
+              "id": "tk_1e45498838e04b1cadd73426a17af1f9",
+              "tenant": "eval-compound-04-single",
+              "user": "compound-04",
+              "conv": "c_202762d16ce0cd81ddfa69edae0d637e",
+              "summary": "账户登录报错问题处理",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-04-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 8087,
+        "output_tokens": 264,
+        "model_calls": 5,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.8,
+    "accuracy": 0.8,
+    "completeness": 0.7,
+    "helpfulness": 0.7
+  },
+  "judge_error": null
+}

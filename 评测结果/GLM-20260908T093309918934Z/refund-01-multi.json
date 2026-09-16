@@ -1,0 +1,232 @@
+{
+  "id": "refund-01",
+  "group": "refund",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [
+    {
+      "id": "rf_33edb5b538524684af9fb600865584bb",
+      "tenant": "eval-refund-01-multi",
+      "user": "refund-01",
+      "order_id": "ORD1001",
+      "amount": 2000,
+      "status": "pending",
+      "idem": "4fdd1c8d58a34ab6bdf6c9970a35f0f8d79c784310b8c3eca649d718321c7e62",
+      "reason": "我要申请订单 ORD1001 退款20元，原因是重复购买。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [],
+  "task_ms": 6888.002800013055,
+  "request_ms": [
+    6885.892700011027
+  ],
+  "input_tokens": 7432,
+  "output_tokens": 309,
+  "usage_complete": true,
+  "model_cost": 0.006563599999999999,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_39a7e633cab88eba11f853a0ec40bae9",
+      "request_id": "eval-refund-01-0",
+      "response": "【退款申请】\n退款申请已成功提交。申请详情：订单号 ORD1001，申请金额20元，退款原因：重复购买。当前状态：待审核。退款申请 ID：rf_33edb5b538524684af9fb600865584bb。请注意：当前为沙箱环境，此退款申请仅操作测试账本，不发生真实资金转移。审核通过后，退款将原路退回至您的支付账户，具体到账时间以支付渠道实际处理为准。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：退款申请→billing",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "refund",
+          "agent": "billing",
+          "title": "退款申请",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "refund_request"
+          ],
+          "status": "completed",
+          "answer": "退款申请已成功提交。申请详情：订单号 ORD1001，申请金额20元，退款原因：重复购买。当前状态：待审核。退款申请 ID：rf_33edb5b538524684af9fb600865584bb。请注意：当前为沙箱环境，此退款申请仅操作测试账本，不发生真实资金转移。审核通过后，退款将原路退回至您的支付账户，具体到账时间以支付渠道实际处理为准。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-refund-01-multi",
+                "id": "ORD1001",
+                "user": "refund-01",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            },
+            {
+              "name": "refund_request",
+              "arguments": {
+                "order_id": "ORD1001",
+                "amount_cents": 2000,
+                "reason": "重复购买"
+              },
+              "success": true,
+              "result": {
+                "id": "rf_33edb5b538524684af9fb600865584bb",
+                "tenant": "eval-refund-01-multi",
+                "user": "refund-01",
+                "order_id": "ORD1001",
+                "amount": 2000,
+                "status": "pending",
+                "idem": "4fdd1c8d58a34ab6bdf6c9970a35f0f8d79c784310b8c3eca649d718321c7e62",
+                "reason": "我要申请订单 ORD1001 退款20元，原因是重复购买。",
+                "payment_ref": null
+              }
+            }
+          ],
+          "attempts": 3,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "5005a255d6a2d920e2ce9cdec97176dea148724f8337d6260107c1b4c49f2ba8",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 6870.154099990032,
+      "trace": {
+        "request_id": "eval-refund-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 995.1839999994263
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1103.6346000037156
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2187.2995999874547
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2374.0541000006488
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 6.662599989795126,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-refund-01-multi",
+              "id": "ORD1001",
+              "user": "refund-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 6.105299995397218,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 2000,
+              "reason": "我要申请订单 ORD1001 退款20元，原因是重复购买。"
+            },
+            "result": {
+              "id": "rf_33edb5b538524684af9fb600865584bb",
+              "tenant": "eval-refund-01-multi",
+              "user": "refund-01",
+              "order_id": "ORD1001",
+              "amount": 2000,
+              "status": "pending",
+              "idem": "4fdd1c8d58a34ab6bdf6c9970a35f0f8d79c784310b8c3eca649d718321c7e62",
+              "reason": "我要申请订单 ORD1001 退款20元，原因是重复购买。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 7432,
+        "output_tokens": 309,
+        "model_calls": 4,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 507,
+            "output_tokens": 42,
+            "uncached_cost_estimate": 0.0004896
+          },
+          {
+            "input_tokens": 2153,
+            "output_tokens": 49,
+            "uncached_cost_estimate": 0.0018204
+          },
+          {
+            "input_tokens": 2248,
+            "output_tokens": 105,
+            "uncached_cost_estimate": 0.0020084
+          },
+          {
+            "input_tokens": 2524,
+            "output_tokens": 113,
+            "uncached_cost_estimate": 0.0022451999999999997
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 455,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.000442
+}

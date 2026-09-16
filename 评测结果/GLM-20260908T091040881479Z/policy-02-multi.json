@@ -1,0 +1,248 @@
+{
+  "id": "policy-02",
+  "group": "policy",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 10321.75649999408,
+  "request_ms": [
+    10319.340900008683
+  ],
+  "input_tokens": 5387,
+  "output_tokens": 315,
+  "usage_complete": true,
+  "model_cost": 0.004939600000000001,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_246dbbcdb1b54c707c422d6d0e0062f5",
+      "request_id": "eval-policy-02-0",
+      "response": "【退款说明】\n根据退款审核政策（来源：490ded6f7ce9fa82f2f4264cfb25acf78283ca0884110b4f251336fc74c80d9b），退款审核流程如下：\n\n1. 退款必须先核验订单归属与未退金额\n2. 提交退款申请后由财务审核\n3. 审核通过后才能执行退款\n4. 在沙箱环境中，结算只更新测试账本，不发生真实资金转移\n\n如果您需要申请退款，请提供订单号和退款金额，我可以帮您提交申请。申请提交后需要经过财务审核，审核结果会及时通知您。",
+      "intent": "query",
+      "entities": {},
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：退款说明→billing",
+      "routing_confidence": 0.65,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "490ded6f7ce9fa82f2f4264cfb25acf78283ca0884110b4f251336fc74c80d9b",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.5950895547866821
+        },
+        {
+          "id": "b60eeb0562466b2529f9914ecf37e572fb4a501ef9ac4f94f065cbe334bd0b00",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.4818265438079834
+        },
+        {
+          "id": "0ee988a587848286175671d84c57dfe4fc2b40db4f3d0d81092501cac6bf6a22",
+          "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+          "title": "人工服务流程",
+          "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+          "distance": 0.6102891564369202
+        }
+      ],
+      "tools_used": [
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "refund_policy",
+          "agent": "billing",
+          "title": "退款说明",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据退款审核政策（来源：490ded6f7ce9fa82f2f4264cfb25acf78283ca0884110b4f251336fc74c80d9b），退款审核流程如下：\n\n1. 退款必须先核验订单归属与未退金额\n2. 提交退款申请后由财务审核\n3. 审核通过后才能执行退款\n4. 在沙箱环境中，结算只更新测试账本，不发生真实资金转移\n\n如果您需要申请退款，请提供订单号和退款金额，我可以帮您提交申请。申请提交后需要经过财务审核，审核结果会及时通知您。",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "退款审核政策"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "490ded6f7ce9fa82f2f4264cfb25acf78283ca0884110b4f251336fc74c80d9b",
+                    "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                    "title": "退款审核政策",
+                    "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                    "distance": 0.5950895547866821
+                  },
+                  {
+                    "id": "b60eeb0562466b2529f9914ecf37e572fb4a501ef9ac4f94f065cbe334bd0b00",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.4818265438079834
+                  },
+                  {
+                    "id": "0ee988a587848286175671d84c57dfe4fc2b40db4f3d0d81092501cac6bf6a22",
+                    "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+                    "title": "人工服务流程",
+                    "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+                    "distance": 0.6102891564369202
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "退款审核政策",
+                  "退款审核规定",
+                  "退款审核流程"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "db3a5720846b9bfcd30b80b853e0b74a11fdbb3ba780c0798dd6ec5c9464f1cf",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 10301.2682999979,
+      "trace": {
+        "request_id": "eval-policy-02-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 1776.1366000049748
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2227.5253999978304
+          },
+          {
+            "name": "llm",
+            "duration_ms": 604.5488999952795
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1458.8588000042364
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2874.396200000774
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 3124.7358999971766,
+            "arguments": {
+              "query": "退款审核政策"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "490ded6f7ce9fa82f2f4264cfb25acf78283ca0884110b4f251336fc74c80d9b",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.5950895547866821
+                },
+                {
+                  "id": "b60eeb0562466b2529f9914ecf37e572fb4a501ef9ac4f94f065cbe334bd0b00",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.4818265438079834
+                },
+                {
+                  "id": "0ee988a587848286175671d84c57dfe4fc2b40db4f3d0d81092501cac6bf6a22",
+                  "content": "用户明确要求人工时创建工单，状态依次为open、assigned、resolved、closed。处理完成后将解决说明写回原会话。",
+                  "title": "人工服务流程",
+                  "version": "6d21fd71213239674ea8aa73f4819a2b23c94d14d36775613a90ff7ffcdbdfa3",
+                  "distance": 0.6102891564369202
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "退款审核政策",
+                "退款审核规定",
+                "退款审核流程"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 5387,
+        "output_tokens": 315,
+        "model_calls": 5,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 503,
+            "output_tokens": 42,
+            "uncached_cost_estimate": 0.00048640000000000006
+          },
+          {
+            "input_tokens": 1942,
+            "output_tokens": 63,
+            "uncached_cost_estimate": 0.0016796
+          },
+          {
+            "input_tokens": 88,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.0001224
+          },
+          {
+            "input_tokens": 324,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.0003112
+          },
+          {
+            "input_tokens": 2530,
+            "output_tokens": 158,
+            "uncached_cost_estimate": 0.00234
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 347,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0003556
+}

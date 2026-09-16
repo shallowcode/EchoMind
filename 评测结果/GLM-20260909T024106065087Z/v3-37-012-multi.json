@@ -1,0 +1,246 @@
+{
+  "id": "v3-37-012",
+  "group": "policy",
+  "family": "policy.refund_consult",
+  "split": "development",
+  "workflow": "policy_refund",
+  "fixture": {},
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_count": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 6542.979299999843,
+  "request_ms": [
+    6540.786700000126
+  ],
+  "input_tokens": 5412,
+  "output_tokens": 314,
+  "usage_complete": true,
+  "model_cost": 0.0049575999999999995,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_8a68c3db7d0bb72556a2da66f3174935",
+      "request_id": "eval-v3-37-012-0",
+      "response": "【退款说明】\n根据退款审核政策（ID: aef302fbf61a90f8b05f75847348bc295978090feea950960bf64bad63610730），退款审核规则如下：\n\n1. 退款必须先核验订单归属与未退金额\n2. 需要提交退款申请，由财务进行审核\n3. 只有审核通过后才能执行退款\n4. 当前为沙箱环境，退款结算只更新测试账本，不发生真实资金转移\n\n如果您有具体的订单需要了解退款情况，请提供订单号，我可以帮您查询订单状态和可退金额。",
+      "intent": "query",
+      "entities": {},
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：退款说明→billing",
+      "routing_confidence": 0.77,
+      "escalated": false,
+      "sources": [
+        {
+          "id": "aef302fbf61a90f8b05f75847348bc295978090feea950960bf64bad63610730",
+          "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+          "title": "退款审核政策",
+          "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+          "distance": 0.6166748404502869
+        },
+        {
+          "id": "994ed1e7441e1fe30629e536e236c444ebfb7cf6ba662fee00f081ed1ee0a7d0",
+          "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+          "title": "发票办理说明",
+          "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+          "distance": 0.4878135919570923
+        },
+        {
+          "id": "1b124e87b956503329ca2a1bc665535ee8345bdc17e6329d36e71a3c10ac1e19",
+          "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+          "title": "订单查询规则",
+          "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+          "distance": 0.5233041048049927
+        }
+      ],
+      "tools_used": [
+        "knowledge_search"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "refund_policy",
+          "agent": "billing",
+          "title": "退款说明",
+          "instruction": "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
+          "required_tools": [
+            "knowledge_search"
+          ],
+          "status": "completed",
+          "answer": "根据退款审核政策（ID: aef302fbf61a90f8b05f75847348bc295978090feea950960bf64bad63610730），退款审核规则如下：\n\n1. 退款必须先核验订单归属与未退金额\n2. 需要提交退款申请，由财务进行审核\n3. 只有审核通过后才能执行退款\n4. 当前为沙箱环境，退款结算只更新测试账本，不发生真实资金转移\n\n如果您有具体的订单需要了解退款情况，请提供订单号，我可以帮您查询订单状态和可退金额。",
+          "observations": [
+            {
+              "name": "knowledge_search",
+              "arguments": {
+                "query": "退款审核规则"
+              },
+              "success": true,
+              "result": {
+                "items": [
+                  {
+                    "id": "aef302fbf61a90f8b05f75847348bc295978090feea950960bf64bad63610730",
+                    "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                    "title": "退款审核政策",
+                    "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                    "distance": 0.6166748404502869
+                  },
+                  {
+                    "id": "994ed1e7441e1fe30629e536e236c444ebfb7cf6ba662fee00f081ed1ee0a7d0",
+                    "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                    "title": "发票办理说明",
+                    "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                    "distance": 0.4878135919570923
+                  },
+                  {
+                    "id": "1b124e87b956503329ca2a1bc665535ee8345bdc17e6329d36e71a3c10ac1e19",
+                    "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                    "title": "订单查询规则",
+                    "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                    "distance": 0.5233041048049927
+                  }
+                ],
+                "rerank_applied": true,
+                "degraded": [],
+                "backend": "chroma",
+                "queries": [
+                  "退款审核规则",
+                  "退款审核条件"
+                ]
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "81018872dfaa15e6b2c5c73247f40a6f84e5f85fa14ee5869af7c26287465a84",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 6524.7613000001365,
+      "trace": {
+        "request_id": "eval-v3-37-012-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 800.4803999999694
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1231.671199999937
+          },
+          {
+            "name": "llm",
+            "duration_ms": 495.8504000001085
+          },
+          {
+            "name": "llm",
+            "duration_ms": 596.4218999999957
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2670.570199999929
+          }
+        ],
+        "tools": [
+          {
+            "name": "knowledge_search",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 1619.7612000000845,
+            "arguments": {
+              "query": "退款审核规则"
+            },
+            "result": {
+              "items": [
+                {
+                  "id": "aef302fbf61a90f8b05f75847348bc295978090feea950960bf64bad63610730",
+                  "content": "退款必须先核验订单归属与未退金额，提交退款申请后由财务审核。审核通过后才能执行退款。沙箱结算只更新测试账本，不发生真实资金转移。",
+                  "title": "退款审核政策",
+                  "version": "2b010f02a6c0ef8e6cae6cf39306aa8072464dd36f082655909e252b9f6eeadc",
+                  "distance": 0.6166748404502869
+                },
+                {
+                  "id": "994ed1e7441e1fe30629e536e236c444ebfb7cf6ba662fee00f081ed1ee0a7d0",
+                  "content": "发票申请需要订单号、发票抬头与税号。当前发票操作需创建人工工单审核，客服不能宣称已自动开票。",
+                  "title": "发票办理说明",
+                  "version": "99971d8c24c1c730b748229eeafbe6e520de1c9c322233db10fe9c343f6055c1",
+                  "distance": 0.4878135919570923
+                },
+                {
+                  "id": "1b124e87b956503329ca2a1bc665535ee8345bdc17e6329d36e71a3c10ac1e19",
+                  "content": "订单状态必须通过订单查询工具核实，不能猜测物流或支付情况。查询需要订单号，并校验当前登录用户和租户。",
+                  "title": "订单查询规则",
+                  "version": "ce536f1a03a17e8671c3833c881ada5b014a53d61eb4292c35cd6ab4f7bb995e",
+                  "distance": 0.5233041048049927
+                }
+              ],
+              "rerank_applied": true,
+              "degraded": [],
+              "backend": "chroma",
+              "queries": [
+                "退款审核规则",
+                "退款审核条件"
+              ]
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 5412,
+        "output_tokens": 314,
+        "model_calls": 5,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 511,
+            "output_tokens": 42,
+            "uncached_cost_estimate": 0.0004928
+          },
+          {
+            "input_tokens": 1950,
+            "output_tokens": 72,
+            "uncached_cost_estimate": 0.001704
+          },
+          {
+            "input_tokens": 88,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.0001224
+          },
+          {
+            "input_tokens": 324,
+            "output_tokens": 26,
+            "uncached_cost_estimate": 0.0003112
+          },
+          {
+            "input_tokens": 2539,
+            "output_tokens": 148,
+            "uncached_cost_estimate": 0.0023271999999999998
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": null,
+  "judge_error": null,
+  "judge_input_tokens": 0,
+  "judge_output_tokens": 0,
+  "judge_cost_estimate": null
+}

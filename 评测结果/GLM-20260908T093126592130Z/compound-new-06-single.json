@@ -1,0 +1,134 @@
+{
+  "id": "compound-new-06",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 5542.216899993946,
+  "request_ms": [
+    5539.237399992999
+  ],
+  "input_tokens": 4333,
+  "output_tokens": 280,
+  "usage_complete": true,
+  "model_cost": 0.0040264,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_7ff79d56b9220c27f0986bfe5433f00d",
+      "request_id": "eval-compound-new-06-0",
+      "response": "关于接口500错误，建议保留以下信息：1. 错误发生时间；2. 操作步骤描述；3. 错误页面截图；4. 浏览器/设备信息；5. 请求URL和参数。这些信息有助于技术团队快速定位问题。\n\n关于您的订单ORD1001，查询结果显示：订单状态为已支付(paid)，订单总金额为50元(5000分)，目前无退款记录。如果您需要进一步处理接口问题，建议联系技术支持并提供上述保留的信息。",
+      "intent": "technical_crash",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "500"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "8a652635d225e0ea7347a49ea6686471152d09b0ecad90ce55ba187f098a57c2",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 5520.964199997252,
+      "trace": {
+        "request_id": "eval-compound-new-06-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 852.3539000016171
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2153.083700002753
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2170.7387000060407
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 4.985899999155663,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-new-06-single",
+              "id": "ORD1001",
+              "user": "compound-new-06",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 4333,
+        "output_tokens": 280,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 514,
+            "output_tokens": 37,
+            "uncached_cost_estimate": 0.00048520000000000003
+          },
+          {
+            "input_tokens": 1822,
+            "output_tokens": 126,
+            "uncached_cost_estimate": 0.0017096000000000001
+          },
+          {
+            "input_tokens": 1997,
+            "output_tokens": 117,
+            "uncached_cost_estimate": 0.0018316
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 317,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.00033160000000000004
+}

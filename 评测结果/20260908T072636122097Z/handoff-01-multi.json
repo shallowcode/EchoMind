@@ -1,0 +1,114 @@
+{
+  "id": "handoff-01",
+  "group": "handoff",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "ticket_closed": true,
+    "resolution_in_conversation": true
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_1c182580462c45c2a91e2cef7889669e",
+      "tenant": "eval-handoff-01-multi",
+      "user": "handoff-01",
+      "conv": "c_fb5e8690d9495d2802ef08880e08bd49",
+      "summary": "请转人工客服帮我处理。",
+      "status": "closed",
+      "assignee": "staff",
+      "resolution": "测试客服已解决",
+      "idem": "eval-handoff-01-0:ticket",
+      "version": 3
+    }
+  ],
+  "task_ms": 5808.744900001329,
+  "request_ms": [
+    5736.028799990891
+  ],
+  "input_tokens": 514,
+  "output_tokens": 40,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_fb5e8690d9495d2802ef08880e08bd49",
+      "request_id": "eval-handoff-01-0",
+      "response": "已创建人工工单 tk_1c182580462c45c2a91e2cef7889669e，状态为 open，等待客服接单。",
+      "intent": "human_handoff",
+      "entities": {},
+      "primary_agent": "escalation",
+      "agents": [
+        "escalation"
+      ],
+      "routing_reason": "人工接管请求进入持久化工单队列",
+      "routing_confidence": 0.9199999999999999,
+      "escalated": true,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "3796d2dd7d071c5c80dea164c2d6ddf4ccd857bae1ff87d04a23df6aa8bfdb04",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 5700.23940000101,
+      "trace": {
+        "request_id": "eval-handoff-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 5395.617199988919
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "escalation",
+            "success": true,
+            "cached": false,
+            "duration_ms": 10.363699999288656,
+            "arguments": {
+              "summary": "请转人工客服帮我处理。"
+            },
+            "result": {
+              "id": "tk_1c182580462c45c2a91e2cef7889669e",
+              "tenant": "eval-handoff-01-multi",
+              "user": "handoff-01",
+              "conv": "c_fb5e8690d9495d2802ef08880e08bd49",
+              "summary": "请转人工客服帮我处理。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-handoff-01-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 514,
+        "output_tokens": 40,
+        "model_calls": 1,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null
+}

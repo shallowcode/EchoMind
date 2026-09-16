@@ -1,0 +1,155 @@
+{
+  "id": "compound-04",
+  "group": "compound",
+  "variant": "multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_8a13ae3e40b04ec982297940a5dc7300",
+      "tenant": "eval-compound-04-multi",
+      "user": "compound-04",
+      "conv": "c_dbef411cfc2c73a8b1029edd9aaa2438",
+      "summary": "账户登录报401，订单 ORD1001 状态不清楚，需一起处理。",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-04-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 39099.68280000612,
+  "request_ms": [
+    39095.237200002884
+  ],
+  "input_tokens": 5671,
+  "output_tokens": 262,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_dbef411cfc2c73a8b1029edd9aaa2438",
+      "request_id": "eval-compound-04-0",
+      "response": "订单 ORD1001 状态为已支付（paid），无退款。账户登录报401，需一起处理。已创建工单 tk_8a13ae3e40b04ec982297940a5dc7300，待处理。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "technical",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "intent=technical_login, group=technical, primary=technical, supporting=none, scores=[technical=1.13, general=0.32, billing=0.00]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup",
+        "ticket_create"
+      ],
+      "status": "completed",
+      "versions": {
+        "knowledge": "b6740ebd128d6139a7d86fd6b3fe8ac98881f454d14575416925886c9230d425",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 39053.38199999824,
+      "trace": {
+        "request_id": "eval-compound-04-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 4754.43690000975
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3028.7676000007195
+          },
+          {
+            "name": "llm",
+            "duration_ms": 15895.31839999836
+          },
+          {
+            "name": "llm",
+            "duration_ms": 15029.986699999426
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 3.3708999981172383,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-compound-04-multi",
+              "id": "ORD1001",
+              "user": "compound-04",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          },
+          {
+            "name": "ticket_create",
+            "agent": "general",
+            "success": true,
+            "cached": false,
+            "duration_ms": 5.9815999993588775,
+            "arguments": {
+              "summary": "账户登录报401，订单 ORD1001 状态不清楚，需一起处理。"
+            },
+            "result": {
+              "id": "tk_8a13ae3e40b04ec982297940a5dc7300",
+              "tenant": "eval-compound-04-multi",
+              "user": "compound-04",
+              "conv": "c_dbef411cfc2c73a8b1029edd9aaa2438",
+              "summary": "账户登录报401，订单 ORD1001 状态不清楚，需一起处理。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-04-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 5671,
+        "output_tokens": 262,
+        "model_calls": 4,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.9,
+    "accuracy": 0.9,
+    "completeness": 0.9,
+    "helpfulness": 0.9
+  },
+  "judge_error": null
+}

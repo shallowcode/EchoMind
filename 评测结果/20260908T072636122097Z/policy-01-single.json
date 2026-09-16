@@ -1,0 +1,85 @@
+{
+  "id": "policy-01",
+  "group": "policy",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 28592.825500003528,
+  "request_ms": [
+    28588.50560001156
+  ],
+  "input_tokens": 1120,
+  "output_tokens": 61,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_442389db34a64fd36a32cce23b6335e6",
+      "request_id": "eval-policy-01-0",
+      "response": "给用户的回答",
+      "intent": "technical_crash",
+      "entities": {
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "17e2b1e2f4cb1f1a9fdefbcfbea7c4fb5dcf387061e926c989541faa6ab1bdcf",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 28538.04189999937,
+      "trace": {
+        "request_id": "eval-policy-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 5271.565999995801
+          },
+          {
+            "name": "llm",
+            "duration_ms": 22757.571300011477
+          }
+        ],
+        "tools": [],
+        "input_tokens": 1120,
+        "output_tokens": 61,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.0,
+    "accuracy": 0.0,
+    "completeness": 0.0,
+    "helpfulness": 0.0
+  },
+  "judge_error": null
+}

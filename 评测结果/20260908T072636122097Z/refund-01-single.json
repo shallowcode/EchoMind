@@ -1,0 +1,86 @@
+{
+  "id": "refund-01",
+  "group": "refund",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "refund_amount": false,
+    "refund_state": false,
+    "settled_balance": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 8906.096499995328,
+  "request_ms": [
+    8902.674500001012
+  ],
+  "input_tokens": 2162,
+  "output_tokens": 64,
+  "usage_complete": true,
+  "model_cost": 0.0,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_9dce4350726abd1f93ea0f5ddf4ad186",
+      "request_id": "eval-refund-01-0",
+      "response": "给用户的回答",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "20元"
+        ]
+      },
+      "primary_agent": "general",
+      "agents": [
+        "general"
+      ],
+      "routing_reason": "single universal agent baseline",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [],
+      "status": "completed",
+      "versions": {
+        "knowledge": "79e6420380635dc20cf74265a044812b72fc4cfe2c0fb9c2b9a07ac29ebcf05e",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 8871.889900008682,
+      "trace": {
+        "request_id": "eval-refund-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 6626.545099992654
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1930.8811000082642
+          }
+        ],
+        "tools": [],
+        "input_tokens": 2162,
+        "output_tokens": 64,
+        "model_calls": 2,
+        "failures": []
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.5,
+    "accuracy": 0.7,
+    "completeness": 0.6,
+    "helpfulness": 0.6
+  },
+  "judge_error": null
+}

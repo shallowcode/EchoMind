@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-09",
+  "authored_cases": 1200,
+  "template_families": 48,
+  "authored_splits": {
+    "development": 600,
+    "validation": 200,
+    "acceptance": 400
+  },
+  "public_intent_rows": 2700,
+  "public_mapped_rows": 2400,
+  "integrity_checks": "evaluation/datasets/trial-v3/integrity-audit.json",
+  "pytest": {
+    "passed": 50,
+    "command": ".venv-supportflow/Scripts/python.exe -m pytest tests -q --basetemp=.runtime/trial-tests-20260909-02"
+  },
+  "source_study_files_hash_verified": 49,
+  "model_runs": [
+    {
+      "run": "20260909T024106065087Z",
+      "purpose": "development evaluator calibration; not independent acceptance",
+      "model": "glm-4.5-air",
+      "dataset_sha256": "2396a0cd48fa8155d31f74ed56b8f2c82d827b6f08f0abbe316eded69e402d9f",
+      "tasks_per_arm": 8,
+      "single_completed": 6,
+      "multi_completed": 8,
+      "source_snapshot_verified": true
+    },
+    {
+      "run": "20260909T024452414741Z",
+      "purpose": "development evaluator calibration; not independent acceptance",
+      "model": "glm-4.5-air",
+      "dataset_sha256": "2396a0cd48fa8155d31f74ed56b8f2c82d827b6f08f0abbe316eded69e402d9f",
+      "tasks_per_arm": 8,
+      "single_completed": 7,
+      "multi_completed": 8,
+      "source_snapshot_verified": true
+    }
+  ],
+  "distinct_v3_tasks_exposed_to_model": 8,
+  "full_development_run": "not_run",
+  "validation_model_run": "not_run",
+  "acceptance_model_run": "not_run",
+  "expanded_public_model_run": "not_run",
+  "independent_human_review": "pending",
+  "enterprise_partnership": "none",
+  "evaluator_fix": "Pending financial/manual/support review normalized to pending review after a development false negative; no service behavior changed."
+}

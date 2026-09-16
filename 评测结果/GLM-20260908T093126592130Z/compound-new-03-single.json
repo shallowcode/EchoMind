@@ -1,0 +1,137 @@
+{
+  "id": "compound-new-03",
+  "group": "compound",
+  "variant": "single",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": false,
+    "refund_count": true,
+    "no_false_settlement_claim": true,
+    "ticket_closed": true,
+    "resolution_in_conversation": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": false
+  },
+  "refunds": [],
+  "tickets": [
+    {
+      "id": "tk_2af82a4d636b46479bdf1eb4dd8ba765",
+      "tenant": "eval-compound-new-03-single",
+      "user": "compound-new-03",
+      "conv": "c_a8d01d1200bf6d24df2e2eabd3fb1a22",
+      "summary": "登录401，请教我排查；查订单 ORD1001 支付状态；还要转人工跟进。",
+      "status": "closed",
+      "assignee": "staff",
+      "resolution": "测试客服已解决",
+      "idem": "eval-compound-new-03-0:ticket",
+      "version": 3
+    }
+  ],
+  "task_ms": 1202.704299998004,
+  "request_ms": [
+    1163.7652999925194
+  ],
+  "input_tokens": 515,
+  "output_tokens": 40,
+  "usage_complete": true,
+  "model_cost": 0.000492,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_a8d01d1200bf6d24df2e2eabd3fb1a22",
+      "request_id": "eval-compound-new-03-0",
+      "response": "已创建人工工单 tk_2af82a4d636b46479bdf1eb4dd8ba765，状态为 open，等待客服接单。",
+      "intent": "technical_login",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "escalation",
+      "agents": [
+        "escalation"
+      ],
+      "routing_reason": "人工接管请求进入持久化工单队列",
+      "routing_confidence": 1.0,
+      "escalated": true,
+      "sources": [],
+      "tools_used": [
+        "ticket_create"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "6452234fe828c56abf03e483ef765875c8095608b33e5a0a07de6a5518f4cbb4",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "single",
+      "latency_ms": 1146.687499989639,
+      "trace": {
+        "request_id": "eval-compound-new-03-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 961.74999998766
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "escalation",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.059999996679835,
+            "arguments": {
+              "summary": "登录401，请教我排查；查订单 ORD1001 支付状态；还要转人工跟进。"
+            },
+            "result": {
+              "id": "tk_2af82a4d636b46479bdf1eb4dd8ba765",
+              "tenant": "eval-compound-new-03-single",
+              "user": "compound-new-03",
+              "conv": "c_a8d01d1200bf6d24df2e2eabd3fb1a22",
+              "summary": "登录401，请教我排查；查订单 ORD1001 支付状态；还要转人工跟进。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-new-03-0:ticket",
+              "version": 0
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 515,
+        "output_tokens": 40,
+        "model_calls": 1,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 515,
+            "output_tokens": 40,
+            "uncached_cost_estimate": 0.000492
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 0.5,
+    "accuracy": 0.5,
+    "completeness": 0.3,
+    "helpfulness": 0.4
+  },
+  "judge_error": null,
+  "judge_input_tokens": 422,
+  "judge_output_tokens": 47,
+  "judge_cost_estimate": 0.00043160000000000003
+}

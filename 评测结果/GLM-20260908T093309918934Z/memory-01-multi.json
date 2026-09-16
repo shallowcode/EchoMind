@@ -1,0 +1,287 @@
+{
+  "id": "memory-01",
+  "group": "memory",
+  "variant": "multi",
+  "complete": true,
+  "checks": {
+    "required_tools": true,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "answer_fact": true,
+    "refund_count": true,
+    "no_false_settlement_claim": true
+  },
+  "refunds": [],
+  "tickets": [],
+  "task_ms": 6391.829400003189,
+  "request_ms": [
+    3244.4027999881655,
+    3144.173499997123
+  ],
+  "input_tokens": 3976,
+  "output_tokens": 247,
+  "usage_complete": true,
+  "model_cost": 0.0036748,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_ba81c9276ad55990244f731277842f28",
+      "request_id": "eval-memory-01-0",
+      "response": "【订单查询】\n根据查询结果，您的订单 ORD1001 状态为已支付(paid)，订单总金额为5000分，目前没有退款记录。",
+      "intent": "query",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：订单查询→billing",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "order",
+          "agent": "billing",
+          "title": "订单查询",
+          "instruction": "只核实原始请求中的订单状态，使用已提供订单号查询，并明确告知查得的状态。其他问题由同事负责。",
+          "required_tools": [
+            "order_lookup"
+          ],
+          "status": "completed",
+          "answer": "根据查询结果，您的订单 ORD1001 状态为已支付(paid)，订单总金额为5000分，目前没有退款记录。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-memory-01-multi",
+                "id": "ORD1001",
+                "user": "memory-01",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "ce3aaab3537e3fd3ceb0d7d0765b0654d43fdf6ff5494be18a5438dfb968423b",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 3224.4422000076156,
+      "trace": {
+        "request_id": "eval-memory-01-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 912.2384999936912
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1118.5803999978816
+          },
+          {
+            "name": "llm",
+            "duration_ms": 971.0762999893632
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 9.346899998490699,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-memory-01-multi",
+              "id": "ORD1001",
+              "user": "memory-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 1893,
+        "output_tokens": 122,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 503,
+            "output_tokens": 34,
+            "uncached_cost_estimate": 0.00047040000000000005
+          },
+          {
+            "input_tokens": 649,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0006072
+          },
+          {
+            "input_tokens": 741,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0006808000000000001
+          }
+        ]
+      },
+      "_http_status": 200
+    },
+    {
+      "conv_id": "c_ba81c9276ad55990244f731277842f28",
+      "request_id": "eval-memory-01-1",
+      "response": "【订单查询】\n根据查询结果，您的订单 ORD1001 状态为已支付(paid)，订单总金额为5000分，目前没有退款记录。",
+      "intent": "order_status",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing"
+      ],
+      "routing_reason": "显式子任务分工：订单查询→billing",
+      "routing_confidence": 0.87,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "order_lookup"
+      ],
+      "status": "completed",
+      "tasks": [
+        {
+          "id": "task-1",
+          "kind": "order",
+          "agent": "billing",
+          "title": "订单查询",
+          "instruction": "只核实原始请求中的订单状态，使用已提供订单号查询，并明确告知查得的状态。其他问题由同事负责。",
+          "required_tools": [
+            "order_lookup"
+          ],
+          "status": "completed",
+          "answer": "根据查询结果，您的订单 ORD1001 状态为已支付(paid)，订单总金额为5000分，目前没有退款记录。",
+          "observations": [
+            {
+              "name": "order_lookup",
+              "arguments": {
+                "order_id": "ORD1001"
+              },
+              "success": true,
+              "result": {
+                "tenant": "eval-memory-01-multi",
+                "id": "ORD1001",
+                "user": "memory-01",
+                "total": 5000,
+                "refunded": 0,
+                "status": "paid"
+              }
+            }
+          ],
+          "attempts": 2,
+          "missing": []
+        }
+      ],
+      "versions": {
+        "knowledge": "ce3aaab3537e3fd3ceb0d7d0765b0654d43fdf6ff5494be18a5438dfb968423b",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "multi",
+      "latency_ms": 3130.0821999902837,
+      "trace": {
+        "request_id": "eval-memory-01-1",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 824.8037999874214
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1051.2996999896131
+          },
+          {
+            "name": "llm",
+            "duration_ms": 1079.024099992239
+          }
+        ],
+        "tools": [
+          {
+            "name": "order_lookup",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 6.954600001336075,
+            "arguments": {
+              "order_id": "ORD1001"
+            },
+            "result": {
+              "tenant": "eval-memory-01-multi",
+              "id": "ORD1001",
+              "user": "memory-01",
+              "total": 5000,
+              "refunded": 0,
+              "status": "paid"
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 2083,
+        "output_tokens": 125,
+        "model_calls": 3,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 555,
+            "output_tokens": 37,
+            "uncached_cost_estimate": 0.000518
+          },
+          {
+            "input_tokens": 718,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0006624
+          },
+          {
+            "input_tokens": 810,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.000736
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 270,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.000294
+}

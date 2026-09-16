@@ -1,0 +1,222 @@
+{
+  "id": "compound-07",
+  "group": "compound",
+  "variant": "legacy_multi",
+  "complete": false,
+  "checks": {
+    "required_tools": false,
+    "http_success": true,
+    "agent_success": true,
+    "task_coverage": true,
+    "refund_amount": true,
+    "refund_state": true,
+    "settled_balance": true,
+    "no_false_settlement_claim": true,
+    "retrieval_evidence": false,
+    "login_evidence": false,
+    "login_answer": true
+  },
+  "refunds": [
+    {
+      "id": "rf_6d637d93f8f84d0595d17bd9970b1ab0",
+      "tenant": "eval-compound-07-legacy_multi",
+      "user": "compound-07",
+      "order_id": "ORD1001",
+      "amount": 500,
+      "status": "pending",
+      "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+      "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+      "payment_ref": null
+    }
+  ],
+  "tickets": [
+    {
+      "id": "tk_71372c1c664c40ed88a8551fcc63a11a",
+      "tenant": "eval-compound-07-legacy_multi",
+      "user": "compound-07",
+      "conv": "c_f8e8ca823b99908fabcde9ccdaae35a4",
+      "summary": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+      "status": "open",
+      "assignee": null,
+      "resolution": null,
+      "idem": "eval-compound-07-0:ticket",
+      "version": 0
+    }
+  ],
+  "task_ms": 15276.711600003182,
+  "request_ms": [
+    15274.449100004858
+  ],
+  "input_tokens": 9616,
+  "output_tokens": 690,
+  "usage_complete": true,
+  "model_cost": 0.0090728,
+  "machine_cost_estimate": null,
+  "responses": [
+    {
+      "conv_id": "c_f8e8ca823b99908fabcde9ccdaae35a4",
+      "request_id": "eval-compound-07-0",
+      "response": "关于登录401错误：401表示认证失败，请检查以下几点：\n1. 确认用户名和密码是否正确\n2. 检查Token是否过期\n3. 确认API Key是否有效\n4. 验证请求签名是否包含正确时间戳\n5. 确认当前环境是否使用了对应的认证信息\n\n关于退款申请：已为您创建退款工单(tk_71372c1c664c40ed88a8551fcc63a11a)，申请订单ORD1001退款5元，原因：缺件。工单状态为待处理，请等待审核结果。",
+      "intent": "refund",
+      "entities": {
+        "order_id": [
+          "ORD1001"
+        ],
+        "amount": [
+          "5元"
+        ],
+        "error_code": [
+          "401"
+        ]
+      },
+      "primary_agent": "billing",
+      "agents": [
+        "billing",
+        "technical"
+      ],
+      "routing_reason": "intent=refund, group=billing, primary=billing, supporting=none, scores=[billing=1.08, technical=0.38, general=0.20]",
+      "routing_confidence": 1.0,
+      "escalated": false,
+      "sources": [],
+      "tools_used": [
+        "ticket_create",
+        "refund_request"
+      ],
+      "status": "completed",
+      "tasks": [],
+      "versions": {
+        "knowledge": "215443eb348fbb2425bd4d57b5be5c8800453bc05739363083ea5ed92eb374dc",
+        "skills": "66e42c0f369925b4a5d389a8390bbb9cda5bbcade9dc227716de5b37fe63627a"
+      },
+      "model_backend": "compatible",
+      "business_mode": "sandbox",
+      "variant": "legacy_multi",
+      "latency_ms": 15255.692299993825,
+      "trace": {
+        "request_id": "eval-compound-07-0",
+        "spans": [
+          {
+            "name": "llm",
+            "duration_ms": 881.9650999939768
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4519.066799999564
+          },
+          {
+            "name": "llm",
+            "duration_ms": 7484.633900006884
+          },
+          {
+            "name": "llm",
+            "duration_ms": 4003.732700002729
+          },
+          {
+            "name": "llm",
+            "duration_ms": 2914.8959000012837
+          },
+          {
+            "name": "llm",
+            "duration_ms": 3785.094000006211
+          }
+        ],
+        "tools": [
+          {
+            "name": "ticket_create",
+            "agent": "technical",
+            "success": true,
+            "cached": false,
+            "duration_ms": 10.104100001626648,
+            "arguments": {
+              "summary": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。"
+            },
+            "result": {
+              "id": "tk_71372c1c664c40ed88a8551fcc63a11a",
+              "tenant": "eval-compound-07-legacy_multi",
+              "user": "compound-07",
+              "conv": "c_f8e8ca823b99908fabcde9ccdaae35a4",
+              "summary": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+              "status": "open",
+              "assignee": null,
+              "resolution": null,
+              "idem": "eval-compound-07-0:ticket",
+              "version": 0
+            },
+            "error": null
+          },
+          {
+            "name": "refund_request",
+            "agent": "billing",
+            "success": true,
+            "cached": false,
+            "duration_ms": 8.637400009320118,
+            "arguments": {
+              "order_id": "ORD1001",
+              "amount_cents": 500,
+              "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。"
+            },
+            "result": {
+              "id": "rf_6d637d93f8f84d0595d17bd9970b1ab0",
+              "tenant": "eval-compound-07-legacy_multi",
+              "user": "compound-07",
+              "order_id": "ORD1001",
+              "amount": 500,
+              "status": "pending",
+              "idem": "7d93d29bd9d5b27dc5aad15cbf779738997c021458c3e021a34779d627936597",
+              "reason": "登录错误401怎么处理？另外请申请 ORD1001 退款5元，缺件。",
+              "payment_ref": null
+            },
+            "error": null
+          }
+        ],
+        "input_tokens": 9616,
+        "output_tokens": 690,
+        "model_calls": 6,
+        "failures": [],
+        "usage": [
+          {
+            "input_tokens": 513,
+            "output_tokens": 44,
+            "uncached_cost_estimate": 0.0004984000000000001
+          },
+          {
+            "input_tokens": 1938,
+            "output_tokens": 59,
+            "uncached_cost_estimate": 0.0016684
+          },
+          {
+            "input_tokens": 2190,
+            "output_tokens": 167,
+            "uncached_cost_estimate": 0.002086
+          },
+          {
+            "input_tokens": 2135,
+            "output_tokens": 146,
+            "uncached_cost_estimate": 0.002
+          },
+          {
+            "input_tokens": 2506,
+            "output_tokens": 136,
+            "uncached_cost_estimate": 0.0022768000000000003
+          },
+          {
+            "input_tokens": 334,
+            "output_tokens": 138,
+            "uncached_cost_estimate": 0.0005432000000000001
+          }
+        ]
+      },
+      "_http_status": 200
+    }
+  ],
+  "judge": {
+    "relevance": 1.0,
+    "accuracy": 1.0,
+    "completeness": 1.0,
+    "helpfulness": 1.0
+  },
+  "judge_error": null,
+  "judge_input_tokens": 657,
+  "judge_output_tokens": 39,
+  "judge_cost_estimate": 0.0006036
+}

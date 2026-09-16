@@ -1,0 +1,17 @@
+{
+  "checked_utc": "2026-09-08T07:59:01.770351+00:00",
+  "checks": {
+    "health": true,
+    "anonymous_chat_rejected": true,
+    "own_order_read": true,
+    "other_customer_order_denied": true,
+    "customer_audit_denied": true,
+    "admin_metrics": true,
+    "mcp_auth_required": true,
+    "openapi": true
+  },
+  "automated_tests": 21,
+  "real_chroma_check": "passed",
+  "redis_test": "fakeredis",
+  "docker": "static checks only"
+}
