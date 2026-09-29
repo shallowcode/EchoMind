@@ -1,0 +1,44 @@
+services:
+  business:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports: ["127.0.0.1:8002:8002"]
+    environment:
+      SF_AI_URL: http://ai:8000
+      SF_BUSINESS_DB: /app/data/supportflow-business.sqlite3
+      SF_SERVICE_KEY: ${SF_SERVICE_KEY:?Set a random service key of at least 32 characters}
+      SF_LOCAL_DEMO_ACCESS: "false"
+      SF_ADMIN_TENANT: ${SF_ADMIN_TENANT:-demo}
+      SF_ADMIN_USER: ${SF_ADMIN_USER:-admin}
+      SF_ADMIN_PASSWORD: ${SF_ADMIN_PASSWORD:?Set an initial admin password of 10-72 bytes}
+    volumes: ["product-business:/app/data"]
+    restart: unless-stopped
+  ai:
+    build:
+      context: .
+      target: production
+    environment:
+      SF_BUSINESS_URL: http://business:8002
+      SF_SERVICE_KEY: ${SF_SERVICE_KEY:?Set SF_SERVICE_KEY}
+      SF_DB_PATH: /app/data/supportflow-ai.sqlite3
+      SF_STORAGE: chroma
+      SF_CHROMA_PATH: /app/data/chroma
+      SF_LOCAL_DEMO_ACCESS: "false"
+      SF_MODEL_BACKEND: compatible
+      SF_MODEL_URL: ${SF_MODEL_URL:?Set model endpoint}
+      SF_MODEL_KEY: ${SF_MODEL_KEY:?Set model API key}
+      SF_MODEL_NAME: ${SF_MODEL_NAME:-glm-4.5-air}
+      SF_MODEL_THINKING: disabled
+      SF_LOCAL_CHAT_TEMPLATE: "false"
+      SF_SUPPORTS_JSON_SCHEMA: "false"
+      SF_PUBLIC_URL: http://localhost:8002
+      SF_ADMIN_TENANT: ${SF_ADMIN_TENANT:-demo}
+    command: ["python", "scripts/run_ai_worker.py"]
+    volumes: ["product-ai:/app/data"]
+    depends_on:
+      business: {condition: service_healthy}
+    restart: unless-stopped
+volumes:
+  product-business:
+  product-ai:

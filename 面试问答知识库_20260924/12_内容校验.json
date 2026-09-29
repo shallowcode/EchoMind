@@ -1,0 +1,32 @@
+{
+  "main_questions": 120,
+  "followup_questions": 120,
+  "sections": {
+    "项目总览与版本": 8,
+    "复合任务编排": 14,
+    "RAG与知识检索": 12,
+    "记忆与Skills": 12,
+    "业务工具与权限": 16,
+    "事务与一致性": 10,
+    "意图识别与公开评测": 10,
+    "端到端评测与统计口径": 14,
+    "性能可靠性与部署": 12,
+    "场景推演与个人表达": 12
+  },
+  "priority_counts": {
+    "P0": 61,
+    "P1": 59
+  },
+  "evidence_counts": {
+    "代码已核对": 72,
+    "设计推演": 21,
+    "历史评测": 18,
+    "待本人确认": 4,
+    "场景推演": 5
+  },
+  "source_symbols_resolved": 64,
+  "broken_related_links": 0,
+  "duplicate_questions": 0,
+  "historical_metrics_checked_against_audit": true,
+  "note": "只验证知识库结构、引用和历史数字；未运行项目业务测试或模型评测。"
+}

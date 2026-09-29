@@ -1,4 +1,6 @@
-# EchoMind 完整使用指南
+# supportFlow 使用指南
+
+> **2026-09-28：Go + Python 产品版已落地。** Go 负责订单、退款、会话、人工客服、账号权限与审计，Python 负责 Agent、RAG 与记忆。启动：`python scripts/start_product.py`；入口：`http://127.0.0.1:8002/`、`/admin`、`/desk`。详见 [Go 产品架构与运行指南](docs/GO_PRODUCT.md)。下文旧版部署与架构说明保留作历史参考。
 
 > **首次接手项目：** 先看 [项目结构与数据格式](docs/PROJECT_HANDOFF.md) 和 [演示数据说明](data/README.md)。仓库保留完整业务代码、合成样例、初始化脚本和测试；本地模型、虚拟环境、运行数据库及私有配置需在新环境重新准备。可运行 `python scripts/demo_business_flow.py` 在临时数据库中验证订单、知识库和退款闭环，无需模型密钥。
 

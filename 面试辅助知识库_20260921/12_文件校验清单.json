@@ -1,0 +1,75 @@
+{
+  "created": "2026-09-21",
+  "files": [
+    {
+      "path": "00_导入与使用说明.md",
+      "bytes": 3098,
+      "sha256": "a1021701e76c56ddf429af3ec74341a712b9c02d46ed09ed431af3477e7660db"
+    },
+    {
+      "path": "01_项目核心事实.md",
+      "bytes": 8010,
+      "sha256": "07189916d38431cc0d5d675afbcec2ba6f5492488aea0cccbd1dc16add7e2abe"
+    },
+    {
+      "path": "02_核心问题与解决.md",
+      "bytes": 12217,
+      "sha256": "de9306dd240a31eb2d017b8ee5114a669a25bde0594a2f86c499835754ee71e4"
+    },
+    {
+      "path": "03_技术取舍与后续改进.md",
+      "bytes": 5069,
+      "sha256": "20e16bb207ea6afc948cb7391bd2903efe59e2f8abe742a0866fe6f62cf9e104"
+    },
+    {
+      "path": "04_评测数字与证据口径.md",
+      "bytes": 6001,
+      "sha256": "a5e31c930dfe1c89529879dd3412d11fe147eb2d86ed68869aee12e7944d8ea6"
+    },
+    {
+      "path": "05_具体场景与表达边界.md",
+      "bytes": 6233,
+      "sha256": "e7cf493f191b6b559c27430be3bc37ca964071aecd0a9ee82b0007ffc30e913b"
+    },
+    {
+      "path": "06_外接模型使用指令.txt",
+      "bytes": 4099,
+      "sha256": "cfd0083abf5d2cc318b9818219ddcf46c0b61c945997937b3b337ced1d7a1136"
+    },
+    {
+      "path": "07_个人贡献_待填写.md",
+      "bytes": 1777,
+      "sha256": "380f0bbd2f21988462649f475258efcd1afb51a67a8408a63c6e26799e3feada"
+    },
+    {
+      "path": "08_事实卡片.jsonl",
+      "bytes": 81399,
+      "sha256": "820d7339c33a0ad8d97cabc0f2bd58b136a6d3e8aadd6f574a72fc24e4d56b8a"
+    },
+    {
+      "path": "09_核心代码证据摘录.md",
+      "bytes": 5603,
+      "sha256": "6a9a20ae5fd8dacb8b8eb2bd84ec0d55c68c8583f2a12272542f2da762a8f94a"
+    },
+    {
+      "path": "10_历史评测数据.json",
+      "bytes": 7956,
+      "sha256": "00d3ae9f8282a4a377befa06f165ff73a36c850aea77f319d6f0d8e8bdaf59e1"
+    },
+    {
+      "path": "11_来源与版本清单.json",
+      "bytes": 3699,
+      "sha256": "bb3d634e1addf9b8a21399ec4c19925d749db1da9c12c710b9f4cd530e82a420"
+    },
+    {
+      "path": "原始参考/项目完整讲解.md",
+      "bytes": 102493,
+      "sha256": "7b89485493a88750ab59ba3bf22de05890fcb4a50b1b645ca81d8bb5abb6eec4"
+    },
+    {
+      "path": "知识库补充材料_直接上传版.md",
+      "bytes": 37820,
+      "sha256": "a9a613e9463c31996c544fb6d4c02696d8da423996fea5c13d1325a7448dc124"
+    }
+  ]
+}

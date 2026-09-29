@@ -32,6 +32,7 @@ def main():
         "SF_DB_PATH": "data/supportflow-glm.sqlite3",
         "SF_CHROMA_PATH": "data/supportflow-glm-chroma",
         "SF_PUBLIC_URL": f"http://localhost:{args.port}",
+        "SF_LOCAL_DEMO_ACCESS": "true",
     }
     # Use the selected file rather than stale model settings inherited from a local run.
     for field in [
@@ -74,8 +75,13 @@ def main():
     (ROOT / ".runtime/glm-service.json").write_text(
         json.dumps({"pid": pid, "port": args.port}), encoding="utf-8"
     )
-    print(f"GLM service ready: http://127.0.0.1:{args.port}/docs; PID {pid}")
+    print(f"EchoMind ready: http://127.0.0.1:{args.port}/; PID {pid}")
 
 
 if __name__ == "__main__":
-    main()
+    if '--legacy' in sys.argv:
+        sys.argv.remove('--legacy')
+        main()
+    else:
+        from scripts.start_product import main as product_main
+        product_main()

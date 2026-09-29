@@ -7,6 +7,7 @@ Final rendering preserves every task verbatim, so synthesis cannot erase a resul
 
 from dataclasses import dataclass, field
 import re
+from supportflow.refunds import resolve_refund
 
 # Error numbers require HTTP/error context so a 500-yuan refund is not a failure code.
 TECHNICAL_PATTERN = (
@@ -29,6 +30,10 @@ class Subtask:
     observations: list[dict] = field(default_factory=list)
     attempts: int = 0
     missing: list[str] = field(default_factory=list)
+    started_ms: float = 0
+    duration_ms: float = 0
+    input: dict = field(default_factory=dict)
+    repairs: list[dict] = field(default_factory=list)
 
     def gaps(self, answer):
         successful = [o for o in self.observations if o.get("success")]
@@ -77,13 +82,21 @@ class Subtask:
         return {
             "technical": {"knowledge_search"},
             "order": {"order_lookup", "knowledge_search"},
+            "order_list": {"order_list"},
+            "product_order": {"order_lookup"},
             "refund": {"order_lookup", "refund_request", "knowledge_search"},
+            "refund_details": {"order_lookup"},
             "refund_policy": {"knowledge_search"},
+            "refund_status": {"refund_status"},
             "handoff": {"ticket_create"},
         }.get(self.kind)
 
 
-def plan_tasks(message, entities, default_agent, consent):
+def plan_tasks(message, entities, default_agent, consent, refund_context=None, refund_status_context=None, order_reference=None):
+    if refund_context is None:
+        refund_context = resolve_refund(message, {}, [])
+        if not consent:
+            refund_context["active"] = False
     tasks = []
 
     def add(kind, agent, title, instruction, tools):
@@ -98,10 +111,25 @@ def plan_tasks(message, entities, default_agent, consent):
             re.I,
         )
     )
-    refund = bool(re.search(r"退款|退还|refund", message, re.I))
+    collecting = bool(refund_context and refund_context.get("active"))
+    refund = collecting or bool(re.search(r"退款|退还|refund", message, re.I))
+    product_task = False
+    ambiguous = False
+    if order_reference and order_reference.get("active"):
+        ambiguous = len(order_reference.get("ids", [])) != 1 or order_reference.get("uncertain")
+        if ambiguous or (not refund and not (refund_status_context or {}).get("active")):
+            add("product_order", "billing", "商品订单查询", "依据商品对应的真实订单回答；多笔匹配时询问用户选择，不猜测物流。", [] if ambiguous else ["order_lookup"])
+            product_task = True
     order = bool(entities.get("order_id")) and bool(
         re.search(r"订单|付款|支付|扣款|账单|物流|发货|order|payment", message, re.I)
     )
+    if product_task:
+        order = False
+    from supportflow.refunds import orders_in
+    list_orders = not orders_in(message) and bool(re.search(r"订单|买了什么|买过什么", message)) and not refund and bool(re.search(r"全部|所有|有哪些|列表|我的订单|查.*订单|订单.*查|买了什么|买过什么", message)) and not re.search(r"这个|这笔|该订单|再查|它", message)
+    if list_orders:
+        order = False
+        add("order_list", "billing", "订单列表", "读取并列出可查询的全部订单，不要求提供订单号。", ["order_list"])
     handoff = bool(re.search(r"转人工|人工客服|human agent|紧急", message, re.I))
     if technical:
         add(
@@ -121,19 +149,21 @@ def plan_tasks(message, entities, default_agent, consent):
             "只核实原始请求中的订单状态，使用已提供订单号查询，并明确告知查得的状态。其他问题由同事负责。",
             ["order_lookup"],
         )
-    if refund:
-        ready = (
-            consent
-            and bool(entities.get("order_id"))
-            and bool(re.search(r"\d+(?:\.\d{1,2})?\s*元", message))
-        )
-        add(
-            "refund" if ready else "refund_policy",
-            "billing",
-            "退款申请" if ready else "退款说明",
-            "只处理退款事项。明确申请且订单和金额齐备时提交待审核申请，并报告真实状态；否则只查询规则或追问缺失信息。不得要求已知信息，不得承诺已到账。",
-            ["refund_request"] if ready else ["knowledge_search"],
-        )
+    if refund_status_context and refund_status_context.get("active"):
+        add("refund_status", "billing", "退款进度", "读取退款账本当前审批和执行状态；不能依据历史答复或政策推测，不提交新申请。", ["refund_status"])
+    elif refund and not (product_task and ambiguous):
+        if collecting:
+            ready = len(refund_context.get("order_ids", [])) == 1 and (
+                refund_context.get("full") or refund_context.get("amount_cents") is not None
+            )
+            add(
+                "refund" if ready else "refund_details", "billing",
+                "退款申请" if ready else "补充退款信息",
+                "承接当前退款申请，核验订单；全退金额由账本计算，缺少信息仅追问缺少的字段。",
+                ["refund_request"] if ready else [],
+            )
+        else:
+            add("refund_policy", "billing", "退款说明", "只查询并简洁说明退款规则，不提交退款。", ["knowledge_search"])
     if handoff:
         add(
             "handoff",
@@ -164,10 +194,10 @@ def plan_tasks(message, entities, default_agent, consent):
 def render_tasks(tasks):
     """No freeform rewriting after validation: one section per task, including failures."""
     return "\n\n".join(
-        f"【{t.title}】\n{t.answer}"
+        (f"【{t.title}】\n" if len(tasks) > 1 else "") + t.answer
         + (
             "\n尚未完成：" + "；".join(t.missing)
-            if t.status not in {"completed", "denied"}
+            if t.status not in {"completed", "denied", "awaiting_input"}
             else ""
         )
         for t in tasks

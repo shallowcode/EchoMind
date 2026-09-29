@@ -1,0 +1,3449 @@
+{
+  "status": "completed",
+  "primary_scope": "original semantic classification branch; no threshold or prompt tuning",
+  "metrics": {
+    "all": {
+      "glm": {
+        "n": 48,
+        "correct": 37,
+        "accuracy": 0.7708333333333334,
+        "macro_f1": 0.8603425559947299,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 0.6666666666666666,
+          "order_status": 0.9565217391304348,
+          "human_handoff": 0.9090909090909091
+        },
+        "failure_rate": 0.0,
+        "median_ms": 655.1076999749057,
+        "p95_ms": 800.0011000549421,
+        "confusion": [
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 10
+          },
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 11
+          },
+          {
+            "expected": "invoice",
+            "predicted": "billing",
+            "count": 6
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 10
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "escalation",
+            "count": 1
+          },
+          {
+            "expected": "invoice",
+            "predicted": "invoice",
+            "count": 6
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 2
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "other",
+            "count": 1
+          },
+          {
+            "expected": "order_status",
+            "predicted": "query",
+            "count": 1
+          }
+        ]
+      },
+      "jev": {
+        "n": 48,
+        "correct": 41,
+        "accuracy": 0.8541666666666666,
+        "macro_f1": 0.916403162055336,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 0.8,
+          "order_status": 1.0,
+          "human_handoff": 0.9565217391304348
+        },
+        "failure_rate": 0.0,
+        "median_ms": 976.4355999650434,
+        "p95_ms": 1048.020499991253,
+        "confusion": [
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 11
+          },
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 12
+          },
+          {
+            "expected": "invoice",
+            "predicted": "billing",
+            "count": 4
+          },
+          {
+            "expected": "invoice",
+            "predicted": "invoice",
+            "count": 8
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 10
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "escalation",
+            "count": 1
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 2
+          }
+        ]
+      }
+    },
+    "zh": {
+      "glm": {
+        "n": 24,
+        "correct": 22,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.9545454545454546,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 1.0,
+          "order_status": 1.0,
+          "human_handoff": 0.9090909090909091
+        },
+        "failure_rate": 0.0,
+        "median_ms": 642.8855499834754,
+        "p95_ms": 733.0403999658301,
+        "confusion": [
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 5
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 5
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "escalation",
+            "count": 1
+          },
+          {
+            "expected": "invoice",
+            "predicted": "invoice",
+            "count": 6
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 1
+          },
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 6
+          }
+        ]
+      },
+      "jev": {
+        "n": 24,
+        "correct": 22,
+        "accuracy": 0.9166666666666666,
+        "macro_f1": 0.9545454545454546,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 1.0,
+          "order_status": 1.0,
+          "human_handoff": 0.9090909090909091
+        },
+        "failure_rate": 0.0,
+        "median_ms": 988.8844999950379,
+        "p95_ms": 1034.7121000522748,
+        "confusion": [
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 5
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 5
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "escalation",
+            "count": 1
+          },
+          {
+            "expected": "invoice",
+            "predicted": "invoice",
+            "count": 6
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 1
+          },
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 6
+          }
+        ]
+      }
+    },
+    "en": {
+      "glm": {
+        "n": 24,
+        "correct": 15,
+        "accuracy": 0.625,
+        "macro_f1": 0.6818181818181818,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 0.0,
+          "order_status": 0.9090909090909091,
+          "human_handoff": 0.9090909090909091
+        },
+        "failure_rate": 0.0,
+        "median_ms": 666.2325500510633,
+        "p95_ms": 800.0011000549421,
+        "confusion": [
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 5
+          },
+          {
+            "expected": "invoice",
+            "predicted": "billing",
+            "count": 6
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 5
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 5
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "other",
+            "count": 1
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 1
+          },
+          {
+            "expected": "order_status",
+            "predicted": "query",
+            "count": 1
+          }
+        ]
+      },
+      "jev": {
+        "n": 24,
+        "correct": 19,
+        "accuracy": 0.7916666666666666,
+        "macro_f1": 0.8522727272727273,
+        "per_class_f1": {
+          "refund": 0.9090909090909091,
+          "invoice": 0.5,
+          "order_status": 1.0,
+          "human_handoff": 1.0
+        },
+        "failure_rate": 0.0,
+        "median_ms": 970.0749000185169,
+        "p95_ms": 1048.020499991253,
+        "confusion": [
+          {
+            "expected": "order_status",
+            "predicted": "order_status",
+            "count": 6
+          },
+          {
+            "expected": "invoice",
+            "predicted": "billing",
+            "count": 4
+          },
+          {
+            "expected": "human_handoff",
+            "predicted": "human_handoff",
+            "count": 6
+          },
+          {
+            "expected": "invoice",
+            "predicted": "invoice",
+            "count": 2
+          },
+          {
+            "expected": "refund",
+            "predicted": "refund",
+            "count": 5
+          },
+          {
+            "expected": "refund",
+            "predicted": "query",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "paired": {
+    "n_pairs": 48,
+    "jev_only_correct": 4,
+    "glm_only_correct": 0,
+    "accuracy_delta": 0.08333333333333333,
+    "paired_bootstrap_95": [
+      0.020833333333333332,
+      0.16666666666666666
+    ],
+    "mcnemar_exact_p": 0.125
+  },
+  "pipeline_diagnostic": {
+    "glm": {
+      "n": 48,
+      "correct": 37,
+      "accuracy": 0.7708333333333334,
+      "macro_f1": 0.8603425559947299,
+      "per_class_f1": {
+        "refund": 0.9090909090909091,
+        "invoice": 0.6666666666666666,
+        "order_status": 0.9565217391304348,
+        "human_handoff": 0.9090909090909091
+      },
+      "failure_rate": 0.0,
+      "median_ms": 655.1076999749057,
+      "p95_ms": 800.0011000549421,
+      "confusion": [
+        {
+          "expected": "human_handoff",
+          "predicted": "human_handoff",
+          "count": 10
+        },
+        {
+          "expected": "order_status",
+          "predicted": "order_status",
+          "count": 11
+        },
+        {
+          "expected": "invoice",
+          "predicted": "billing",
+          "count": 6
+        },
+        {
+          "expected": "refund",
+          "predicted": "refund",
+          "count": 10
+        },
+        {
+          "expected": "human_handoff",
+          "predicted": "escalation",
+          "count": 1
+        },
+        {
+          "expected": "invoice",
+          "predicted": "invoice",
+          "count": 6
+        },
+        {
+          "expected": "refund",
+          "predicted": "query",
+          "count": 2
+        },
+        {
+          "expected": "human_handoff",
+          "predicted": "other",
+          "count": 1
+        },
+        {
+          "expected": "order_status",
+          "predicted": "query",
+          "count": 1
+        }
+      ]
+    },
+    "jev": {
+      "n": 48,
+      "correct": 39,
+      "accuracy": 0.8125,
+      "macro_f1": 0.888755980861244,
+      "per_class_f1": {
+        "refund": 0.9090909090909091,
+        "invoice": 0.7368421052631579,
+        "order_status": 1.0,
+        "human_handoff": 0.9090909090909091
+      },
+      "failure_rate": 0.0,
+      "median_ms": 976.4355999650434,
+      "p95_ms": 1048.020499991253,
+      "confusion": [
+        {
+          "expected": "human_handoff",
+          "predicted": "human_handoff",
+          "count": 10
+        },
+        {
+          "expected": "order_status",
+          "predicted": "order_status",
+          "count": 12
+        },
+        {
+          "expected": "invoice",
+          "predicted": "billing",
+          "count": 3
+        },
+        {
+          "expected": "invoice",
+          "predicted": "other",
+          "count": 2
+        },
+        {
+          "expected": "refund",
+          "predicted": "refund",
+          "count": 10
+        },
+        {
+          "expected": "invoice",
+          "predicted": "invoice",
+          "count": 7
+        },
+        {
+          "expected": "human_handoff",
+          "predicted": "escalation",
+          "count": 1
+        },
+        {
+          "expected": "refund",
+          "predicted": "query",
+          "count": 2
+        },
+        {
+          "expected": "human_handoff",
+          "predicted": "other",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "budget_accounted_usd_upper_estimate": 0.045993288,
+  "openrouter_reported_usd": 0.001989288,
+  "glm_estimated_cny_historical_tariff": 0.023086000000000002,
+  "dataset_sha256": "c1828fe7356dcbe837a1eb431894d19dcb8096851230aa0d173656ebd1874ac0",
+  "records": [
+    {
+      "id": "zh-human_handoff-1",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 681.8222999572754,
+      "usage": {
+        "completion_tokens": 35,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 4
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 705.2208998939022
+    },
+    {
+      "id": "zh-human_handoff-1",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.99,
+      "probabilities": {
+        "technical_crash": 0,
+        "feedback": 0,
+        "complaint": 0,
+        "account": 0,
+        "human_handoff": 0.99,
+        "escalation": 0.01,
+        "query": 0,
+        "request": 0,
+        "invoice": 0,
+        "greeting": 0,
+        "technical": 0,
+        "account_security": 0,
+        "other": 0,
+        "billing": 0,
+        "order_status": 0,
+        "logistics": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 1712.3509999364614,
+      "usage": {
+        "input_tokens": 990,
+        "output_tokens": 169,
+        "cost": 4.158e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1717.0180999673903
+    },
+    {
+      "id": "en-order_status-3",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 621.1840999312699,
+      "usage": {
+        "completion_tokens": 36,
+        "prompt_tokens": 501,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 662.8804000793025
+    },
+    {
+      "id": "en-order_status-3",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "account": 0,
+        "technical_crash": 0,
+        "human_handoff": 0,
+        "greeting": 0,
+        "account_security": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "invoice": 0,
+        "request": 0,
+        "escalation": 0,
+        "billing": 0,
+        "feedback": 0,
+        "payment_issue": 0,
+        "other": 0,
+        "logistics": 0,
+        "query": 0.01,
+        "technical": 0,
+        "order_status": 0.99,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 1323.6556000774726,
+      "usage": {
+        "input_tokens": 980,
+        "output_tokens": 167,
+        "cost": 4.116e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1326.2455000076443
+    },
+    {
+      "id": "en-invoice-3",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 628.3362000249326,
+      "usage": {
+        "completion_tokens": 38,
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 542
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 651.7303999280557
+    },
+    {
+      "id": "en-invoice-3",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.74,
+      "probabilities": {
+        "billing": 0.76,
+        "human_handoff": 0,
+        "technical_crash": 0,
+        "order_status": 0,
+        "complaint": 0,
+        "feedback": 0,
+        "logistics": 0,
+        "account_security": 0,
+        "invoice": 0.07,
+        "technical_login": 0,
+        "greeting": 0,
+        "payment_issue": 0,
+        "account": 0,
+        "request": 0.03,
+        "query": 0.14,
+        "refund": 0,
+        "escalation": 0,
+        "other": 0,
+        "technical": 0
+      },
+      "http_status": 200,
+      "api_ms": 1045.575900003314,
+      "usage": {
+        "input_tokens": 987,
+        "output_tokens": 166,
+        "cost": 4.1454e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1048.020499991253
+    },
+    {
+      "id": "en-human_handoff-0",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 759.1369000729173,
+      "usage": {
+        "completion_tokens": 38,
+        "prompt_tokens": 508,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 546
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 782.0420999778435
+    },
+    {
+      "id": "en-human_handoff-0",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.96,
+      "probabilities": {
+        "greeting": 0,
+        "technical_login": 0,
+        "request": 0.01,
+        "technical": 0,
+        "billing": 0,
+        "query": 0.02,
+        "logistics": 0,
+        "escalation": 0.01,
+        "human_handoff": 0.96,
+        "payment_issue": 0,
+        "refund": 0,
+        "invoice": 0,
+        "account": 0,
+        "complaint": 0,
+        "other": 0,
+        "technical_crash": 0,
+        "account_security": 0,
+        "feedback": 0,
+        "order_status": 0
+      },
+      "http_status": 200,
+      "api_ms": 1006.8141000811011,
+      "usage": {
+        "input_tokens": 987,
+        "output_tokens": 169,
+        "cost": 4.1454e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1009.3746000202373
+    },
+    {
+      "id": "en-invoice-4",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 720.6368000479415,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 505,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 547
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 742.7893000422046
+    },
+    {
+      "id": "en-invoice-4",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "other",
+      "confidence": 0.46,
+      "probabilities": {
+        "invoice": 0.5,
+        "logistics": 0,
+        "complaint": 0.02,
+        "other": 0.01,
+        "technical_login": 0,
+        "account": 0,
+        "billing": 0.27,
+        "order_status": 0,
+        "technical_crash": 0,
+        "account_security": 0,
+        "request": 0.15,
+        "refund": 0,
+        "greeting": 0,
+        "technical": 0,
+        "payment_issue": 0.02,
+        "human_handoff": 0,
+        "feedback": 0,
+        "query": 0.02,
+        "escalation": 0.01
+      },
+      "http_status": 200,
+      "api_ms": 973.9307999843732,
+      "usage": {
+        "input_tokens": 984,
+        "output_tokens": 166,
+        "cost": 4.1328e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 976.5515000326559
+    },
+    {
+      "id": "zh-refund-5",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 596.9108999706805,
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 619.5074999704957
+    },
+    {
+      "id": "zh-refund-5",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.84,
+      "probabilities": {
+        "query": 0.06,
+        "technical_crash": 0,
+        "order_status": 0.08,
+        "complaint": 0,
+        "greeting": 0,
+        "other": 0,
+        "refund": 0.86,
+        "technical_login": 0,
+        "account": 0,
+        "human_handoff": 0,
+        "feedback": 0,
+        "request": 0,
+        "escalation": 0,
+        "invoice": 0,
+        "billing": 0,
+        "account_security": 0,
+        "technical": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 919.4423999870196,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 166,
+        "cost": 4.1538e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 925.5070000654086
+    },
+    {
+      "id": "en-invoice-0",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 647.7087999228388,
+      "usage": {
+        "completion_tokens": 38,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 540
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 669.6775000309572
+    },
+    {
+      "id": "en-invoice-0",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.87,
+      "probabilities": {
+        "query": 0.02,
+        "technical_login": 0,
+        "greeting": 0,
+        "human_handoff": 0,
+        "technical": 0,
+        "account_security": 0,
+        "account": 0,
+        "logistics": 0,
+        "escalation": 0,
+        "feedback": 0,
+        "technical_crash": 0,
+        "payment_issue": 0,
+        "invoice": 0.89,
+        "billing": 0.04,
+        "refund": 0,
+        "order_status": 0,
+        "other": 0,
+        "request": 0.05,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 918.2137999450788,
+      "usage": {
+        "input_tokens": 980,
+        "output_tokens": 166,
+        "cost": 4.116e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 923.4838000265881
+    },
+    {
+      "id": "zh-human_handoff-4",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "escalation",
+      "pipeline_predicted": "escalation",
+      "confidence": 1,
+      "http_status": 200,
+      "api_ms": 644.9373998912051,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 501,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 540
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 669.1785000730306
+    },
+    {
+      "id": "zh-human_handoff-4",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "escalation",
+      "pipeline_predicted": "escalation",
+      "confidence": 0.95,
+      "probabilities": {
+        "logistics": 0,
+        "feedback": 0,
+        "other": 0,
+        "escalation": 0.95,
+        "complaint": 0,
+        "payment_issue": 0,
+        "query": 0,
+        "request": 0,
+        "billing": 0,
+        "order_status": 0,
+        "technical_login": 0,
+        "greeting": 0,
+        "invoice": 0,
+        "technical_crash": 0,
+        "refund": 0,
+        "account": 0,
+        "human_handoff": 0.05,
+        "technical": 0,
+        "account_security": 0
+      },
+      "http_status": 200,
+      "api_ms": 1007.1336000692099,
+      "usage": {
+        "input_tokens": 988,
+        "output_tokens": 168,
+        "cost": 4.1496e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1010.3023999836296
+    },
+    {
+      "id": "en-refund-0",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 778.3165000146255,
+      "usage": {
+        "completion_tokens": 38,
+        "prompt_tokens": 499,
+        "prompt_tokens_details": {
+          "cached_tokens": 405
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 800.0011000549421
+    },
+    {
+      "id": "en-refund-0",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.59,
+      "probabilities": {
+        "human_handoff": 0,
+        "logistics": 0,
+        "refund": 0.62,
+        "request": 0.04,
+        "other": 0.01,
+        "technical": 0,
+        "query": 0.22,
+        "payment_issue": 0,
+        "account": 0,
+        "greeting": 0,
+        "technical_login": 0,
+        "complaint": 0,
+        "feedback": 0,
+        "billing": 0.08,
+        "account_security": 0,
+        "order_status": 0.03,
+        "technical_crash": 0,
+        "escalation": 0,
+        "invoice": 0
+      },
+      "http_status": 200,
+      "api_ms": 931.9168999791145,
+      "usage": {
+        "input_tokens": 979,
+        "output_tokens": 166,
+        "cost": 4.1118e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 936.3446000497788
+    },
+    {
+      "id": "en-refund-4",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 670.6156000727788,
+      "usage": {
+        "completion_tokens": 45,
+        "prompt_tokens": 503,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 548
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 693.7482999637723
+    },
+    {
+      "id": "en-refund-4",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.82,
+      "probabilities": {
+        "feedback": 0,
+        "greeting": 0,
+        "technical_crash": 0,
+        "technical": 0,
+        "other": 0,
+        "logistics": 0,
+        "account_security": 0,
+        "invoice": 0,
+        "human_handoff": 0,
+        "complaint": 0,
+        "account": 0,
+        "technical_login": 0,
+        "query": 0.16,
+        "refund": 0.83,
+        "order_status": 0,
+        "request": 0.01,
+        "payment_issue": 0,
+        "billing": 0,
+        "escalation": 0
+      },
+      "http_status": 200,
+      "api_ms": 952.9632000485435,
+      "usage": {
+        "input_tokens": 982,
+        "output_tokens": 166,
+        "cost": 4.1244e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 957.4230000143871
+    },
+    {
+      "id": "zh-invoice-5",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 611.9260999839753,
+      "usage": {
+        "completion_tokens": 35,
+        "prompt_tokens": 506,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 635.5409000534564
+    },
+    {
+      "id": "zh-invoice-5",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 1,
+      "probabilities": {
+        "technical_login": 0,
+        "technical": 0,
+        "invoice": 1,
+        "greeting": 0,
+        "refund": 0,
+        "other": 0,
+        "account_security": 0,
+        "complaint": 0,
+        "order_status": 0,
+        "feedback": 0,
+        "escalation": 0,
+        "human_handoff": 0,
+        "request": 0,
+        "logistics": 0,
+        "account": 0,
+        "billing": 0,
+        "query": 0,
+        "payment_issue": 0,
+        "technical_crash": 0
+      },
+      "http_status": 200,
+      "api_ms": 1031.6850000526756,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 166,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1034.65409995988
+    },
+    {
+      "id": "zh-refund-4",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "query",
+      "pipeline_predicted": "query",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 707.7414999948815,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 503,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 542
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 733.0403999658301
+    },
+    {
+      "id": "zh-refund-4",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "query",
+      "pipeline_predicted": "query",
+      "confidence": 0.78,
+      "probabilities": {
+        "greeting": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "invoice": 0,
+        "other": 0.03,
+        "account": 0,
+        "refund": 0.16,
+        "technical_crash": 0,
+        "account_security": 0,
+        "human_handoff": 0,
+        "query": 0.79,
+        "order_status": 0,
+        "feedback": 0,
+        "escalation": 0,
+        "billing": 0,
+        "complaint": 0,
+        "request": 0.02,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 1000.4386999644339,
+      "usage": {
+        "input_tokens": 988,
+        "output_tokens": 166,
+        "cost": 4.1496e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1003.7233999464661
+    },
+    {
+      "id": "en-refund-3",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 596.9947000266984,
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 510,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 547
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 621.661200071685
+    },
+    {
+      "id": "en-refund-3",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 1,
+      "probabilities": {
+        "feedback": 0,
+        "technical_crash": 0,
+        "query": 0,
+        "billing": 0,
+        "technical_login": 0,
+        "account": 0,
+        "technical": 0,
+        "refund": 1,
+        "payment_issue": 0,
+        "invoice": 0,
+        "logistics": 0,
+        "order_status": 0,
+        "account_security": 0,
+        "request": 0,
+        "greeting": 0,
+        "complaint": 0,
+        "escalation": 0,
+        "other": 0,
+        "human_handoff": 0
+      },
+      "http_status": 200,
+      "api_ms": 953.2186000142246,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 166,
+        "cost": 4.1538e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 958.0668999115005
+    },
+    {
+      "id": "zh-order_status-4",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 665.8733000513166,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 546
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 687.949400045909
+    },
+    {
+      "id": "zh-order_status-4",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "query": 0.01,
+        "technical_login": 0,
+        "greeting": 0,
+        "human_handoff": 0,
+        "account_security": 0,
+        "technical": 0,
+        "account": 0,
+        "logistics": 0,
+        "escalation": 0,
+        "feedback": 0,
+        "technical_crash": 0,
+        "payment_issue": 0,
+        "invoice": 0,
+        "billing": 0,
+        "refund": 0,
+        "order_status": 0.99,
+        "other": 0,
+        "request": 0,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 928.1495000468567,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 167,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 931.0902999714017
+    },
+    {
+      "id": "en-refund-1",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 767.6271999953315,
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 511,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 555
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 791.0326999844983
+    },
+    {
+      "id": "en-refund-1",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.98,
+      "probabilities": {
+        "greeting": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "invoice": 0,
+        "other": 0,
+        "account": 0,
+        "refund": 0.99,
+        "technical_crash": 0,
+        "account_security": 0,
+        "human_handoff": 0,
+        "query": 0.01,
+        "order_status": 0,
+        "feedback": 0,
+        "escalation": 0,
+        "billing": 0,
+        "complaint": 0,
+        "request": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 967.8297999780625,
+      "usage": {
+        "input_tokens": 990,
+        "output_tokens": 166,
+        "cost": 4.158e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 970.8765000104904
+    },
+    {
+      "id": "en-human_handoff-2",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 704.1876000585034,
+      "usage": {
+        "completion_tokens": 45,
+        "prompt_tokens": 501,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 546
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 727.5521999690682
+    },
+    {
+      "id": "en-human_handoff-2",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.79,
+      "probabilities": {
+        "technical": 0,
+        "technical_login": 0,
+        "greeting": 0,
+        "human_handoff": 0.81,
+        "query": 0.05,
+        "account_security": 0,
+        "account": 0,
+        "logistics": 0,
+        "escalation": 0.03,
+        "feedback": 0,
+        "technical_crash": 0,
+        "payment_issue": 0,
+        "invoice": 0,
+        "billing": 0,
+        "refund": 0,
+        "other": 0.03,
+        "order_status": 0,
+        "request": 0.08,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 946.2154000066221,
+      "usage": {
+        "input_tokens": 981,
+        "output_tokens": 169,
+        "cost": 4.1202e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 950.0304999528453
+    },
+    {
+      "id": "en-order_status-1",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 692.7079999586567,
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 507,
+        "prompt_tokens_details": {
+          "cached_tokens": 405
+        },
+        "total_tokens": 551
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 717.5343000562862
+    },
+    {
+      "id": "en-order_status-1",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "payment_issue": 0,
+        "technical": 0,
+        "technical_login": 0,
+        "invoice": 0,
+        "other": 0,
+        "account": 0,
+        "refund": 0,
+        "technical_crash": 0,
+        "account_security": 0,
+        "escalation": 0,
+        "query": 0.01,
+        "order_status": 0.99,
+        "feedback": 0,
+        "human_handoff": 0,
+        "billing": 0,
+        "complaint": 0,
+        "request": 0,
+        "logistics": 0,
+        "greeting": 0
+      },
+      "http_status": 200,
+      "api_ms": 954.4728000182658,
+      "usage": {
+        "input_tokens": 986,
+        "output_tokens": 167,
+        "cost": 4.1412e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 957.413800060749
+    },
+    {
+      "id": "en-human_handoff-4",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "other",
+      "pipeline_predicted": "other",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 695.5026000505313,
+      "usage": {
+        "completion_tokens": 41,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 406
+        },
+        "total_tokens": 543
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 718.2876999722794
+    },
+    {
+      "id": "en-human_handoff-4",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "other",
+      "confidence": 0.33,
+      "probabilities": {
+        "request": 0.13,
+        "query": 0.21,
+        "complaint": 0,
+        "order_status": 0,
+        "other": 0.12,
+        "refund": 0,
+        "payment_issue": 0,
+        "feedback": 0,
+        "invoice": 0,
+        "escalation": 0.09,
+        "billing": 0,
+        "technical": 0.03,
+        "account_security": 0,
+        "greeting": 0.04,
+        "logistics": 0,
+        "technical_login": 0,
+        "account": 0,
+        "technical_crash": 0,
+        "human_handoff": 0.38
+      },
+      "http_status": 200,
+      "api_ms": 964.4663000945002,
+      "usage": {
+        "input_tokens": 981,
+        "output_tokens": 169,
+        "cost": 4.1202e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 967.7792000584304
+    },
+    {
+      "id": "zh-refund-1",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 628.69809998665,
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 539
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 654.5799999730662
+    },
+    {
+      "id": "zh-refund-1",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 1,
+      "probabilities": {
+        "invoice": 0,
+        "technical": 0,
+        "human_handoff": 0,
+        "order_status": 0,
+        "billing": 0,
+        "account": 0,
+        "account_security": 0,
+        "technical_crash": 0,
+        "feedback": 0,
+        "query": 0,
+        "payment_issue": 0,
+        "refund": 1,
+        "greeting": 0,
+        "escalation": 0,
+        "complaint": 0,
+        "logistics": 0,
+        "other": 0,
+        "request": 0,
+        "technical_login": 0
+      },
+      "http_status": 200,
+      "api_ms": 926.7349999863654,
+      "usage": {
+        "input_tokens": 987,
+        "output_tokens": 166,
+        "cost": 4.1454e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 930.5471000261605
+    },
+    {
+      "id": "zh-refund-0",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 574.4342000689358,
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 507,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 535
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 597.8613999905065
+    },
+    {
+      "id": "zh-refund-0",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 1,
+      "probabilities": {
+        "request": 0,
+        "payment_issue": 0,
+        "account_security": 0,
+        "technical": 0,
+        "technical_login": 0,
+        "greeting": 0,
+        "human_handoff": 0,
+        "complaint": 0,
+        "escalation": 0,
+        "account": 0,
+        "invoice": 0,
+        "order_status": 0,
+        "feedback": 0,
+        "billing": 0,
+        "technical_crash": 0,
+        "other": 0,
+        "query": 0,
+        "logistics": 0,
+        "refund": 1
+      },
+      "http_status": 200,
+      "api_ms": 986.1774999881163,
+      "usage": {
+        "input_tokens": 993,
+        "output_tokens": 166,
+        "cost": 4.1706e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 989.8645000066608
+    },
+    {
+      "id": "en-refund-5",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "query",
+      "pipeline_predicted": "query",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 637.9226000281051,
+      "usage": {
+        "completion_tokens": 36,
+        "prompt_tokens": 503,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 539
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 660.5550000676885
+    },
+    {
+      "id": "en-refund-5",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "query",
+      "pipeline_predicted": "query",
+      "confidence": 0.6,
+      "probabilities": {
+        "greeting": 0,
+        "technical_login": 0,
+        "billing": 0.09999999999999999,
+        "technical": 0,
+        "request": 0.13,
+        "query": 0.63,
+        "logistics": 0,
+        "escalation": 0,
+        "human_handoff": 0,
+        "payment_issue": 0.03,
+        "refund": 0.06,
+        "account_security": 0,
+        "feedback": 0,
+        "complaint": 0,
+        "other": 0.04,
+        "technical_crash": 0,
+        "account": 0,
+        "invoice": 0,
+        "order_status": 0.01
+      },
+      "http_status": 200,
+      "api_ms": 976.5030000125989,
+      "usage": {
+        "input_tokens": 982,
+        "output_tokens": 166,
+        "cost": 4.1244e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 979.8627001000568
+    },
+    {
+      "id": "zh-refund-2",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 591.0676000639796,
+      "usage": {
+        "completion_tokens": 35,
+        "prompt_tokens": 506,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 616.4993999991566
+    },
+    {
+      "id": "zh-refund-2",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 1,
+      "probabilities": {
+        "human_handoff": 0,
+        "query": 0,
+        "refund": 1,
+        "feedback": 0,
+        "account_security": 0,
+        "logistics": 0,
+        "technical": 0,
+        "technical_login": 0,
+        "other": 0,
+        "complaint": 0,
+        "billing": 0,
+        "technical_crash": 0,
+        "account": 0,
+        "order_status": 0,
+        "payment_issue": 0,
+        "escalation": 0,
+        "request": 0,
+        "invoice": 0,
+        "greeting": 0
+      },
+      "http_status": 200,
+      "api_ms": 952.3349000373855,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 166,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 955.5701999925077
+    },
+    {
+      "id": "zh-order_status-2",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 633.3066000370309,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 505,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 544
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 655.6353999767452
+    },
+    {
+      "id": "zh-order_status-2",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.98,
+      "probabilities": {
+        "other": 0,
+        "query": 0.02,
+        "technical_crash": 0,
+        "feedback": 0,
+        "billing": 0,
+        "human_handoff": 0,
+        "logistics": 0,
+        "invoice": 0,
+        "escalation": 0,
+        "request": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "greeting": 0,
+        "payment_issue": 0,
+        "complaint": 0,
+        "order_status": 0.98,
+        "account_security": 0,
+        "account": 0
+      },
+      "http_status": 200,
+      "api_ms": 1027.7565999422222,
+      "usage": {
+        "input_tokens": 993,
+        "output_tokens": 167,
+        "cost": 4.1706e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1030.9771000174806
+    },
+    {
+      "id": "en-order_status-4",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 645.7678000442684,
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 544
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 669.5847000228241
+    },
+    {
+      "id": "en-order_status-4",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "technical_crash": 0,
+        "other": 0,
+        "account_security": 0,
+        "technical": 0,
+        "greeting": 0,
+        "technical_login": 0,
+        "invoice": 0,
+        "payment_issue": 0,
+        "human_handoff": 0,
+        "complaint": 0,
+        "logistics": 0,
+        "escalation": 0,
+        "feedback": 0,
+        "query": 0,
+        "refund": 0,
+        "account": 0,
+        "billing": 0,
+        "order_status": 1,
+        "request": 0
+      },
+      "http_status": 200,
+      "api_ms": 976.4408000046387,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 167,
+        "cost": 4.1286e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 980.0748999696225
+    },
+    {
+      "id": "zh-human_handoff-0",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 655.0542999757454,
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 500,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 679.9812000244856
+    },
+    {
+      "id": "zh-human_handoff-0",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 1,
+      "probabilities": {
+        "greeting": 0,
+        "payment_issue": 0,
+        "human_handoff": 1,
+        "technical": 0,
+        "invoice": 0,
+        "complaint": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "query": 0,
+        "feedback": 0,
+        "escalation": 0,
+        "other": 0,
+        "billing": 0,
+        "account_security": 0,
+        "logistics": 0,
+        "technical_crash": 0,
+        "order_status": 0,
+        "account": 0,
+        "request": 0
+      },
+      "http_status": 200,
+      "api_ms": 925.1872000750154,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 169,
+        "cost": 4.1286e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 928.8707999512553
+    },
+    {
+      "id": "zh-invoice-1",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 663.1778000155464,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 505,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 547
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 686.7930999724194
+    },
+    {
+      "id": "zh-invoice-1",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.98,
+      "probabilities": {
+        "query": 0,
+        "technical_crash": 0,
+        "order_status": 0,
+        "complaint": 0,
+        "greeting": 0,
+        "other": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "account": 0,
+        "human_handoff": 0,
+        "request": 0.02,
+        "feedback": 0,
+        "account_security": 0,
+        "invoice": 0.98,
+        "technical": 0,
+        "escalation": 0,
+        "billing": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 945.9955999627709,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 166,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 949.3233000393957
+    },
+    {
+      "id": "en-order_status-0",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "query",
+      "pipeline_predicted": "query",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 457.2506999829784,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 479.3085999554023
+    },
+    {
+      "id": "en-order_status-0",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.81,
+      "probabilities": {
+        "feedback": 0,
+        "greeting": 0,
+        "technical_crash": 0,
+        "technical": 0,
+        "other": 0,
+        "logistics": 0,
+        "account_security": 0,
+        "invoice": 0,
+        "human_handoff": 0,
+        "complaint": 0,
+        "account": 0,
+        "technical_login": 0,
+        "query": 0.11,
+        "refund": 0,
+        "order_status": 0.83,
+        "request": 0.06,
+        "payment_issue": 0,
+        "billing": 0,
+        "escalation": 0
+      },
+      "http_status": 200,
+      "api_ms": 980.3727999096736,
+      "usage": {
+        "input_tokens": 980,
+        "output_tokens": 167,
+        "cost": 4.116e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 984.6554999239743
+    },
+    {
+      "id": "en-invoice-5",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 493.0873999837786,
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 507,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 551
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 520.5034000100568
+    },
+    {
+      "id": "en-invoice-5",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.82,
+      "probabilities": {
+        "payment_issue": 0,
+        "account_security": 0,
+        "request": 0.03,
+        "other": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "logistics": 0,
+        "complaint": 0,
+        "order_status": 0,
+        "refund": 0,
+        "human_handoff": 0,
+        "billing": 0.84,
+        "feedback": 0,
+        "account": 0,
+        "technical_crash": 0,
+        "invoice": 0.08,
+        "query": 0.05,
+        "escalation": 0,
+        "greeting": 0
+      },
+      "http_status": 200,
+      "api_ms": 974.2907000472769,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 166,
+        "cost": 4.1538e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 978.5419000545517
+    },
+    {
+      "id": "zh-invoice-3",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 412.46300004422665,
+      "usage": {
+        "completion_tokens": 36,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 538
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 435.3728999849409
+    },
+    {
+      "id": "zh-invoice-3",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.99,
+      "probabilities": {
+        "account_security": 0,
+        "query": 0,
+        "invoice": 1,
+        "complaint": 0,
+        "technical": 0,
+        "feedback": 0,
+        "billing": 0,
+        "payment_issue": 0,
+        "human_handoff": 0,
+        "technical_login": 0,
+        "refund": 0,
+        "order_status": 0,
+        "logistics": 0,
+        "greeting": 0,
+        "account": 0,
+        "escalation": 0,
+        "technical_crash": 0,
+        "request": 0,
+        "other": 0
+      },
+      "http_status": 200,
+      "api_ms": 979.1146999923512,
+      "usage": {
+        "input_tokens": 990,
+        "output_tokens": 166,
+        "cost": 4.158e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 985.8625000342727
+    },
+    {
+      "id": "zh-invoice-0",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 480.41790002025664,
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 507,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 547
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 503.6644999636337
+    },
+    {
+      "id": "zh-invoice-0",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 1,
+      "probabilities": {
+        "query": 0,
+        "technical_crash": 0,
+        "order_status": 0,
+        "complaint": 0,
+        "greeting": 0,
+        "other": 0,
+        "refund": 0,
+        "human_handoff": 0,
+        "account": 0,
+        "technical_login": 0,
+        "feedback": 0,
+        "request": 0,
+        "account_security": 0,
+        "invoice": 1,
+        "technical": 0,
+        "billing": 0,
+        "escalation": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 938.2624999852851,
+      "usage": {
+        "input_tokens": 998,
+        "output_tokens": 166,
+        "cost": 4.1916e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 943.666800041683
+    },
+    {
+      "id": "en-human_handoff-1",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 496.851300005801,
+      "usage": {
+        "completion_tokens": 42,
+        "prompt_tokens": 498,
+        "prompt_tokens_details": {
+          "cached_tokens": 405
+        },
+        "total_tokens": 540
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 520.5025998875499
+    },
+    {
+      "id": "en-human_handoff-1",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.97,
+      "probabilities": {
+        "order_status": 0,
+        "escalation": 0.01,
+        "other": 0.01,
+        "account_security": 0,
+        "feedback": 0,
+        "invoice": 0,
+        "technical": 0,
+        "account": 0,
+        "complaint": 0,
+        "technical_crash": 0,
+        "logistics": 0,
+        "billing": 0,
+        "human_handoff": 0.97,
+        "payment_issue": 0,
+        "technical_login": 0,
+        "query": 0,
+        "greeting": 0,
+        "request": 0.01,
+        "refund": 0
+      },
+      "http_status": 200,
+      "api_ms": 971.7927000019699,
+      "usage": {
+        "input_tokens": 978,
+        "output_tokens": 169,
+        "cost": 4.1076e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 975.7338999770582
+    },
+    {
+      "id": "en-human_handoff-3",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 486.89390008803457,
+      "usage": {
+        "completion_tokens": 43,
+        "prompt_tokens": 504,
+        "prompt_tokens_details": {
+          "cached_tokens": 405
+        },
+        "total_tokens": 547
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 511.76919997669756
+    },
+    {
+      "id": "en-human_handoff-3",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 1,
+      "probabilities": {
+        "feedback": 0,
+        "technical_crash": 0,
+        "other": 0,
+        "technical": 0,
+        "greeting": 0,
+        "logistics": 0,
+        "account_security": 0,
+        "invoice": 0,
+        "technical_login": 0,
+        "account": 0,
+        "complaint": 0,
+        "human_handoff": 1,
+        "query": 0,
+        "refund": 0,
+        "order_status": 0,
+        "payment_issue": 0,
+        "request": 0,
+        "billing": 0,
+        "escalation": 0
+      },
+      "http_status": 200,
+      "api_ms": 963.4332999121398,
+      "usage": {
+        "input_tokens": 983,
+        "output_tokens": 169,
+        "cost": 4.1286e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 969.2733000265434
+    },
+    {
+      "id": "zh-refund-3",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 495.3248000238091,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 505,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 544
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 521.5273998910561
+    },
+    {
+      "id": "zh-refund-3",
+      "language": "zh",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.98,
+      "probabilities": {
+        "escalation": 0,
+        "query": 0,
+        "billing": 0.01,
+        "request": 0,
+        "other": 0,
+        "account": 0,
+        "payment_issue": 0,
+        "refund": 0.99,
+        "account_security": 0,
+        "feedback": 0,
+        "logistics": 0,
+        "complaint": 0,
+        "invoice": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "technical_crash": 0,
+        "human_handoff": 0,
+        "order_status": 0,
+        "greeting": 0
+      },
+      "http_status": 200,
+      "api_ms": 982.0812999969348,
+      "usage": {
+        "input_tokens": 993,
+        "output_tokens": 166,
+        "cost": 4.1706e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 987.7518999855965
+    },
+    {
+      "id": "en-refund-2",
+      "language": "en",
+      "expected": "refund",
+      "arm": "glm",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 473.26549992430955,
+      "usage": {
+        "completion_tokens": 41,
+        "prompt_tokens": 499,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 540
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 495.62559998594224
+    },
+    {
+      "id": "en-refund-2",
+      "language": "en",
+      "expected": "refund",
+      "arm": "jev",
+      "predicted": "refund",
+      "pipeline_predicted": "refund",
+      "confidence": 0.91,
+      "probabilities": {
+        "query": 0.04,
+        "technical_crash": 0,
+        "order_status": 0.02,
+        "complaint": 0,
+        "greeting": 0,
+        "other": 0,
+        "refund": 0.92,
+        "technical_login": 0,
+        "account": 0,
+        "human_handoff": 0,
+        "request": 0.01,
+        "feedback": 0,
+        "escalation": 0,
+        "invoice": 0,
+        "billing": 0.01,
+        "technical": 0,
+        "account_security": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 954.23919998575,
+      "usage": {
+        "input_tokens": 978,
+        "output_tokens": 166,
+        "cost": 4.1076e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 958.9970000088215
+    },
+    {
+      "id": "en-invoice-1",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 476.44799994304776,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 509,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 548
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 499.9796999618411
+    },
+    {
+      "id": "en-invoice-1",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.67,
+      "probabilities": {
+        "payment_issue": 0,
+        "technical": 0,
+        "feedback": 0,
+        "logistics": 0,
+        "greeting": 0,
+        "billing": 0.6900000000000001,
+        "technical_login": 0,
+        "other": 0,
+        "invoice": 0.07,
+        "escalation": 0,
+        "order_status": 0,
+        "complaint": 0,
+        "query": 0.19,
+        "account_security": 0,
+        "human_handoff": 0,
+        "account": 0,
+        "technical_crash": 0,
+        "request": 0.04,
+        "refund": 0
+      },
+      "http_status": 200,
+      "api_ms": 943.6401999555528,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 166,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 948.0093000456691
+    },
+    {
+      "id": "en-order_status-2",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 496.14169995766133,
+      "usage": {
+        "completion_tokens": 44,
+        "prompt_tokens": 500,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 544
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 520.4246999928728
+    },
+    {
+      "id": "en-order_status-2",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "payment_issue": 0,
+        "other": 0,
+        "technical": 0,
+        "invoice": 0,
+        "greeting": 0,
+        "order_status": 0.99,
+        "billing": 0,
+        "human_handoff": 0,
+        "refund": 0,
+        "escalation": 0,
+        "technical_crash": 0,
+        "request": 0,
+        "logistics": 0,
+        "complaint": 0,
+        "query": 0.01,
+        "account_security": 0,
+        "account": 0,
+        "feedback": 0,
+        "technical_login": 0
+      },
+      "http_status": 200,
+      "api_ms": 957.0411000167951,
+      "usage": {
+        "input_tokens": 979,
+        "output_tokens": 167,
+        "cost": 4.1118e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 960.311200004071
+    },
+    {
+      "id": "zh-human_handoff-3",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 1,
+      "http_status": 200,
+      "api_ms": 594.4326999597251,
+      "usage": {
+        "completion_tokens": 35,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 618.4043999528512
+    },
+    {
+      "id": "zh-human_handoff-3",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.99,
+      "probabilities": {
+        "complaint": 0,
+        "technical_crash": 0,
+        "human_handoff": 0.99,
+        "greeting": 0,
+        "account_security": 0,
+        "technical_login": 0,
+        "refund": 0,
+        "invoice": 0,
+        "request": 0,
+        "escalation": 0.01,
+        "billing": 0,
+        "feedback": 0,
+        "payment_issue": 0,
+        "other": 0,
+        "logistics": 0,
+        "query": 0,
+        "technical": 0,
+        "order_status": 0,
+        "account": 0
+      },
+      "http_status": 200,
+      "api_ms": 991.5413999697194,
+      "usage": {
+        "input_tokens": 988,
+        "output_tokens": 169,
+        "cost": 4.1496e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 995.7431999500841
+    },
+    {
+      "id": "zh-human_handoff-2",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 591.6373000945896,
+      "usage": {
+        "completion_tokens": 37,
+        "prompt_tokens": 500,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 537
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 614.9416000116616
+    },
+    {
+      "id": "zh-human_handoff-2",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.98,
+      "probabilities": {
+        "escalation": 0.01,
+        "query": 0,
+        "billing": 0,
+        "other": 0,
+        "payment_issue": 0,
+        "account": 0,
+        "request": 0,
+        "refund": 0,
+        "account_security": 0,
+        "feedback": 0,
+        "logistics": 0,
+        "complaint": 0,
+        "invoice": 0,
+        "technical_login": 0,
+        "technical": 0,
+        "technical_crash": 0,
+        "human_handoff": 0.99,
+        "order_status": 0,
+        "greeting": 0
+      },
+      "http_status": 200,
+      "api_ms": 1020.5132000846788,
+      "usage": {
+        "input_tokens": 987,
+        "output_tokens": 169,
+        "cost": 4.1454e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1025.5407000659034
+    },
+    {
+      "id": "en-order_status-5",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 2561.2967999186367,
+      "usage": {
+        "completion_tokens": 46,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 406
+        },
+        "total_tokens": 548
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 2587.01439993456
+    },
+    {
+      "id": "en-order_status-5",
+      "language": "en",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "human_handoff": 0,
+        "query": 0.01,
+        "payment_issue": 0,
+        "account": 0,
+        "billing": 0,
+        "technical_login": 0,
+        "complaint": 0,
+        "order_status": 0.99,
+        "technical": 0,
+        "account_security": 0,
+        "technical_crash": 0,
+        "escalation": 0,
+        "greeting": 0,
+        "logistics": 0,
+        "request": 0,
+        "feedback": 0,
+        "other": 0,
+        "refund": 0,
+        "invoice": 0
+      },
+      "http_status": 200,
+      "api_ms": 961.7353999055922,
+      "usage": {
+        "input_tokens": 981,
+        "output_tokens": 167,
+        "cost": 4.1202e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 968.2599999941885
+    },
+    {
+      "id": "zh-invoice-4",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.9,
+      "http_status": 200,
+      "api_ms": 639.4551999401301,
+      "usage": {
+        "completion_tokens": 36,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 538
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 663.7891000136733
+    },
+    {
+      "id": "zh-invoice-4",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.93,
+      "probabilities": {
+        "technical_login": 0,
+        "technical": 0,
+        "human_handoff": 0,
+        "order_status": 0,
+        "billing": 0,
+        "account": 0,
+        "technical_crash": 0,
+        "account_security": 0,
+        "payment_issue": 0,
+        "greeting": 0,
+        "query": 0.02,
+        "refund": 0,
+        "feedback": 0,
+        "escalation": 0,
+        "complaint": 0.04,
+        "logistics": 0,
+        "other": 0,
+        "request": 0,
+        "invoice": 0.94
+      },
+      "http_status": 200,
+      "api_ms": 1007.4303000001237,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 166,
+        "cost": 4.1538e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1012.3082998907194
+    },
+    {
+      "id": "zh-human_handoff-5",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 1,
+      "http_status": 200,
+      "api_ms": 595.5756999319419,
+      "usage": {
+        "completion_tokens": 33,
+        "prompt_tokens": 506,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 539
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 623.0272999964654
+    },
+    {
+      "id": "zh-human_handoff-5",
+      "language": "zh",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 1,
+      "probabilities": {
+        "human_handoff": 1,
+        "query": 0,
+        "refund": 0,
+        "feedback": 0,
+        "technical_login": 0,
+        "logistics": 0,
+        "account": 0,
+        "account_security": 0,
+        "other": 0,
+        "technical_crash": 0,
+        "billing": 0,
+        "technical": 0,
+        "complaint": 0,
+        "order_status": 0,
+        "payment_issue": 0,
+        "escalation": 0,
+        "request": 0,
+        "greeting": 0,
+        "invoice": 0
+      },
+      "http_status": 200,
+      "api_ms": 1030.4744000313804,
+      "usage": {
+        "input_tokens": 990,
+        "output_tokens": 169,
+        "cost": 4.158e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1034.7121000522748
+    },
+    {
+      "id": "zh-order_status-3",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 625.8646999485791,
+      "usage": {
+        "completion_tokens": 34,
+        "prompt_tokens": 507,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 650.2301999134943
+    },
+    {
+      "id": "zh-order_status-3",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 1,
+      "probabilities": {
+        "query": 0,
+        "technical_login": 0,
+        "greeting": 0,
+        "human_handoff": 0,
+        "technical": 0,
+        "account_security": 0,
+        "account": 0,
+        "logistics": 0,
+        "escalation": 0,
+        "feedback": 0,
+        "technical_crash": 0,
+        "payment_issue": 0,
+        "invoice": 0,
+        "billing": 0,
+        "refund": 0,
+        "order_status": 1,
+        "other": 0,
+        "request": 0,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 1014.0073000220582,
+      "usage": {
+        "input_tokens": 995,
+        "output_tokens": 167,
+        "cost": 4.179e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1020.0949999270961
+    },
+    {
+      "id": "en-human_handoff-5",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "glm",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 686.8187000509351,
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 499,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 539
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 710.5849999934435
+    },
+    {
+      "id": "en-human_handoff-5",
+      "language": "en",
+      "expected": "human_handoff",
+      "arm": "jev",
+      "predicted": "human_handoff",
+      "pipeline_predicted": "human_handoff",
+      "confidence": 0.99,
+      "probabilities": {
+        "billing": 0,
+        "technical": 0,
+        "invoice": 0,
+        "refund": 0,
+        "greeting": 0,
+        "request": 0,
+        "query": 0,
+        "technical_login": 0,
+        "complaint": 0,
+        "technical_crash": 0,
+        "human_handoff": 1,
+        "account_security": 0,
+        "feedback": 0,
+        "order_status": 0,
+        "account": 0,
+        "payment_issue": 0,
+        "other": 0,
+        "escalation": 0,
+        "logistics": 0
+      },
+      "http_status": 200,
+      "api_ms": 971.7572999652475,
+      "usage": {
+        "input_tokens": 978,
+        "output_tokens": 169,
+        "cost": 4.1076e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 976.3196998974308
+    },
+    {
+      "id": "zh-invoice-2",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 592.9264000151306,
+      "usage": {
+        "completion_tokens": 33,
+        "prompt_tokens": 501,
+        "prompt_tokens_details": {
+          "cached_tokens": 405
+        },
+        "total_tokens": 534
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 617.5374999875203
+    },
+    {
+      "id": "zh-invoice-2",
+      "language": "zh",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "invoice",
+      "pipeline_predicted": "invoice",
+      "confidence": 0.98,
+      "probabilities": {
+        "invoice": 0.99,
+        "feedback": 0,
+        "order_status": 0,
+        "technical_crash": 0,
+        "greeting": 0,
+        "logistics": 0,
+        "other": 0,
+        "technical_login": 0,
+        "billing": 0,
+        "human_handoff": 0,
+        "query": 0,
+        "technical": 0,
+        "account": 0,
+        "escalation": 0,
+        "request": 0.01,
+        "account_security": 0,
+        "payment_issue": 0,
+        "refund": 0,
+        "complaint": 0
+      },
+      "http_status": 200,
+      "api_ms": 982.3618999216706,
+      "usage": {
+        "input_tokens": 989,
+        "output_tokens": 166,
+        "cost": 4.1538e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 987.904499983415
+    },
+    {
+      "id": "en-invoice-2",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "glm",
+      "predicted": "billing",
+      "pipeline_predicted": "billing",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 490.7810000004247,
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 503,
+        "prompt_tokens_details": {
+          "cached_tokens": 404
+        },
+        "total_tokens": 543
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 515.8104000147432
+    },
+    {
+      "id": "en-invoice-2",
+      "language": "en",
+      "expected": "invoice",
+      "arm": "jev",
+      "predicted": "billing",
+      "pipeline_predicted": "other",
+      "confidence": 0.39,
+      "probabilities": {
+        "query": 0.04,
+        "technical_crash": 0,
+        "order_status": 0,
+        "complaint": 0,
+        "greeting": 0,
+        "other": 0,
+        "refund": 0,
+        "technical_login": 0,
+        "account": 0,
+        "human_handoff": 0,
+        "feedback": 0,
+        "request": 0.12,
+        "account_security": 0,
+        "invoice": 0.41000000000000003,
+        "billing": 0.43,
+        "escalation": 0,
+        "technical": 0,
+        "logistics": 0,
+        "payment_issue": 0
+      },
+      "http_status": 200,
+      "api_ms": 993.0798000423238,
+      "usage": {
+        "input_tokens": 984,
+        "output_tokens": 166,
+        "cost": 4.1328e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 997.8275001049042
+    },
+    {
+      "id": "zh-order_status-5",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 600.8527999510989,
+      "usage": {
+        "completion_tokens": 40,
+        "prompt_tokens": 503,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 543
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 626.0353999678046
+    },
+    {
+      "id": "zh-order_status-5",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.99,
+      "probabilities": {
+        "payment_issue": 0,
+        "refund": 0,
+        "greeting": 0,
+        "invoice": 0,
+        "complaint": 0,
+        "feedback": 0,
+        "human_handoff": 0,
+        "query": 0.01,
+        "technical_login": 0,
+        "other": 0,
+        "order_status": 0.99,
+        "account": 0,
+        "account_security": 0,
+        "billing": 0,
+        "technical": 0,
+        "escalation": 0,
+        "technical_crash": 0,
+        "logistics": 0,
+        "request": 0
+      },
+      "http_status": 200,
+      "api_ms": 1003.731400007382,
+      "usage": {
+        "input_tokens": 991,
+        "output_tokens": 167,
+        "cost": 4.1622e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 1011.1319000134245
+    },
+    {
+      "id": "zh-order_status-0",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 872.8588999947533,
+      "usage": {
+        "completion_tokens": 48,
+        "prompt_tokens": 505,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 553
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 896.1977999424562
+    },
+    {
+      "id": "zh-order_status-0",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 1,
+      "probabilities": {
+        "payment_issue": 0,
+        "other": 0,
+        "technical": 0,
+        "invoice": 0,
+        "greeting": 0,
+        "order_status": 1,
+        "billing": 0,
+        "human_handoff": 0,
+        "refund": 0,
+        "escalation": 0,
+        "technical_crash": 0,
+        "request": 0,
+        "logistics": 0,
+        "account_security": 0,
+        "query": 0,
+        "complaint": 0,
+        "account": 0,
+        "feedback": 0,
+        "technical_login": 0
+      },
+      "http_status": 200,
+      "api_ms": 916.9886999297887,
+      "usage": {
+        "input_tokens": 995,
+        "output_tokens": 167,
+        "cost": 4.179e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 923.1641999213025
+    },
+    {
+      "id": "zh-order_status-1",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "glm",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.95,
+      "http_status": 200,
+      "api_ms": 644.2080000415444,
+      "usage": {
+        "completion_tokens": 39,
+        "prompt_tokens": 502,
+        "prompt_tokens_details": {
+          "cached_tokens": 403
+        },
+        "total_tokens": 541
+      },
+      "returned_model": "glm-4.5-air",
+      "provider": null,
+      "total_ms": 667.4743000185117
+    },
+    {
+      "id": "zh-order_status-1",
+      "language": "zh",
+      "expected": "order_status",
+      "arm": "jev",
+      "predicted": "order_status",
+      "pipeline_predicted": "order_status",
+      "confidence": 0.98,
+      "probabilities": {
+        "logistics": 0,
+        "technical_crash": 0,
+        "refund": 0,
+        "escalation": 0,
+        "other": 0,
+        "human_handoff": 0,
+        "feedback": 0,
+        "invoice": 0,
+        "payment_issue": 0,
+        "greeting": 0,
+        "technical_login": 0,
+        "request": 0.01,
+        "order_status": 0.98,
+        "account": 0,
+        "billing": 0,
+        "technical": 0,
+        "complaint": 0,
+        "query": 0.01,
+        "account_security": 0
+      },
+      "http_status": 200,
+      "api_ms": 942.066099960357,
+      "usage": {
+        "input_tokens": 992,
+        "output_tokens": 167,
+        "cost": 4.1664e-05
+      },
+      "returned_model": "typesafe/jev-1.13-20260917",
+      "provider": "TypeSafe",
+      "total_ms": 946.0243000648916
+    }
+  ],
+  "limitations": [
+    "Small exploratory set, not an independently adjudicated blind test",
+    "Chinese labels authored before inference; English labels mapped from existing corpus",
+    "Only four ground-truth classes; both models choose among all 19 production labels",
+    "GLM direct China endpoint vs Jev via OpenRouter: latency includes provider/network differences",
+    "GLM keeps original prompt and 256-token generation cap; Jev uses the same examples with typed choice",
+    "No paid judge, retries, warmup, cross-model fallback, or confidence tuning",
+    "Primary score is raw semantic branch; fusion diagnostic retains heuristic rules with non-equivalent confidence sources",
+    "Cost estimate is not an invoice; GLM CNY tariff recorded by project on 2026-09-08, cache discounts excluded",
+    "Budget treats GLM rates as USD at inflated 1.2/8 per million; uncertain requests retain reservation"
+  ]
+}

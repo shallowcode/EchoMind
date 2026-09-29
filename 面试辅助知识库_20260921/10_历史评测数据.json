@@ -1,0 +1,250 @@
+{
+  "project": "EchoMind / SupportFlow v2",
+  "report_date": "2026-09-09",
+  "pack_date": "2026-09-21",
+  "source": "评测结果/GLM-1200复核/audit.json",
+  "scope": "历史开发评测；本次未重新运行模型；不是生产或独立验收",
+  "audit": {
+    "status": "completed_and_audited",
+    "source_snapshot_hashes_verified": 52,
+    "business_cases": 600,
+    "business_executions": 1200,
+    "public_executions": 1200,
+    "source_intents": 20,
+    "observed_project_labels": 10,
+    "fixed_mapping_labels": 11,
+    "public_accuracy": 0.6383333333333333,
+    "public_macro_f1_fixed_mapping": 0.6786013430639989,
+    "public_macro_f1_observed_labels": 0.7464614773703988,
+    "absent_project_labels": [
+      "order_status"
+    ],
+    "public_http_errors": 0,
+    "public_model_failures": 0,
+    "original_completed": {
+      "single": 405,
+      "multi": 527
+    },
+    "reviewed_summaries": {
+      "single": {
+        "tasks": 600,
+        "completed": 406,
+        "completion_rate": 0.6766666666666666,
+        "completion_wilson_95": [
+          0.6382173507845876,
+          0.7128680994394445
+        ],
+        "family_count": 24,
+        "family_macro_completion": 0.6766666666666666,
+        "interval_caveat": "Instance Wilson interval assumes independence; parameterized instances are correlated. Use family-level analysis, which still does not prove semantic independence.",
+        "task_p95_ms": 10380.421599999863,
+        "request_p95_ms": 8453.40589999978,
+        "mean_input_tokens": 5041.126666666667,
+        "mean_output_tokens": 199.42166666666665,
+        "mean_model_cost": 0.004451524666666667,
+        "judge_valid": 0,
+        "judge_failed": 0,
+        "judge_means": {
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null
+        },
+        "groups": {
+          "compound_read": {
+            "n": 75,
+            "completed": 43
+          },
+          "compound_write": {
+            "n": 75,
+            "completed": 42
+          },
+          "handoff": {
+            "n": 75,
+            "completed": 25
+          },
+          "memory": {
+            "n": 75,
+            "completed": 75
+          },
+          "order": {
+            "n": 75,
+            "completed": 73
+          },
+          "policy": {
+            "n": 75,
+            "completed": 49
+          },
+          "refund": {
+            "n": 75,
+            "completed": 49
+          },
+          "safety": {
+            "n": 75,
+            "completed": 50
+          }
+        }
+      },
+      "multi": {
+        "tasks": 600,
+        "completed": 528,
+        "completion_rate": 0.88,
+        "completion_wilson_95": [
+          0.8515504728392347,
+          0.9036144578313254
+        ],
+        "family_count": 24,
+        "family_macro_completion": 0.88,
+        "interval_caveat": "Instance Wilson interval assumes independence; parameterized instances are correlated. Use family-level analysis, which still does not prove semantic independence.",
+        "task_p95_ms": 15391.58580000003,
+        "request_p95_ms": 12778.311700000813,
+        "mean_input_tokens": 7502.74,
+        "mean_output_tokens": 341.32666666666665,
+        "mean_model_cost": 0.006693605333333334,
+        "judge_valid": 0,
+        "judge_failed": 0,
+        "judge_means": {
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null
+        },
+        "groups": {
+          "compound_read": {
+            "n": 75,
+            "completed": 75
+          },
+          "compound_write": {
+            "n": 75,
+            "completed": 50
+          },
+          "handoff": {
+            "n": 75,
+            "completed": 75
+          },
+          "memory": {
+            "n": 75,
+            "completed": 75
+          },
+          "order": {
+            "n": 75,
+            "completed": 75
+          },
+          "policy": {
+            "n": 75,
+            "completed": 75
+          },
+          "refund": {
+            "n": 75,
+            "completed": 49
+          },
+          "safety": {
+            "n": 75,
+            "completed": 54
+          }
+        }
+      }
+    },
+    "reviewed_compound_summaries": {
+      "single": {
+        "tasks": 150,
+        "completed": 85,
+        "completion_rate": 0.5666666666666667,
+        "completion_wilson_95": [
+          0.4866784070665957,
+          0.6433254410473084
+        ],
+        "family_count": 6,
+        "family_macro_completion": 0.5666666666666667,
+        "interval_caveat": "Instance Wilson interval assumes independence; parameterized instances are correlated. Use family-level analysis, which still does not prove semantic independence.",
+        "task_p95_ms": 13439.35319999946,
+        "request_p95_ms": 13432.880900000782,
+        "mean_input_tokens": 5527.206666666667,
+        "mean_output_tokens": 293.58666666666664,
+        "mean_model_cost": 0.005076298666666667,
+        "judge_valid": 0,
+        "judge_failed": 0,
+        "judge_means": {
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null
+        },
+        "groups": {
+          "compound_read": {
+            "n": 75,
+            "completed": 43
+          },
+          "compound_write": {
+            "n": 75,
+            "completed": 42
+          }
+        }
+      },
+      "multi": {
+        "tasks": 150,
+        "completed": 125,
+        "completion_rate": 0.8333333333333334,
+        "completion_wilson_95": [
+          0.7655327510904788,
+          0.8844864894790421
+        ],
+        "family_count": 6,
+        "family_macro_completion": 0.8333333333333334,
+        "interval_caveat": "Instance Wilson interval assumes independence; parameterized instances are correlated. Use family-level analysis, which still does not prove semantic independence.",
+        "task_p95_ms": 14401.829700000235,
+        "request_p95_ms": 14351.310299998659,
+        "mean_input_tokens": 9255.18,
+        "mean_output_tokens": 500.37333333333333,
+        "mean_model_cost": 0.008433184,
+        "judge_valid": 0,
+        "judge_failed": 0,
+        "judge_means": {
+          "relevance": null,
+          "accuracy": null,
+          "completeness": null,
+          "helpfulness": null
+        },
+        "groups": {
+          "compound_read": {
+            "n": 75,
+            "completed": 75
+          },
+          "compound_write": {
+            "n": 75,
+            "completed": 50
+          }
+        }
+      }
+    },
+    "scoring_review_changes": [
+      {
+        "id": "v3-14-001",
+        "variant": "multi",
+        "removed_inapplicable_checks": {
+          "login_evidence": true,
+          "login_answer": false
+        },
+        "before_complete": false,
+        "after_complete": true
+      },
+      {
+        "id": "v3-14-001",
+        "variant": "single",
+        "removed_inapplicable_checks": {
+          "login_evidence": true,
+          "login_answer": false
+        },
+        "before_complete": false,
+        "after_complete": true
+      }
+    ],
+    "limitations": [
+      "Development data, parameterized template families; not independent enterprise acceptance",
+      "Offline review removed erroneous 401 gates triggered by order IDs; original results preserved, no model rerun",
+      "Full natural-language correctness not independently human-annotated; unresolved refund parsing and unsupported submission claims remain",
+      "Public subset covers only 20 of 27 source intents; no full-dataset quality claim",
+      "Business concurrency2 with serial public stream partly overlapping; interruptions/resumption reflected in runner maintenance"
+    ]
+  }
+}

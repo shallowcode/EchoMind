@@ -1,6 +1,7 @@
 """Provider-neutral completion API with real usage accounting and no implicit paid fallback."""
 
 import contextvars
+import copy
 import json
 import re
 import time
@@ -23,7 +24,7 @@ class Model:
     async def close(self):
         await self.client.aclose()
 
-    async def complete(self, messages, system="", max_tokens=384, json_mode=False):
+    async def complete(self, messages, system="", max_tokens=384, json_mode=False, purpose="模型调用"):
         s = self.settings
         if s.model_backend == "fixture":
             raise RuntimeError(
@@ -33,6 +34,15 @@ class Model:
         trace = active_trace.get()
         if trace:
             trace.model_calls += 1
+        captured = None
+
+        def capture(payload):
+            if not trace:
+                return None
+            record = {"index": len(trace.model_inputs) + 1, "purpose": purpose,
+                      "provider": s.model_backend, "request": copy.deepcopy(payload), "status": "running"}
+            trace.model_inputs.append(record)
+            return record
         try:
             if s.model_backend == "compatible":
                 data = {
@@ -70,6 +80,7 @@ class Model:
                     }
                 elif json_mode:
                     data["response_format"] = {"type": "json_object"}
+                captured = capture(data)
                 r = await self.client.post(
                     s.model_url.rstrip("/") + "/chat/completions",
                     json=data,
@@ -84,19 +95,16 @@ class Model:
                 inp = usage.get("prompt_tokens", 0)
                 out = usage.get("completion_tokens", 0)
             else:
+                data = {"model": s.model_name, "system": system, "messages": messages,
+                        "max_tokens": max_tokens, "temperature": 0}
+                captured = capture(data)
                 r = await self.client.post(
                     s.model_url.rstrip("/") + "/messages",
                     headers={
                         "x-api-key": s.model_key,
                         "anthropic-version": "2023-06-01",
                     },
-                    json={
-                        "model": s.model_name,
-                        "system": system,
-                        "messages": messages,
-                        "max_tokens": max_tokens,
-                        "temperature": 0,
-                    },
+                    json=data,
                 )
                 r.raise_for_status()
                 body = r.json()
@@ -106,6 +114,8 @@ class Model:
                 usage = body.get("usage", {})
                 inp = usage.get("input_tokens", 0)
                 out = usage.get("output_tokens", 0)
+            if captured is not None:
+                captured["status"] = "completed"
             if trace:
                 trace.input_tokens += inp
                 trace.output_tokens += out
@@ -122,10 +132,14 @@ class Model:
                     trace.failures.append("usage_unavailable")
             return re.sub(r"<think>.*?</think>", "", text, flags=re.S).strip()
         except Exception as e:
+            if captured is not None:
+                captured.update(status="failed", error=type(e).__name__)
             if trace:
                 trace.failures.append("model:" + type(e).__name__)
             raise
         finally:
+            if captured is not None:
+                captured["duration_ms"] = round((time.perf_counter() - start) * 1000, 1)
             if trace:
                 trace.spans.append(
                     {"name": "llm", "duration_ms": (time.perf_counter() - start) * 1000}
@@ -135,7 +149,7 @@ class Model:
         self, model=None, messages=None, system="", max_tokens=384, **kwargs
     ):
         content = await self.complete(
-            messages or [], system, max_tokens, json_mode=False
+            messages or [], system, max_tokens, json_mode=False, purpose="识别意图"
         )
         return SimpleNamespace(content=[SimpleNamespace(type="text", text=content)])
 

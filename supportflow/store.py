@@ -23,6 +23,8 @@ class Store:
             c.executescript("""
             CREATE TABLE IF NOT EXISTS tokens (hash TEXT PRIMARY KEY, tenant TEXT, user TEXT, roles TEXT, expires REAL, revoked INTEGER DEFAULT 0);
             CREATE TABLE IF NOT EXISTS orders (tenant TEXT, id TEXT, user TEXT, total INTEGER, refunded INTEGER DEFAULT 0, status TEXT, PRIMARY KEY(tenant,id));
+            CREATE TABLE IF NOT EXISTS deleted_orders (tenant TEXT, order_id TEXT, deleted REAL NOT NULL, PRIMARY KEY(tenant,order_id));
+            CREATE TABLE IF NOT EXISTS order_details (tenant TEXT, order_id TEXT, product TEXT NOT NULL, quantity INTEGER NOT NULL, created REAL NOT NULL, updated REAL NOT NULL, version INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(tenant,order_id));
             CREATE TABLE IF NOT EXISTS refunds (id TEXT PRIMARY KEY, tenant TEXT, user TEXT, order_id TEXT, amount INTEGER, status TEXT, idem TEXT, reason TEXT, payment_ref TEXT, UNIQUE(tenant,user,idem));
             CREATE TABLE IF NOT EXISTS tickets (id TEXT PRIMARY KEY, tenant TEXT, user TEXT, conv TEXT, summary TEXT, status TEXT, assignee TEXT, resolution TEXT, idem TEXT, version INTEGER DEFAULT 0, UNIQUE(tenant,user,idem));
             CREATE TABLE IF NOT EXISTS conversations (tenant TEXT, id TEXT, user TEXT, state TEXT, version INTEGER DEFAULT 0, lease_owner TEXT, lease_until REAL DEFAULT 0, PRIMARY KEY(tenant,id));
@@ -108,20 +110,62 @@ class Store:
 
     def order(self, p, order_id):
         with self.tx() as c:
+            if c.execute("SELECT 1 FROM deleted_orders WHERE tenant=? AND order_id=?", (p.tenant, order_id)).fetchone():
+                raise PermissionError("Order not accessible")
             r = c.execute(
-                "SELECT * FROM orders WHERE tenant=? AND id=?", (p.tenant, order_id)
+                "SELECT o.*,COALESCE(d.product,'演示订单') product,COALESCE(d.quantity,1) quantity FROM orders o LEFT JOIN order_details d ON d.tenant=o.tenant AND d.order_id=o.id WHERE o.tenant=? AND o.id=?", (p.tenant, order_id)
             ).fetchone()
+            reserved = c.execute(
+                "SELECT COALESCE(SUM(amount),0) FROM refunds WHERE tenant=? AND order_id=? AND status IN ('pending','approved','processing')",
+                (p.tenant, order_id),
+            ).fetchone()[0]
+            refunds = [dict(row) for row in c.execute(
+                "SELECT id,order_id,amount,status FROM refunds WHERE tenant=? AND order_id=? ORDER BY rowid DESC",
+                (p.tenant, order_id),
+            )]
         if not r or (
             r["user"] != p.user
+            and not p.demo_customer
             and not p.roles.intersection({"staff", "finance", "admin"})
         ):
             raise PermissionError("Order not accessible")
-        return dict(r)
+        return {**dict(r), "reserved": reserved, "refundable": max(0, r["total"] - r["refunded"] - reserved) if r["status"] not in {"pending_payment", "cancelled"} else 0, "refunds": refunds}
 
-    def refund_request(self, p, order_id, amount, reason, idem):
-        if type(amount) is not int or amount <= 0:
-            raise ValueError("amount_cents must be positive integer")
+    def order_list(self, p):
+        where, args = "o.tenant=? AND NOT EXISTS (SELECT 1 FROM deleted_orders x WHERE x.tenant=o.tenant AND x.order_id=o.id)", [p.tenant]
+        if not p.demo_customer and not p.roles.intersection({"staff", "finance", "admin"}):
+            where += " AND o.user=?"
+            args.append(p.user)
         with self.tx() as c:
+            rows = c.execute("SELECT o.id,o.status,o.total,o.refunded,COALESCE(d.product,'演示订单') product FROM orders o LEFT JOIN order_details d ON d.tenant=o.tenant AND d.order_id=o.id WHERE " + where + " ORDER BY o.rowid DESC", args).fetchall()
+        return {"items": [dict(row) for row in rows], "total": len(rows)}
+
+    def refund_status(self, p, order_id=None, refund_id=None):
+        """Read current ledger state, never a historical chat claim or cached answer."""
+        if not order_id and not refund_id:
+            raise ValueError("Order or refund identifier required")
+        if order_id:
+            items = self.order(p, order_id)["refunds"]
+            if refund_id:
+                items = [item for item in items if item["id"] == refund_id]
+            return {"order_id": order_id, "items": items}
+        with self.tx() as c:
+            row = c.execute("SELECT id,order_id,amount,status,user FROM refunds WHERE tenant=? AND id=?", (p.tenant, refund_id)).fetchone()
+        if not row or (row["user"] != p.user and not p.demo_customer and not p.roles.intersection({"staff", "finance", "admin"})):
+            raise PermissionError("Refund not accessible")
+        return {"order_id": row["order_id"], "items": [{k: row[k] for k in ("id", "order_id", "amount", "status")}]}
+
+    def refund_request(self, p, order_id, amount, reason, idem, *, full=False):
+        if full and amount is not None:
+            raise ValueError("Full refund amount must be computed by the ledger")
+        if not full and (type(amount) is not int or amount <= 0):
+            raise ValueError("amount_cents must be positive integer")
+        # Full/fixed mode is part of the idempotency namespace, including crash retries.
+        if full:
+            idem = "full:" + idem
+        with self.tx() as c:
+            if c.execute("SELECT 1 FROM deleted_orders WHERE tenant=? AND order_id=?", (p.tenant, order_id)).fetchone():
+                raise PermissionError("Order not accessible")
             old = c.execute(
                 "SELECT * FROM refunds WHERE tenant=? AND user=? AND idem=?",
                 (p.tenant, p.user, idem),
@@ -129,21 +173,27 @@ class Store:
             if old:
                 if (
                     old["order_id"] != order_id
-                    or old["amount"] != amount
+                    or (not full and old["amount"] != amount)
                     or old["reason"] != reason
                 ):
                     raise ValueError("Idempotency key payload mismatch")
                 return dict(old)
             order = c.execute(
-                "SELECT * FROM orders WHERE tenant=? AND id=? AND user=?",
-                (p.tenant, order_id, p.user),
+                "SELECT * FROM orders WHERE tenant=? AND id=? AND (user=? OR ?)",
+                (p.tenant, order_id, p.user, p.demo_customer),
             ).fetchone()
             if not order:
                 raise PermissionError("Order not accessible")
+            if order["status"] in {"pending_payment", "cancelled"}:
+                raise BusinessRejection("order_not_paid", "Order has not been paid")
             reserved = c.execute(
                 "SELECT COALESCE(SUM(amount),0) FROM refunds WHERE tenant=? AND order_id=? AND status IN ('pending','approved','processing')",
                 (p.tenant, order_id),
             ).fetchone()[0]
+            if full:
+                amount = order["total"] - order["refunded"] - reserved
+                if amount <= 0:
+                    raise BusinessRejection("insufficient_refundable_balance", "No unreserved refundable balance")
             if order["refunded"] + reserved + amount > order["total"]:
                 raise BusinessRejection(
                     "insufficient_refundable_balance",
@@ -396,6 +446,18 @@ class Store:
                     json.dumps(response["trace"], ensure_ascii=False),
                 ),
             )
+
+    def finalize_turn(self, p, rid, response):
+        with self.tx() as c:
+            c.execute('UPDATE requests SET response=? WHERE tenant=? AND user=? AND id=?',
+                      (json.dumps(response, ensure_ascii=False), p.tenant, p.user, rid))
+            c.execute('UPDATE traces SET payload=? WHERE id=?',
+                      (json.dumps(response['trace']), p.tenant + ':' + p.user + ':' + rid))
+
+    def append_audit(self, p, action, target, detail):
+        p.require('staff')
+        with self.tx() as c:
+            self.audit(c, p, action, target, detail)
 
     def audit_log(self, p):
         p.require("admin")

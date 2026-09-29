@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-24",
+  "browser": "Codex in-app browser",
+  "checks": {
+    "initial_count_120": true,
+    "multi_keyword_search_refund_idempotency_17_results": true,
+    "exact_id_B07_one_result": true,
+    "priority_30_filter": true,
+    "historical_evidence_filter_18_results": true,
+    "random_question_opens": true,
+    "study_mode_hides_answers": true,
+    "reveal_main_and_followup_answers": true,
+    "source_dialog_has_symbol_line_and_hash": true,
+    "bookmark_add_filter_remove": true,
+    "desktop_screenshot_inspected": true,
+    "browser_error_log_empty": true
+  },
+  "note": "验证的是本地知识库阅读页面；不是SupportFlow业务服务或模型质量测试。未进行手机尺寸测试。"
+}

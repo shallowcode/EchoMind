@@ -54,22 +54,32 @@ class Tools:
             {"query": {"type": "string", "minLength": 1, "maxLength": 1500}}
         ),
         "order_lookup": schema({"order_id": STR}),
+        "order_list": schema({}),
+        "refund_status": {**schema({"order_id": STR, "refund_id": STR}), "required": [], "anyOf": [{"required": ["order_id"]}, {"required": ["refund_id"]}]},
         "refund_request": schema(
             {
                 "order_id": STR,
                 "amount_cents": {"type": "integer", "minimum": 1, "maximum": 100000000},
+                "full_refund": {"const": True},
                 "reason": {"type": "string", "minLength": 1, "maxLength": 500},
-            }
+            },
+            required=["order_id", "reason"],
         ),
         "ticket_create": schema(
             {"summary": {"type": "string", "minLength": 1, "maxLength": 1500}}
         ),
         "ticket_status": schema({"ticket_id": STR}),
     }
+    specs["refund_request"]["oneOf"] = [
+        {"required": ["amount_cents"], "not": {"required": ["full_refund"]}},
+        {"required": ["full_refund"], "not": {"required": ["amount_cents"]}},
+    ]
     descriptions = {
         "knowledge_search": "检索企业政策与排障文档",
-        "order_lookup": "查询当前用户订单真实状态",
-        "refund_request": "提交待财务审核的退款申请，不会直接付款",
+        "order_lookup": "查询当前用户订单真实状态及最新退款记录；履约状态与退款状态分别返回",
+        "order_list": "列出当前可查询的全部订单、商品、金额和状态，不需要订单号",
+        "refund_status": "读取订单或退款申请的最新审批、执行状态及金额；已批准不等于退款已完成，不创建新申请",
+        "refund_request": "提交待审核退款；指定金额用amount_cents，全退用full_refund=true由账本计算余额；两者只能提供一个，不会直接付款",
         "ticket_create": "创建人工客服工单",
         "ticket_status": "查看本人已有工单处理状态",
     }
@@ -77,6 +87,8 @@ class Tools:
         "general": {
             "knowledge_search",
             "order_lookup",
+            "order_list",
+            "refund_status",
             "ticket_create",
             "ticket_status",
         },
@@ -108,12 +120,20 @@ class Tools:
         cached = False
         error = None
         trace = active_trace.get()
+        checks = []
+        timeout_seconds = 90 if name == "knowledge_search" else 10
         try:
             if name not in self.capabilities.get(agent, set()):
                 raise PermissionError("Tool outside agent capability")
+            checks.append("Agent 工具权限通过")
             Draft202012Validator(self.specs[name]).validate(args)
+            checks.append("参数结构校验通过")
+            if name == "refund_request" and (("amount_cents" in args) == ("full_refund" in args)):
+                raise ValueError("Provide exactly one of amount_cents or full_refund")
             if name == "refund_request" and not consent:
                 raise PermissionError("Explicit user refund request required")
+            if name == "refund_request":
+                checks.append("用户退款授权通过")
             if name == "knowledge_search":
                 version = await asyncio.to_thread(self.knowledge.version, p.tenant)
                 key = hashlib.sha256(
@@ -131,7 +151,7 @@ class Tools:
             if not breaker.enter():
                 raise RuntimeError("circuit_open")
             try:
-                async with asyncio.timeout(90 if name == "knowledge_search" else 10):
+                async with asyncio.timeout(timeout_seconds):
                     if name == "knowledge_search":
                         result = await self.knowledge.retrieve(
                             p.tenant, args["query"], advanced=advanced
@@ -140,6 +160,10 @@ class Tools:
                         result = await asyncio.to_thread(
                             self.store.order, p, args["order_id"]
                         )
+                    elif name == "order_list":
+                        result = await asyncio.to_thread(self.store.order_list, p)
+                    elif name == "refund_status":
+                        result = await asyncio.to_thread(self.store.refund_status, p, **args)
                     elif name == "refund_request":
                         idem = hashlib.sha256(
                             (rid + name + args["order_id"]).encode()
@@ -148,9 +172,10 @@ class Tools:
                             self.store.refund_request,
                             p,
                             args["order_id"],
-                            args["amount_cents"],
+                            args.get("amount_cents"),
                             args["reason"],
                             idem,
+                            full=args.get("full_refund", False),
                         )
                     elif name == "ticket_create":
                         result = await asyncio.to_thread(
@@ -199,5 +224,9 @@ class Tools:
                         "arguments": args,
                         "result": result,
                         "error": error,
+                        "transport": "shared_service",
+                        "controls": {"tenant": p.tenant, "user": p.user, "checks": checks,
+                                     "timeout_seconds": timeout_seconds, "breaker": "open" if self.breakers.get((p.tenant, name), Breaker()).opened else "closed",
+                                     "idempotency_key": (hashlib.sha256((rid + name + args.get('order_id', '')).encode()).hexdigest() if name == 'refund_request' else rid + ':ticket' if name == 'ticket_create' else None)},
                     }
                 )

@@ -1,0 +1,22 @@
+{
+  "created": "2026-09-20T02:13:15.018435+00:00",
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "source_hashes": {
+    "evaluation/jev_intent_benchmark.py": "b3fc539046e18f3d8c0b7c17a83447a2c5ae6f4747cbeec0c19c27ab83a4dbf3",
+    "core/intent_recognizer.py": "ce3dfb4eef87ab7f84bec3d2ed8df1a1fa8ab959de57b044438a9636dd808d95",
+    "core/llm_utils.py": "b0bf4cc194787b059a02c2049a773dceb1ff92df95f5d7d7bdc492ba355e93e7",
+    "supportflow/model.py": "e8050a636d30f9cf02f7c9dbf97fd037b83141ce9b79c380e3747a25302070b7",
+    "supportflow/contracts.py": "531296a4141913e9080433eb39f2c58e5d72171403bcb8c66f604e91353e001b"
+  },
+  "packages": {
+    "httpx": "0.28.1",
+    "anthropic": "0.125.0",
+    "pydantic": "2.13.5",
+    "python-dotenv": "1.2.3"
+  },
+  "endpoints": {
+    "jev": "https://openrouter.ai/api/alpha/decisions",
+    "glm": "https://open.bigmodel.cn/api/paas/v4/chat/completions"
+  }
+}

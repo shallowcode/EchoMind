@@ -174,6 +174,11 @@ async def test_http_full_chain_and_replay(tmp_path):
         assert r.status_code == 200, r.text
         result = r.json()
         assert "order_lookup" in result["tools_used"]
+        execution = result["execution"]
+        assert execution["tools"][0]["name"] == "order_lookup"
+        assert execution["steps"][-1]["title"] == "保存会话"
+        assert execution["sources"] == []
+        assert (await c.post("/chat", json=body, headers=headers)).json()["execution"] == execution
         assert (await c.post("/chat", json=body, headers=headers)).json()["replayed"]
         assert (
             await c.post("/chat", json={**body, "message": "changed"}, headers=headers)

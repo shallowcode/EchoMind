@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Literal
+import time
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -21,6 +22,10 @@ class Principal:
         if role not in self.roles and "admin" not in self.roles:
             raise PermissionError(f"Required role: {role}")
 
+    @property
+    def demo_customer(self):
+        return self.tenant == "demo" and "demo_customer" in self.roles
+
 
 class ChatInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -32,6 +37,7 @@ class ChatInput(BaseModel):
 @dataclass
 class Trace:
     request_id: str
+    events: list = field(default_factory=list)
     spans: list = field(default_factory=list)
     tools: list = field(default_factory=list)
     input_tokens: int = 0
@@ -39,6 +45,10 @@ class Trace:
     model_calls: int = 0
     failures: list = field(default_factory=list)
     usage: list = field(default_factory=list)
+    memory: dict = field(default_factory=dict)
+    model_inputs: list = field(default_factory=list)
+    skills: list = field(default_factory=list)
+    started: float = field(default_factory=time.perf_counter, repr=False)
 
 
 class ToolCall(BaseModel):
@@ -61,6 +71,8 @@ class JudgeScores(BaseModel):
 
 
 class Settings(BaseModel):
+    business_url: str = ""
+    service_key: str = ""
     db_path: str = "data/supportflow.sqlite3"
     model_backend: Literal["compatible", "anthropic", "fixture"] = "compatible"
     model_url: str = "http://127.0.0.1:8081/v1"
@@ -85,6 +97,7 @@ class Settings(BaseModel):
     currency: str = "CNY"
     machine_hourly_cost: float | None = None
     business_mode: Literal["sandbox", "external"] = "sandbox"
+    local_demo_access: bool = False
     business_currency: Literal["CNY"] = "CNY"
     payment_url: str = ""
     payment_key: str = ""

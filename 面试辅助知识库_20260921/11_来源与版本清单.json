@@ -1,0 +1,110 @@
+{
+  "created": "2026-09-21",
+  "card_count": 36,
+  "current_implementation": "工作区当前 v2 源码；核对日期 2026-09-21",
+  "original_document_date": "2026-09-20",
+  "historical_audit_date": "2026-09-09",
+  "scope": "本次生成与校验知识材料；未修改项目业务代码、未重跑模型评测、未验证生产部署",
+  "source_files": [
+    {
+      "path": "api/main.py",
+      "sha256": "f29d51494fec42134e33a1587f48dccf092704e74c587a2d5d563b65eb2009e9",
+      "bytes": 389
+    },
+    {
+      "path": "supportflow/api.py",
+      "sha256": "a151306b5f8aaf459a263fa73998777ec187af6f94fceec080a3018c93aa73c3",
+      "bytes": 9412
+    },
+    {
+      "path": "supportflow/planning.py",
+      "sha256": "6bf939bbd34a47fce845d76e025fca3e95f73dfc73eefcdb1f0ad9148be2bb2a",
+      "bytes": 7726
+    },
+    {
+      "path": "supportflow/service.py",
+      "sha256": "479161e678b14a3cac20e1475ebcf2d76b96f40389424135f5b966900ebcdd60",
+      "bytes": 29068
+    },
+    {
+      "path": "supportflow/store.py",
+      "sha256": "1869368f9dba6b98c7a063335f13d16809bb99bb486c981d98e21b6d83b7eced",
+      "bytes": 18219
+    },
+    {
+      "path": "supportflow/knowledge.py",
+      "sha256": "346cc0e1b8e8ab364c5aeebe10d2222144d7d39abcb20784d1499c65e8d5d4ac",
+      "bytes": 10504
+    },
+    {
+      "path": "core/skill_loader.py",
+      "sha256": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+      "bytes": 12230
+    },
+    {
+      "path": "supportflow/contracts.py",
+      "sha256": "531296a4141913e9080433eb39f2c58e5d72171403bcb8c66f604e91353e001b",
+      "bytes": 3372
+    },
+    {
+      "path": "supportflow/tools.py",
+      "sha256": "f784627d594a7594241b42226b173ae3194b18b2d7f359e3c73f17e7a14fc251",
+      "bytes": 7340
+    },
+    {
+      "path": "supportflow/model.py",
+      "sha256": "e8050a636d30f9cf02f7c9dbf97fd037b83141ce9b79c380e3747a25302070b7",
+      "bytes": 5745
+    },
+    {
+      "path": "supportflow/protocol.py",
+      "sha256": "7140206bfbfa8f4b4a8b7ae70408a387703056c5735f3e5036a6dde39c5f79b6",
+      "bytes": 3703
+    },
+    {
+      "path": "项目解读与面试指南/03_设计理念与面试表达.md",
+      "sha256": "2ebbe0ebfaa6437ce244577432e86747c2b049f5d0b79dc28ec27a9eccc20736",
+      "bytes": 11530
+    },
+    {
+      "path": "评测结果/GLM-1200复核/audit.json",
+      "sha256": "88931a9e2a7e79c9b2cb1adfbad6929e0500b69e6d54b18f77e1e4ae06b54e40",
+      "bytes": 7201
+    },
+    {
+      "path": "评测结果/GLM-1200复核/README.md",
+      "sha256": "fd1ffcb310dc19dc922e8c4c56abb4f2ba88f3ba88aafc92b801e9488b29d9d3",
+      "bytes": 2904
+    },
+    {
+      "path": "evaluation/full_chain.py",
+      "sha256": "42a76b49398f6929944e9c99d25cb1327c05c40ef4cbab3fd2b29c9b9f4bb60e",
+      "bytes": 24952
+    },
+    {
+      "path": "supportflow/payments.py",
+      "sha256": "1cac4cc90c3b66cdcfd40ea2768159d40a99ec7ea3289a80ba156d8ba20a86a5",
+      "bytes": 10099
+    },
+    {
+      "path": "tests/test_supportflow_payments.py",
+      "sha256": "500e2a3fab638f617a69554bfa7afa9105fdb1e294115bf607425a0604062ad8",
+      "bytes": 3443
+    },
+    {
+      "path": "supportflow/pricing.py",
+      "sha256": "ebe3dc90284a4b88884cc88f1301ae645db70878a8acfe8ef2ba48df4891f0cb",
+      "bytes": 855
+    },
+    {
+      "path": "scripts/run_full_evaluation.py",
+      "sha256": "85d2cd3d23b06789d40efbc8dc138859ee741ce3a6a263312ab256fd06df5c28",
+      "bytes": 17983
+    },
+    {
+      "path": "项目完整讲解.md",
+      "sha256": "7b89485493a88750ab59ba3bf22de05890fcb4a50b1b645ca81d8bb5abb6eec4",
+      "bytes": 102493
+    }
+  ]
+}

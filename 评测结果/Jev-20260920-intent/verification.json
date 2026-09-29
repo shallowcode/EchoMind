@@ -1,0 +1,9 @@
+{
+  "records": 96,
+  "http_successes": 96,
+  "ledger_matches_records": true,
+  "source_unchanged": true,
+  "secret_scan_passed": true,
+  "offline_tests_passed": 7,
+  "budget_accounted_usd": 0.045993288
+}

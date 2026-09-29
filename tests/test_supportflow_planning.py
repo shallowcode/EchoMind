@@ -208,9 +208,10 @@ async def test_missing_evidence_repairs_same_task_before_completion(tmp_path):
     agent = ToolAgent(
         AgentType.BILLING, model, SimpleNamespace(prompt_for=lambda *a: ""), tools
     )
-    task = plan_tasks("查询订单 ORD1001", {"order_id": ["ORD1001"]}, "billing", False)[
-        0
-    ]
+    # Order status now renders deterministically from the tool. Exercise the
+    # generic evidence-repair loop with an agent-owned task instead.
+    from supportflow.planning import Subtask
+    task = Subtask("task-1", "general", "billing", "核验信息", "先核验业务信息", ["order_lookup"])
     token = job.set(
         {
             "p": p,
@@ -232,6 +233,7 @@ async def test_missing_evidence_repairs_same_task_before_completion(tmp_path):
             )
         )
         assert task.status == "completed" and task.attempts == 3
+        assert task.repairs[0]["action"] == "补齐缺项，保留成功操作"
         assert tools.counts["order_lookup"]["total"] == 1
     finally:
         job.reset(token)

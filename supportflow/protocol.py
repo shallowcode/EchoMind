@@ -70,6 +70,11 @@ def build_mcp(service):
         )
 
     @server.tool()
+    async def order_list():
+        """List orders accessible to the authenticated identity."""
+        return await service.tools.call(principal(), "billing", "order_list", {}, "", "mcp-order-list")
+
+    @server.tool()
     async def order_lookup(order_id: str):
         """Read an order after ownership/role checks."""
         return await service.tools.call(
@@ -80,6 +85,11 @@ def build_mcp(service):
             "",
             "mcp-order",
         )
+
+    @server.tool()
+    async def refund_status(order_id: str):
+        """Read current refund approval and settlement records for an accessible order."""
+        return await service.tools.call(principal(), "billing", "refund_status", {"order_id": order_id}, "", "mcp-refund-status")
 
     @server.tool()
     async def refund_request(
@@ -113,6 +123,6 @@ def build_mcp(service):
     @server.tool()
     async def ticket_status(ticket_id: str):
         """Read an accessible support ticket."""
-        return service.store.ticket(principal(), ticket_id)
+        return await service.tools.call(principal(), "billing", "ticket_status", {"ticket_id": ticket_id}, "", "mcp-ticket-status")
 
     return server

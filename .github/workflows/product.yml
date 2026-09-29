@@ -1,0 +1,28 @@
+name: supportFlow product checks
+on: [push, pull_request]
+jobs:
+  business:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - run: go test -race ./... && go vet ./...
+        working-directory: backend
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: backend/go.mod
+          cache-dependency-path: backend/go.sum
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt pytest pytest-asyncio
+      - run: python -m pytest tests -q
+      - run: python scripts/start_product.py --fixture --port 18002 --ai-port 18003 --data-dir .runtime/ci-data --source-db .runtime/no-legacy.sqlite3
+      - run: python scripts/verify_product.py

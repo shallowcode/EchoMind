@@ -1,0 +1,642 @@
+{
+  "entry": {
+    "id": "entry",
+    "path": "api/main.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 17,
+    "sha256": "f29d51494fec42134e33a1587f48dccf092704e74c587a2d5d563b65eb2009e9",
+    "snippet": "1: \"\"\"Primary authenticated SupportFlow entry point; v1 is archived in legacy_main.py.txt.\"\"\"\n2: \n3: from pathlib import Path\n4: import sys\n5: \n6: root = str(Path(__file__).resolve().parents[1])\n7: if root not in sys.path:\n8:     sys.path.insert(0, root)\n9: \n10: from supportflow.api import create_app\n11: \n12: app = create_app()\n13: \n14: if __name__ == \"__main__\":\n15:     import uvicorn\n16: \n17:     uvicorn.run(app, host=\"127.0.0.1\", port=8000)",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/api/main.py"
+  },
+  "chat": {
+    "id": "chat",
+    "path": "supportflow/service.py",
+    "symbol": "ChatService.chat",
+    "line": 466,
+    "end_line": 567,
+    "sha256": "6d089041bf3408abf1647388628c050db565d60c7b63a3c3628e8fa71c10322d",
+    "snippet": "466:     async def chat(self, p, body, variant=\"multi\"):\n467:         start = time.perf_counter()\n468:         fingerprint = hashlib.sha256(\n469:             json.dumps([body.message, body.conv_id, variant]).encode()\n470:         ).hexdigest()\n471:         old = self.store.cached_request(p, body.request_id, fingerprint)\n472:         if old:\n473:             return {**old, \"replayed\": True}\n474:         conv = (\n475:             body.conv_id\n476:             or \"c_\"\n477:             + hashlib.sha256(\n478:                 (p.tenant + p.user + body.request_id).encode()\n479:             ).hexdigest()[:32]\n480:         )\n481:         owner = uuid.uuid4().hex\n482:         trace = Trace(body.request_id)\n483:         token = active_trace.set(trace)\n484:         acquired = False\n485:         try:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/service.py"
+  },
+  "run": {
+    "id": "run",
+    "path": "supportflow/service.py",
+    "symbol": "ChatService._run",
+    "line": 569,
+    "end_line": 835,
+    "sha256": "6d089041bf3408abf1647388628c050db565d60c7b63a3c3628e8fa71c10322d",
+    "snippet": "569:     async def _run(self, p, body, conv, state, variant, trace):\n570:         history = self.store.history(p, conv)\n571:         if self.redis:\n572:             try:\n573:                 cached = json.loads(\n574:                     await self.redis.get(\"sf:\" + p.tenant + \":\" + conv) or \"{}\"\n575:                 )\n576:                 # Compare contents as well: human resolutions can arrive between chat turns.\n577:                 if (\n578:                     cached.get(\"turn\") == state.get(\"turn\")\n579:                     and cached.get(\"history\") == history\n580:                 ):\n581:                     history = cached[\"history\"]\n582:             except Exception:\n583:                 trace.failures.append(\"redis_read\")\n584:         trace.events.append({\"title\": \"读取上下文\", \"detail\": f\"读取 {len(history)} 条历史消息\", \"status\": \"completed\"})\n585:         trace.memory[\"history\"] = copy.deepcopy(history)\n586:         intent = await self.router.recognize_intent(body.message, history)\n587:         trace.events.append({\"title\": \"识别意图\", \"detail\": intent.intent.value, \"status\": \"completed\"})\n588:         entities = state.setdefault(\"entities\", {})",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/service.py"
+  },
+  "agent": {
+    "id": "agent",
+    "path": "supportflow/service.py",
+    "symbol": "ToolAgent._call_llm",
+    "line": 36,
+    "end_line": 290,
+    "sha256": "6d089041bf3408abf1647388628c050db565d60c7b63a3c3628e8fa71c10322d",
+    "snippet": "36:     async def _call_llm(self, req):\n37:         j = job.get()\n38:         task = j.get(\"task\")\n39:         if task and task.kind == \"order\":\n40:             task.attempts = 1\n41:             ids = req.entities.get(\"order_id\", [])\n42:             if not ids:\n43:                 task.status, task.answer = \"awaiting_input\", \"请提供要查询的订单号。\"\n44:                 return task.answer\n45:             answers = []\n46:             labels = {\"pending_payment\": \"待支付\", \"paid\": \"已支付\", \"shipped\": \"已发货\", \"completed\": \"已完成\", \"cancelled\": \"已取消\"}\n47:             for order_id in ids:\n48:                 result = await self._execute_tool(j, \"billing\", ToolCall(name=\"order_lookup\", arguments={\"order_id\": order_id}), req)\n49:                 task.observations.append({\"name\": \"order_lookup\", \"arguments\": {\"order_id\": order_id}, \"success\": True, \"result\": result})\n50:                 answers.append(f\"订单 {result['id']} · {result['product']} · {labels.get(result['status'], result['status'])} · {result['total'] / 100:.2f} 元。\")\n51:             task.status, task.answer = \"completed\", \"\\n\".join(answers)\n52:             return task.answer\n53:         if task and task.kind == \"product_order\":\n54:             ref = j[\"order_reference\"]\n55:             task.attempts = 1",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/service.py"
+  },
+  "shared": {
+    "id": "shared",
+    "path": "supportflow/service.py",
+    "symbol": "ToolAgent._execute_tool",
+    "line": 370,
+    "end_line": 423,
+    "sha256": "6d089041bf3408abf1647388628c050db565d60c7b63a3c3628e8fa71c10322d",
+    "snippet": "370:     async def _execute_tool(self, j, cap, call, req):\n371:         # One request owns one escalation and one reason per refund order. Stable across\n372:         # concurrent agents and HTTP retries; Store still rejects changed business payloads.\n373:         args = dict(call.arguments)\n374:         task = j.get(\"task\")\n375:         if (\n376:             task\n377:             and task.allowed_tools is not None\n378:             and call.name not in task.allowed_tools\n379:         ):\n380:             raise PermissionError(\n381:                 \"Tool outside assigned task; another task owns this action\"\n382:             )\n383:         if call.name == \"ticket_create\":\n384:             args[\"summary\"] = j.get(\"original\", req.message)[:1500]\n385:         if call.name == \"refund_request\":\n386:             validate_refund_call(j.get(\"refund_context\", {}), args)\n387:             args[\"reason\"] = j.get(\"original\", req.message)[:500]\n388:         if call.name not in self.tools.capabilities[cap]:\n389:             raise PermissionError(\"Tool outside agent capability\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/service.py"
+  },
+  "versions": {
+    "id": "versions",
+    "path": "supportflow/service.py",
+    "symbol": "ChatService.versions",
+    "line": 459,
+    "end_line": 464,
+    "sha256": "6d089041bf3408abf1647388628c050db565d60c7b63a3c3628e8fa71c10322d",
+    "snippet": "459:     def versions(self, tenant):\n460:         files = sorted(Path(self.settings.skills_dir).rglob(\"*\"))\n461:         digest = hashlib.sha256(\n462:             b\"\".join(str(p).encode() + p.read_bytes() for p in files if p.is_file())\n463:         ).hexdigest()\n464:         return {\"knowledge\": self.knowledge.version(tenant), \"skills\": digest}",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/service.py"
+  },
+  "plan": {
+    "id": "plan",
+    "path": "supportflow/planning.py",
+    "symbol": "plan_tasks",
+    "line": 95,
+    "end_line": 191,
+    "sha256": "af0c0229dc7c70c6e4223670f771c770421b7f018bc9ecb6464fbcaa456fb905",
+    "snippet": "95: def plan_tasks(message, entities, default_agent, consent, refund_context=None, refund_status_context=None, order_reference=None):\n96:     if refund_context is None:\n97:         refund_context = resolve_refund(message, {}, [])\n98:         if not consent:\n99:             refund_context[\"active\"] = False\n100:     tasks = []\n101: \n102:     def add(kind, agent, title, instruction, tools):\n103:         tasks.append(\n104:             Subtask(f\"task-{len(tasks) + 1}\", kind, agent, title, instruction, tools)\n105:         )\n106: \n107:     technical = bool(\n108:         re.search(\n109:             TECHNICAL_PATTERN,\n110:             message,\n111:             re.I,\n112:         )\n113:     )\n114:     collecting = bool(refund_context and refund_context.get(\"active\"))",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/planning.py"
+  },
+  "task": {
+    "id": "task",
+    "path": "supportflow/planning.py",
+    "symbol": "Subtask",
+    "line": 21,
+    "end_line": 92,
+    "sha256": "af0c0229dc7c70c6e4223670f771c770421b7f018bc9ecb6464fbcaa456fb905",
+    "snippet": "21: class Subtask:\n22:     id: str\n23:     kind: str\n24:     agent: str\n25:     title: str\n26:     instruction: str\n27:     required_tools: list[str] = field(default_factory=list)\n28:     status: str = \"pending\"\n29:     answer: str = \"\"\n30:     observations: list[dict] = field(default_factory=list)\n31:     attempts: int = 0\n32:     missing: list[str] = field(default_factory=list)\n33:     started_ms: float = 0\n34:     duration_ms: float = 0\n35:     input: dict = field(default_factory=dict)\n36:     repairs: list[dict] = field(default_factory=list)\n37: \n38:     def gaps(self, answer):\n39:         successful = [o for o in self.observations if o.get(\"success\")]\n40:         names = {o[\"name\"] for o in successful}",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/planning.py"
+  },
+  "gaps": {
+    "id": "gaps",
+    "path": "supportflow/planning.py",
+    "symbol": "Subtask.gaps",
+    "line": 38,
+    "end_line": 71,
+    "sha256": "af0c0229dc7c70c6e4223670f771c770421b7f018bc9ecb6464fbcaa456fb905",
+    "snippet": "38:     def gaps(self, answer):\n39:         successful = [o for o in self.observations if o.get(\"success\")]\n40:         names = {o[\"name\"] for o in successful}\n41:         gaps = [\"缺少成功工具证据：\" + n for n in self.required_tools if n not in names]\n42:         if self.denied and re.search(r\"超出|超过|不足|不能|无法|拒绝\", answer):\n43:             gaps = []\n44:         if \"knowledge_search\" in self.required_tools and not any(\n45:             o[\"name\"] == \"knowledge_search\" and o[\"result\"].get(\"items\")\n46:             for o in successful\n47:         ):\n48:             gaps.append(\"没有可用知识来源\")\n49:         if len(answer.strip()) < 10 or answer.strip() in {\n50:             \"给用户的回答\",\n51:             \"处理完成\",\n52:             \"已完成\",\n53:         }:\n54:             gaps.append(\"没有实质答复\")\n55:         if self.kind == \"technical\" and not re.search(\n56:             r\"检查|尝试|重新|清除|更新|确认|配置|重试|重启|保留|记录|联系|提供|check|retry\",\n57:             answer,",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/planning.py"
+  },
+  "scope": {
+    "id": "scope",
+    "path": "supportflow/planning.py",
+    "symbol": "scope_message",
+    "line": 207,
+    "end_line": 228,
+    "sha256": "af0c0229dc7c70c6e4223670f771c770421b7f018bc9ecb6464fbcaa456fb905",
+    "snippet": "207: def scope_message(message, task):\n208:     \"\"\"Keep unrelated requests out of specialist prompts, not just an instruction to ignore.\n209: \n210:     The full unmodified message stays in the request's authorization context. Technical\n211:     agents receive the technical clauses; only billing receives order/amount entities.\n212:     \"\"\"\n213:     if task.kind != \"technical\":\n214:         return message\n215:     clauses = re.split(r\"[，,。；;\\n]|同时|另外|而且|并且|顺便|还有\", message)\n216:     selected = []\n217:     for clause in clauses:\n218:         if re.search(\n219:             TECHNICAL_PATTERN,\n220:             clause,\n221:             re.I,\n222:         ):\n223:             clause = re.split(r\"订单|退款|扣款|账单|ORD\\d+\", clause, flags=re.I)[0]\n224:             if clause.strip():\n225:                 selected.append(clause.strip())\n226:     return \"；\".join(selected) or \"排查用户报告的技术故障：\" + \"、\".join(",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/planning.py"
+  },
+  "render": {
+    "id": "render",
+    "path": "supportflow/planning.py",
+    "symbol": "render_tasks",
+    "line": 194,
+    "end_line": 204,
+    "sha256": "af0c0229dc7c70c6e4223670f771c770421b7f018bc9ecb6464fbcaa456fb905",
+    "snippet": "194: def render_tasks(tasks):\n195:     \"\"\"No freeform rewriting after validation: one section per task, including failures.\"\"\"\n196:     return \"\\n\\n\".join(\n197:         (f\"【{t.title}】\\n\" if len(tasks) > 1 else \"\") + t.answer\n198:         + (\n199:             \"\\n尚未完成：\" + \"；\".join(t.missing)\n200:             if t.status not in {\"completed\", \"denied\", \"awaiting_input\"}\n201:             else \"\"\n202:         )\n203:         for t in tasks\n204:     )",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/planning.py"
+  },
+  "retrieve": {
+    "id": "retrieve",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.retrieve",
+    "line": 166,
+    "end_line": 240,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "166:     async def retrieve(self, tenant, query, k=3, advanced=True):\n167:         queries = [query]\n168:         degraded = []\n169:         applied = False\n170:         if advanced:\n171:             try:\n172:                 raw = await self.model.complete(\n173:                     [{\"role\": \"user\", \"content\": query}],\n174:                     '返回JSON {\"queries\":[\"两个不改变原意的检索改写\"]}。保持订单和金额原样。',\n175:                     128,\n176:                     True,\n177:                     purpose=\"改写知识检索词\",\n178:                 )\n179:                 q = parse_json(raw)[\"queries\"]\n180:                 if not isinstance(q, list) or not all(isinstance(x, str) for x in q):\n181:                     raise ValueError(\"Invalid queries\")\n182:                 queries = list(dict.fromkeys([query] + q[:2]))\n183:             except Exception:\n184:                 degraded.append(\"rewrite_failed\")\n185:         retrieval_start = time.perf_counter()",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "knowledgeadd": {
+    "id": "knowledgeadd",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.add",
+    "line": 59,
+    "end_line": 108,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "59:     def add(self, tenant, doc_id, title, content):\n60:         version = hashlib.sha256(content.encode()).hexdigest()\n61:         chunks = []\n62:         for start in range(0, len(content), 420):\n63:             chunk = content[start : start + 500]\n64:             if not chunk.strip():\n65:                 continue\n66:             cid = hashlib.sha256(\n67:                 f\"{tenant}:{doc_id}:{version}:{start}\".encode()\n68:             ).hexdigest()\n69:             chunks.append(\n70:                 {\n71:                     \"id\": cid,\n72:                     \"title\": title,\n73:                     \"content\": chunk,\n74:                     \"version\": version,\n75:                     \"doc_id\": doc_id,\n76:                 }\n77:             )\n78:         with self.store.tx() as c:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "knowinit": {
+    "id": "knowinit",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.__init__",
+    "line": 40,
+    "end_line": 57,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "40:     def __init__(self, store, settings, model):\n41:         self.store = store\n42:         self.settings = settings\n43:         self.model = model\n44:         self.client = None\n45:         if settings.storage == \"chroma\":\n46:             import chromadb\n47: \n48:             self.client = chromadb.PersistentClient(path=settings.chroma_path)\n49:             self.collection = self.client.get_or_create_collection(\n50:                 \"supportflow_knowledge\", metadata={\"hnsw:space\": \"cosine\"}\n51:             )\n52:             self.episodic = self.client.get_or_create_collection(\n53:                 \"supportflow_episodic\", metadata={\"hnsw:space\": \"cosine\"}\n54:             )\n55:             self.profiles = self.client.get_or_create_collection(\n56:                 \"supportflow_profiles\", metadata={\"hnsw:space\": \"cosine\"}\n57:             )",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "search": {
+    "id": "search",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.search",
+    "line": 126,
+    "end_line": 164,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "126:     def search(self, tenant, query, k=5):\n127:         if self.client:\n128:             r = self.collection.query(\n129:                 query_texts=[query], n_results=k, where={\"tenant\": tenant}\n130:             )\n131:             with self.store.tx() as c:\n132:                 valid = {\n133:                     row[\"id\"].split(\":\", 1)[-1]\n134:                     for row in c.execute(\n135:                         \"SELECT id FROM knowledge WHERE tenant=?\", (tenant,)\n136:                     )\n137:                 }\n138:             return [\n139:                 {\n140:                     \"id\": i,\n141:                     \"content\": text,\n142:                     \"title\": m[\"title\"],\n143:                     \"version\": m[\"version\"],\n144:                     \"distance\": d,\n145:                 }",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "archive": {
+    "id": "archive",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.archive",
+    "line": 242,
+    "end_line": 259,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "242:     async def archive(self, p, conv, summary, version):\n243:         if self.client and summary:\n244:             ident = hashlib.sha256(\n245:                 f\"{p.tenant}:{p.user}:{conv}:{version}\".encode()\n246:             ).hexdigest()\n247:             await asyncio.to_thread(\n248:                 self.episodic.upsert,\n249:                 ids=[ident],\n250:                 documents=[summary],\n251:                 metadatas=[\n252:                     {\n253:                         \"tenant\": p.tenant,\n254:                         \"user\": p.user,\n255:                         \"conv\": conv,\n256:                         \"version\": version,\n257:                     }\n258:                 ],\n259:             )",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "recall": {
+    "id": "recall",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.recall",
+    "line": 261,
+    "end_line": 270,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "261:     async def recall(self, p, query):\n262:         if not self.client:\n263:             return []\n264:         r = await asyncio.to_thread(\n265:             self.episodic.query,\n266:             query_texts=[query],\n267:             n_results=3,\n268:             where={\"$and\": [{\"tenant\": p.tenant}, {\"user\": p.user}]},\n269:         )\n270:         return r[\"documents\"][0]",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "profileproj": {
+    "id": "profileproj",
+    "path": "supportflow/knowledge.py",
+    "symbol": "Knowledge.project_profile",
+    "line": 272,
+    "end_line": 280,
+    "sha256": "bb4eed0b554f5c4b774f35fe1b11401e7651d66e34896659b3fe3129da384f38",
+    "snippet": "272:     async def project_profile(self, p, profile):\n273:         if self.client and profile:\n274:             ident = hashlib.sha256(f\"{p.tenant}:{p.user}\".encode()).hexdigest()\n275:             await asyncio.to_thread(\n276:                 self.profiles.upsert,\n277:                 ids=[ident],\n278:                 documents=[json.dumps(profile, ensure_ascii=False)],\n279:                 metadatas=[{\"tenant\": p.tenant, \"user\": p.user}],\n280:             )",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/knowledge.py"
+  },
+  "skillload": {
+    "id": "skillload",
+    "path": "core/skill_loader.py",
+    "symbol": "SkillManager.load",
+    "line": 92,
+    "end_line": 116,
+    "sha256": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+    "snippet": "92:     def load(self) -> List[Skill]:\n93:         \"\"\"重新扫描目录并加载 Skills；单个文件失败不会影响其他 Skill 生效。\"\"\"\n94:         loaded: List[Skill] = []\n95:         errors: List[str] = []\n96: \n97:         if not self.root_dir.exists():\n98:             logger.info(f\"Skill 目录不存在，跳过加载: {self.root_dir}\")\n99:             self._skills = []\n100:             self._errors = []\n101:             return []\n102: \n103:         for path in self._discover_files(self.root_dir):\n104:             try:\n105:                 skill = self._load_file(path)\n106:                 if skill is not None:\n107:                     loaded.append(skill)\n108:             except Exception as ex:\n109:                 msg = f\"{path}: {ex}\"\n110:                 errors.append(msg)\n111:                 logger.warning(f\"Skill 加载失败: {msg}\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/core/skill_loader.py"
+  },
+  "skillmatch": {
+    "id": "skillmatch",
+    "path": "core/skill_loader.py",
+    "symbol": "Skill.matches",
+    "line": 27,
+    "end_line": 44,
+    "sha256": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+    "snippet": "27:     def matches(self, message: str, agent_type: Optional[str] = None) -> bool:\n28:         \"\"\"\n29:         判断当前请求是否应该注入这个 Skill。\n30: \n31:         - agents 为空：适用于所有 Agent；否则只匹配指定 Agent。\n32:         - keywords 为空：作为全局 Skill 注入；否则只有命中关键词才注入。\n33:         \"\"\"\n34:         if not self.enabled:\n35:             return False\n36: \n37:         if self.agents and agent_type and agent_type.lower() not in self.agents:\n38:             return False\n39: \n40:         if not self.keywords:\n41:             return True\n42: \n43:         lowered = (message or \"\").lower()\n44:         return any(keyword.lower() in lowered for keyword in self.keywords)",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/core/skill_loader.py"
+  },
+  "skillprompt": {
+    "id": "skillprompt",
+    "path": "core/skill_loader.py",
+    "symbol": "SkillManager.prompt_for",
+    "line": 122,
+    "end_line": 172,
+    "sha256": "5eda757f964705e9e2e91ce73b0d9ceb6dc06c5dabaa4e306d6cb0186f4b5d24",
+    "snippet": "122:     def prompt_for(self, message: str, agent_type: Optional[str] = None) -> str:\n123:         \"\"\"\n124:         为当前用户请求构建 Skill prompt。\n125: \n126:         只注入匹配的 Skill，并按总长度截断，避免挤占主对话上下文。\n127:         \"\"\"\n128:         blocks: List[str] = []\n129:         matched: List[tuple[Skill, List[str]]] = []\n130:         remaining = self.max_prompt_chars\n131:         lowered_message = (message or \"\").lower()\n132: \n133:         for skill in self._skills:\n134:             if not skill.matches(message, agent_type):\n135:                 continue\n136:             matched_keywords = [\n137:                 keyword for keyword in skill.keywords\n138:                 if keyword.lower() in lowered_message\n139:             ]\n140:             block = skill.to_prompt_block()\n141:             if len(block) > remaining:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/core/skill_loader.py"
+  },
+  "tools": {
+    "id": "tools",
+    "path": "supportflow/tools.py",
+    "symbol": "Tools.call",
+    "line": 117,
+    "end_line": 232,
+    "sha256": "36399cb90cde8400f44d7729608fbb15ec373507a3f3a4b24d3d3d33788d651b",
+    "snippet": "117:     async def call(self, p, agent, name, args, conv, rid, advanced=True, consent=False):\n118:         start = time.perf_counter()\n119:         result = None\n120:         cached = False\n121:         error = None\n122:         trace = active_trace.get()\n123:         checks = []\n124:         timeout_seconds = 90 if name == \"knowledge_search\" else 10\n125:         try:\n126:             if name not in self.capabilities.get(agent, set()):\n127:                 raise PermissionError(\"Tool outside agent capability\")\n128:             checks.append(\"Agent 工具权限通过\")\n129:             Draft202012Validator(self.specs[name]).validate(args)\n130:             checks.append(\"参数结构校验通过\")\n131:             if name == \"refund_request\" and ((\"amount_cents\" in args) == (\"full_refund\" in args)):\n132:                 raise ValueError(\"Provide exactly one of amount_cents or full_refund\")\n133:             if name == \"refund_request\" and not consent:\n134:                 raise PermissionError(\"Explicit user refund request required\")\n135:             if name == \"refund_request\":\n136:                 checks.append(\"用户退款授权通过\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/tools.py"
+  },
+  "breaker": {
+    "id": "breaker",
+    "path": "supportflow/tools.py",
+    "symbol": "Breaker",
+    "line": 26,
+    "end_line": 48,
+    "sha256": "36399cb90cde8400f44d7729608fbb15ec373507a3f3a4b24d3d3d33788d651b",
+    "snippet": "26: class Breaker:\n27:     threshold: int = 3\n28:     recovery: float = 10\n29:     failures: int = 0\n30:     opened: float = 0\n31:     probe: bool = False\n32: \n33:     def enter(self):\n34:         if self.opened:\n35:             if time.monotonic() - self.opened < self.recovery or self.probe:\n36:                 return False\n37:             self.probe = True\n38:         return True\n39: \n40:     def finish(self, success):\n41:         self.probe = False\n42:         if success:\n43:             self.failures = 0\n44:             self.opened = 0\n45:         else:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/tools.py"
+  },
+  "mcp": {
+    "id": "mcp",
+    "path": "supportflow/protocol.py",
+    "symbol": "build_mcp",
+    "line": 31,
+    "end_line": 128,
+    "sha256": "efeb1783fc5dbc9472bdbb626b9f788cca477b117401ff0dc62227bcdc722f3a",
+    "snippet": "31: def build_mcp(service):\n32:     public = service.settings.public_url.rstrip(\"/\")\n33:     host = urlsplit(public).hostname\n34:     if not host:\n35:         raise ValueError(\"Valid public_url required\")\n36:     server = FastMCP(\n37:         \"SupportFlow\",\n38:         stateless_http=True,\n39:         json_response=True,\n40:         streamable_http_path=\"/\",\n41:         transport_security=TransportSecuritySettings(\n42:             allowed_hosts=[host, host + \":*\", \"127.0.0.1:*\", \"localhost:*\"],\n43:             allowed_origins=[public, \"http://127.0.0.1:*\", \"http://localhost:*\"],\n44:         ),\n45:         token_verifier=TokenVerifier(service.store),\n46:         auth=AuthSettings(\n47:             issuer_url=public,\n48:             resource_server_url=public + \"/mcp\",\n49:             required_scopes=[\"supportflow\"],\n50:             validate_token_resource=False,",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/protocol.py"
+  },
+  "contracts": {
+    "id": "contracts",
+    "path": "supportflow/contracts.py",
+    "symbol": "AgentTurn",
+    "line": 60,
+    "end_line": 63,
+    "sha256": "0d404a2d7579f6fe08fdac1e99cff61cbc461d5b71e3cdaa9f0994f6128233dc",
+    "snippet": "60: class AgentTurn(BaseModel):\n61:     model_config = ConfigDict(extra=\"forbid\")\n62:     answer: str = \"\"\n63:     tool_calls: list[ToolCall] = Field(default_factory=list, max_length=3)",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/contracts.py"
+  },
+  "principal": {
+    "id": "principal",
+    "path": "supportflow/contracts.py",
+    "symbol": "Principal",
+    "line": 16,
+    "end_line": 27,
+    "sha256": "0d404a2d7579f6fe08fdac1e99cff61cbc461d5b71e3cdaa9f0994f6128233dc",
+    "snippet": "16: class Principal:\n17:     tenant: str\n18:     user: str\n19:     roles: frozenset[str] = frozenset({\"customer\"})\n20: \n21:     def require(self, role: str):\n22:         if role not in self.roles and \"admin\" not in self.roles:\n23:             raise PermissionError(f\"Required role: {role}\")\n24: \n25:     @property\n26:     def demo_customer(self):\n27:         return self.tenant == \"demo\" and \"demo_customer\" in self.roles",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/contracts.py"
+  },
+  "settings": {
+    "id": "settings",
+    "path": "supportflow/contracts.py",
+    "symbol": "Settings",
+    "line": 73,
+    "end_line": 116,
+    "sha256": "0d404a2d7579f6fe08fdac1e99cff61cbc461d5b71e3cdaa9f0994f6128233dc",
+    "snippet": "73: class Settings(BaseModel):\n74:     db_path: str = \"data/supportflow.sqlite3\"\n75:     model_backend: Literal[\"compatible\", \"anthropic\", \"fixture\"] = \"compatible\"\n76:     model_url: str = \"http://127.0.0.1:8081/v1\"\n77:     model_name: str = \"qwen3-local\"\n78:     model_key: str = \"\"\n79:     local_chat_template: bool = True\n80:     supports_json_schema: bool = True\n81:     model_thinking: Literal[\"enabled\", \"disabled\"] | None = None\n82:     public_url: str = \"http://localhost:8000\"\n83:     model_timeout: float = 90\n84:     request_timeout: float = 180\n85:     max_inflight: int = 4\n86:     max_tool_rounds: int = 3\n87:     storage: Literal[\"sqlite\", \"chroma\"] = \"sqlite\"\n88:     chroma_path: str = \"data/supportflow-chroma\"\n89:     redis_url: str = \"\"\n90:     skills_dir: str = \"skills\"\n91:     token_ttl: int = 3600\n92:     model_input_price: float | None = None",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/contracts.py"
+  },
+  "model": {
+    "id": "model",
+    "path": "supportflow/model.py",
+    "symbol": "Model.complete",
+    "line": 27,
+    "end_line": 146,
+    "sha256": "ab431a969500999729910838c116891e6eb15508e312a788819c4c2fce41887a",
+    "snippet": "27:     async def complete(self, messages, system=\"\", max_tokens=384, json_mode=False, purpose=\"模型调用\"):\n28:         s = self.settings\n29:         if s.model_backend == \"fixture\":\n30:             raise RuntimeError(\n31:                 \"Fixture backend requires an explicitly injected test double\"\n32:             )\n33:         start = time.perf_counter()\n34:         trace = active_trace.get()\n35:         if trace:\n36:             trace.model_calls += 1\n37:         captured = None\n38: \n39:         def capture(payload):\n40:             if not trace:\n41:                 return None\n42:             record = {\"index\": len(trace.model_inputs) + 1, \"purpose\": purpose,\n43:                       \"provider\": s.model_backend, \"request\": copy.deepcopy(payload), \"status\": \"running\"}\n44:             trace.model_inputs.append(record)\n45:             return record\n46:         try:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/model.py"
+  },
+  "pricing": {
+    "id": "pricing",
+    "path": "supportflow/pricing.py",
+    "symbol": "estimate_call",
+    "line": 8,
+    "end_line": 24,
+    "sha256": "ebe3dc90284a4b88884cc88f1301ae645db70878a8acfe8ef2ba48df4891f0cb",
+    "snippet": "8: def estimate_call(settings, input_tokens, output_tokens):\n9:     if settings.pricing_profile == \"glm-air-20260908\":\n10:         if input_tokens >= 128000:\n11:             return None\n12:         inp, out = (\n13:             (1.2, 8.0)\n14:             if input_tokens >= 32000\n15:             else (0.8, 2.0 if output_tokens < 200 else 6.0)\n16:         )\n17:     elif (\n18:         settings.model_input_price is not None\n19:         and settings.model_output_price is not None\n20:     ):\n21:         inp, out = settings.model_input_price, settings.model_output_price\n22:     else:\n23:         return None\n24:     return (input_tokens * inp + output_tokens * out) / 1e6",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/pricing.py"
+  },
+  "store": {
+    "id": "store",
+    "path": "supportflow/store.py",
+    "symbol": "Store",
+    "line": 18,
+    "end_line": 467,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "18: class Store:\n19:     def __init__(self, path):\n20:         self.path = str(path)\n21:         Path(path).parent.mkdir(parents=True, exist_ok=True)\n22:         with self.tx() as c:\n23:             c.executescript(\"\"\"\n24:             CREATE TABLE IF NOT EXISTS tokens (hash TEXT PRIMARY KEY, tenant TEXT, user TEXT, roles TEXT, expires REAL, revoked INTEGER DEFAULT 0);\n25:             CREATE TABLE IF NOT EXISTS orders (tenant TEXT, id TEXT, user TEXT, total INTEGER, refunded INTEGER DEFAULT 0, status TEXT, PRIMARY KEY(tenant,id));\n26:             CREATE TABLE IF NOT EXISTS deleted_orders (tenant TEXT, order_id TEXT, deleted REAL NOT NULL, PRIMARY KEY(tenant,order_id));\n27:             CREATE TABLE IF NOT EXISTS order_details (tenant TEXT, order_id TEXT, product TEXT NOT NULL, quantity INTEGER NOT NULL, created REAL NOT NULL, updated REAL NOT NULL, version INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(tenant,order_id));\n28:             CREATE TABLE IF NOT EXISTS refunds (id TEXT PRIMARY KEY, tenant TEXT, user TEXT, order_id TEXT, amount INTEGER, status TEXT, idem TEXT, reason TEXT, payment_ref TEXT, UNIQUE(tenant,user,idem));\n29:             CREATE TABLE IF NOT EXISTS tickets (id TEXT PRIMARY KEY, tenant TEXT, user TEXT, conv TEXT, summary TEXT, status TEXT, assignee TEXT, resolution TEXT, idem TEXT, version INTEGER DEFAULT 0, UNIQUE(tenant,user,idem));\n30:             CREATE TABLE IF NOT EXISTS conversations (tenant TEXT, id TEXT, user TEXT, state TEXT, version INTEGER DEFAULT 0, lease_owner TEXT, lease_until REAL DEFAULT 0, PRIMARY KEY(tenant,id));\n31:             CREATE TABLE IF NOT EXISTS messages (seq INTEGER PRIMARY KEY AUTOINCREMENT, tenant TEXT, conv TEXT, role TEXT, content TEXT, created REAL);\n32:             CREATE TABLE IF NOT EXISTS requests (tenant TEXT, user TEXT, id TEXT, fingerprint TEXT, response TEXT, PRIMARY KEY(tenant,user,id));\n33:             CREATE TABLE IF NOT EXISTS audit (seq INTEGER PRIMARY KEY AUTOINCREMENT, tenant TEXT, actor TEXT, action TEXT, target TEXT, detail TEXT, created REAL);\n34:             CREATE TABLE IF NOT EXISTS knowledge (tenant TEXT, id TEXT, title TEXT, content TEXT, version TEXT, PRIMARY KEY(tenant,id));\n35:             CREATE TABLE IF NOT EXISTS traces (tenant TEXT, user TEXT, id TEXT PRIMARY KEY, payload TEXT);\n36:             CREATE TABLE IF NOT EXISTS payment_outbox (refund_id TEXT PRIMARY KEY, tenant TEXT, payload TEXT, status TEXT, attempts INTEGER DEFAULT 0, lease_until REAL DEFAULT 0, last_error TEXT);\n37:             CREATE TABLE IF NOT EXISTS payment_events (id TEXT PRIMARY KEY, refund_id TEXT, created REAL);",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "tx": {
+    "id": "tx",
+    "path": "supportflow/store.py",
+    "symbol": "Store.tx",
+    "line": 42,
+    "end_line": 55,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "42:     def tx(self):\n43:         c = sqlite3.connect(self.path, timeout=10)\n44:         c.row_factory = sqlite3.Row\n45:         c.execute(\"PRAGMA journal_mode=WAL\")\n46:         c.execute(\"PRAGMA foreign_keys=ON\")\n47:         try:\n48:             c.execute(\"BEGIN IMMEDIATE\")\n49:             yield c\n50:             c.commit()\n51:         except BaseException:\n52:             c.rollback()\n53:             raise\n54:         finally:\n55:             c.close()",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "auth": {
+    "id": "auth",
+    "path": "supportflow/store.py",
+    "symbol": "Store.authenticate",
+    "line": 85,
+    "end_line": 93,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "85:     def authenticate(self, token):\n86:         with self.tx() as c:\n87:             r = c.execute(\n88:                 \"SELECT * FROM tokens WHERE hash=?\",\n89:                 (hashlib.sha256(token.encode()).hexdigest(),),\n90:             ).fetchone()\n91:         if not r or r[\"revoked\"] or r[\"expires\"] <= time.time():\n92:             raise PermissionError(\"Invalid or expired token\")\n93:         return Principal(r[\"tenant\"], r[\"user\"], frozenset(json.loads(r[\"roles\"])))",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "order": {
+    "id": "order",
+    "path": "supportflow/store.py",
+    "symbol": "Store.order",
+    "line": 111,
+    "end_line": 132,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "111:     def order(self, p, order_id):\n112:         with self.tx() as c:\n113:             if c.execute(\"SELECT 1 FROM deleted_orders WHERE tenant=? AND order_id=?\", (p.tenant, order_id)).fetchone():\n114:                 raise PermissionError(\"Order not accessible\")\n115:             r = c.execute(\n116:                 \"SELECT o.*,COALESCE(d.product,'演示订单') product,COALESCE(d.quantity,1) quantity FROM orders o LEFT JOIN order_details d ON d.tenant=o.tenant AND d.order_id=o.id WHERE o.tenant=? AND o.id=?\", (p.tenant, order_id)\n117:             ).fetchone()\n118:             reserved = c.execute(\n119:                 \"SELECT COALESCE(SUM(amount),0) FROM refunds WHERE tenant=? AND order_id=? AND status IN ('pending','approved','processing')\",\n120:                 (p.tenant, order_id),\n121:             ).fetchone()[0]\n122:             refunds = [dict(row) for row in c.execute(\n123:                 \"SELECT id,order_id,amount,status FROM refunds WHERE tenant=? AND order_id=? ORDER BY rowid DESC\",\n124:                 (p.tenant, order_id),\n125:             )]\n126:         if not r or (\n127:             r[\"user\"] != p.user\n128:             and not p.demo_customer\n129:             and not p.roles.intersection({\"staff\", \"finance\", \"admin\"})\n130:         ):",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "refundstore": {
+    "id": "refundstore",
+    "path": "supportflow/store.py",
+    "symbol": "Store.refund_request",
+    "line": 158,
+    "end_line": 222,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "158:     def refund_request(self, p, order_id, amount, reason, idem, *, full=False):\n159:         if full and amount is not None:\n160:             raise ValueError(\"Full refund amount must be computed by the ledger\")\n161:         if not full and (type(amount) is not int or amount <= 0):\n162:             raise ValueError(\"amount_cents must be positive integer\")\n163:         # Full/fixed mode is part of the idempotency namespace, including crash retries.\n164:         if full:\n165:             idem = \"full:\" + idem\n166:         with self.tx() as c:\n167:             if c.execute(\"SELECT 1 FROM deleted_orders WHERE tenant=? AND order_id=?\", (p.tenant, order_id)).fetchone():\n168:                 raise PermissionError(\"Order not accessible\")\n169:             old = c.execute(\n170:                 \"SELECT * FROM refunds WHERE tenant=? AND user=? AND idem=?\",\n171:                 (p.tenant, p.user, idem),\n172:             ).fetchone()\n173:             if old:\n174:                 if (\n175:                     old[\"order_id\"] != order_id\n176:                     or (not full and old[\"amount\"] != amount)\n177:                     or old[\"reason\"] != reason",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "approve": {
+    "id": "approve",
+    "path": "supportflow/store.py",
+    "symbol": "Store.approve_refund",
+    "line": 224,
+    "end_line": 239,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "224:     def approve_refund(self, p, rid, approve=True):\n225:         p.require(\"finance\")\n226:         with self.tx() as c:\n227:             r = c.execute(\n228:                 \"SELECT * FROM refunds WHERE tenant=? AND id=?\", (p.tenant, rid)\n229:             ).fetchone()\n230:             if not r:\n231:                 raise PermissionError(\"Refund not accessible\")\n232:             if r[\"status\"] != \"pending\":\n233:                 raise ValueError(\"Refund must be pending\")\n234:             if r[\"user\"] == p.user:\n235:                 raise PermissionError(\"Requester cannot approve own refund\")\n236:             status = \"approved\" if approve else \"rejected\"\n237:             c.execute(\"UPDATE refunds SET status=? WHERE id=?\", (status, rid))\n238:             self.audit(c, p, \"refund.\" + status, rid, {})\n239:         return {\"id\": rid, \"status\": status}",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "settle": {
+    "id": "settle",
+    "path": "supportflow/store.py",
+    "symbol": "Store.settle_refund",
+    "line": 241,
+    "end_line": 269,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "241:     def settle_refund(self, p, rid):\n242:         p.require(\"finance\")\n243:         with self.tx() as c:\n244:             r = c.execute(\n245:                 \"SELECT * FROM refunds WHERE tenant=? AND id=?\", (p.tenant, rid)\n246:             ).fetchone()\n247:             if not r:\n248:                 raise PermissionError(\"Refund not accessible\")\n249:             if r[\"status\"] == \"settled\":\n250:                 return dict(r)\n251:             if r[\"status\"] != \"approved\":\n252:                 raise ValueError(\"Approval required\")\n253:             if r[\"user\"] == p.user:\n254:                 raise PermissionError(\"Requester cannot settle own refund\")\n255:             c.execute(\n256:                 \"UPDATE orders SET refunded=refunded+? WHERE tenant=? AND id=?\",\n257:                 (r[\"amount\"], p.tenant, r[\"order_id\"]),\n258:             )\n259:             ref = \"sandbox_\" + rid\n260:             c.execute(",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "refundstatus": {
+    "id": "refundstatus",
+    "path": "supportflow/store.py",
+    "symbol": "Store.refund_status",
+    "line": 143,
+    "end_line": 156,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "143:     def refund_status(self, p, order_id=None, refund_id=None):\n144:         \"\"\"Read current ledger state, never a historical chat claim or cached answer.\"\"\"\n145:         if not order_id and not refund_id:\n146:             raise ValueError(\"Order or refund identifier required\")\n147:         if order_id:\n148:             items = self.order(p, order_id)[\"refunds\"]\n149:             if refund_id:\n150:                 items = [item for item in items if item[\"id\"] == refund_id]\n151:             return {\"order_id\": order_id, \"items\": items}\n152:         with self.tx() as c:\n153:             row = c.execute(\"SELECT id,order_id,amount,status,user FROM refunds WHERE tenant=? AND id=?\", (p.tenant, refund_id)).fetchone()\n154:         if not row or (row[\"user\"] != p.user and not p.demo_customer and not p.roles.intersection({\"staff\", \"finance\", \"admin\"})):\n155:             raise PermissionError(\"Refund not accessible\")\n156:         return {\"order_id\": row[\"order_id\"], \"items\": [{k: row[k] for k in (\"id\", \"order_id\", \"amount\", \"status\")}]}",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "ticketcreate": {
+    "id": "ticketcreate",
+    "path": "supportflow/store.py",
+    "symbol": "Store.create_ticket",
+    "line": 271,
+    "end_line": 295,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "271:     def create_ticket(self, p, conv, summary, idem):\n272:         with self.tx() as c:\n273:             conversation = c.execute(\n274:                 \"SELECT user FROM conversations WHERE tenant=? AND id=?\",\n275:                 (p.tenant, conv),\n276:             ).fetchone()\n277:             if not conversation or conversation[\"user\"] != p.user:\n278:                 raise PermissionError(\"Owned conversation required\")\n279:             old = c.execute(\n280:                 \"SELECT * FROM tickets WHERE tenant=? AND user=? AND idem=?\",\n281:                 (p.tenant, p.user, idem),\n282:             ).fetchone()\n283:             if old:\n284:                 if old[\"conv\"] != conv or old[\"summary\"] != summary:\n285:                     raise ValueError(\"Ticket idempotency payload mismatch\")\n286:                 return dict(old)\n287:             tid = \"tk_\" + uuid.uuid4().hex\n288:             c.execute(\n289:                 \"INSERT INTO tickets(id,tenant,user,conv,summary,status,idem) VALUES(?,?,?,?,?,?,?)\",\n290:                 (tid, p.tenant, p.user, conv, summary, \"open\", idem),",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "ticketupdate": {
+    "id": "ticketupdate",
+    "path": "supportflow/store.py",
+    "symbol": "Store.update_ticket",
+    "line": 308,
+    "end_line": 354,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "308:     def update_ticket(self, p, tid, status, assignee=\"\", resolution=\"\", version=0):\n309:         p.require(\"staff\")\n310:         with self.tx() as c:\n311:             r = c.execute(\n312:                 \"SELECT * FROM tickets WHERE tenant=? AND id=?\", (p.tenant, tid)\n313:             ).fetchone()\n314:             if not r:\n315:                 raise PermissionError(\"Ticket not accessible\")\n316:             transitions = {\n317:                 \"open\": {\"assigned\"},\n318:                 \"assigned\": {\"resolved\"},\n319:                 \"resolved\": {\"closed\"},\n320:                 \"closed\": set(),\n321:             }\n322:             if status not in transitions[r[\"status\"]]:\n323:                 raise ValueError(\"Invalid ticket transition\")\n324:             if status == \"assigned\" and not assignee:\n325:                 raise ValueError(\"Assignee required\")\n326:             if status == \"resolved\" and (\n327:                 not resolution or (r[\"assignee\"] != p.user and \"admin\" not in p.roles)",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "lease": {
+    "id": "lease",
+    "path": "supportflow/store.py",
+    "symbol": "Store.acquire_conversation",
+    "line": 356,
+    "end_line": 373,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "356:     def acquire_conversation(self, p, conv, owner, ttl):\n357:         with self.tx() as c:\n358:             c.execute(\n359:                 \"INSERT OR IGNORE INTO conversations(tenant,id,user,state) VALUES(?,?,?,?)\",\n360:                 (p.tenant, conv, p.user, \"{}\"),\n361:             )\n362:             row = c.execute(\n363:                 \"SELECT * FROM conversations WHERE tenant=? AND id=?\", (p.tenant, conv)\n364:             ).fetchone()\n365:             if row[\"user\"] != p.user:\n366:                 raise PermissionError(\"Conversation belongs to another user\")\n367:             if row[\"lease_until\"] > time.time():\n368:                 raise ValueError(\"Conversation busy; retry with same request_id\")\n369:             c.execute(\n370:                 \"UPDATE conversations SET lease_owner=?,lease_until=? WHERE tenant=? AND id=?\",\n371:                 (owner, time.time() + ttl, p.tenant, conv),\n372:             )\n373:             return json.loads(row[\"state\"])",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "cached": {
+    "id": "cached",
+    "path": "supportflow/store.py",
+    "symbol": "Store.cached_request",
+    "line": 396,
+    "end_line": 404,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "396:     def cached_request(self, p, rid, fingerprint):\n397:         with self.tx() as c:\n398:             r = c.execute(\n399:                 \"SELECT * FROM requests WHERE tenant=? AND user=? AND id=?\",\n400:                 (p.tenant, p.user, rid),\n401:             ).fetchone()\n402:         if r and r[\"fingerprint\"] != fingerprint:\n403:             raise ValueError(\"request_id reused with different payload\")\n404:         return json.loads(r[\"response\"]) if r else None",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "commit": {
+    "id": "commit",
+    "path": "supportflow/store.py",
+    "symbol": "Store.commit_turn",
+    "line": 406,
+    "end_line": 448,
+    "sha256": "3715af0fae87f623ba159cd73c681abfd4481c5a963d9abffd14a54a6a4ed23f",
+    "snippet": "406:     def commit_turn(self, p, conv, owner, rid, fingerprint, message, response, state):\n407:         with self.tx() as c:\n408:             row = c.execute(\n409:                 \"SELECT lease_owner FROM conversations WHERE tenant=? AND id=?\",\n410:                 (p.tenant, conv),\n411:             ).fetchone()\n412:             if not row or row[\"lease_owner\"] != owner:\n413:                 raise ValueError(\"Conversation lease lost\")\n414:             for role, content in [\n415:                 (\"user\", message),\n416:                 (\"assistant\", response[\"response\"]),\n417:             ]:\n418:                 c.execute(\n419:                     \"INSERT INTO messages(tenant,conv,role,content,created) VALUES(?,?,?,?,?)\",\n420:                     (p.tenant, conv, role, content, time.time()),\n421:                 )\n422:             c.execute(\n423:                 \"UPDATE conversations SET state=?,version=version+1 WHERE tenant=? AND id=?\",\n424:                 (json.dumps(state, ensure_ascii=False), p.tenant, conv),\n425:             )",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/store.py"
+  },
+  "refundresolve": {
+    "id": "refundresolve",
+    "path": "supportflow/refunds.py",
+    "symbol": "resolve_refund",
+    "line": 46,
+    "end_line": 90,
+    "sha256": "9486bc1955c439eec908d9c287259438cd0a8dd3d2cc2907751ec40576dce7f4",
+    "snippet": "46: def resolve_refund(message, state, history, resolved_order_ids=None):\n47:     previous = dict(state.get(\"refund_flow\") or {})\n48:     if previous.get(\"status\") != \"collecting\":\n49:         previous = {}\n50:     if re.search(CANCEL, message, re.I):\n51:         state.pop(\"refund_flow\", None)\n52:         return {\"active\": False, \"consent\": False, \"cancelled\": True}\n53:     clauses = re.split(r\"[，,。；;！!\\n]\", message)\n54:     full = any(re.search(FULL, clause, re.I) and not re.search(QUESTION + r\"|不|没|别|取消|撤销|他说|她说|示例|例子|[\\\"“”「」]\", clause, re.I) for clause in clauses)\n55:     question = bool(re.search(QUESTION, message, re.I))\n56:     explicit = any(re.search(r\"(?:申请|我要|我想|请|帮我|给我|确认|want|please|request).{0,16}(?:退款|退还|refund)|(?:退款|refund).{0,12}(?:申请|确认|please|给我|吧)\", clause, re.I) and not re.search(QUESTION + r\"|没(?:有)?说|并非|不是|示例|例子|他说|她说|[\\\"“”「」]\", clause, re.I) for clause in clauses)\n57:     # A policy/hypothetical question cannot authorize a money operation.\n58:     explicit = bool(explicit or full)\n59:     orders = orders_in(message) or resolved_order_ids or []\n60:     amounts = re.findall(r\"(?<![\\d.\\-−])(\\d+(?:\\.\\d{1,2})?)\\s*元\", message)\n61:     if previous and re.fullmatch(r\"\\s*\\d+(?:\\.\\d{1,2})?\\s*\", message):\n62:         amounts = [message.strip()]\n63:     order_reply = bool(orders) and bool(re.fullmatch(r\"\\s*(?:我的)?(?:订单(?:号)?(?:是)?\\s*[:：]?\\s*)?[A-Za-z0-9_-]{4,32}\\s*[。.]?\", message))\n64:     amount_reply = bool(amounts) and bool(re.fullmatch(r\"\\s*(?:退款金额|金额|只退|就退|退给我|给我退|退我|退款|退还|退)?(?:是|为)?\\s*\\d+(?:\\.\\d{1,2})?\\s*元?\\s*(?:吧|就行|就好)?[。.]?\\s*\", message))\n65:     slot_reply = order_reply or amount_reply or bool(resolved_order_ids)",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/refunds.py"
+  },
+  "refundvalidate": {
+    "id": "refundvalidate",
+    "path": "supportflow/refunds.py",
+    "symbol": "validate_refund_call",
+    "line": 93,
+    "end_line": 102,
+    "sha256": "9486bc1955c439eec908d9c287259438cd0a8dd3d2cc2907751ec40576dce7f4",
+    "snippet": "93: def validate_refund_call(flow, arguments):\n94:     if not flow.get(\"active\") or not flow.get(\"consent\"):\n95:         raise PermissionError(\"缺少用户明确的退款申请\")\n96:     if len(flow.get(\"order_ids\", [])) != 1 or arguments.get(\"order_id\") != flow[\"order_ids\"][0]:\n97:         raise PermissionError(\"退款订单尚未明确或与用户选择不符\")\n98:     if flow.get(\"full\"):\n99:         if arguments.get(\"full_refund\") is not True or \"amount_cents\" in arguments:\n100:             raise PermissionError(\"全退必须由账本计算当前可退余额\")\n101:     elif flow.get(\"amount_cents\") is None or arguments.get(\"amount_cents\") != flow[\"amount_cents\"] or arguments.get(\"full_refund\"):\n102:         raise PermissionError(\"退款金额必须与用户明确提供的金额一致\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/refunds.py"
+  },
+  "payments": {
+    "id": "payments",
+    "path": "supportflow/payments.py",
+    "symbol": "Payments",
+    "line": 29,
+    "end_line": 238,
+    "sha256": "1cac4cc90c3b66cdcfd40ea2768159d40a99ec7ea3289a80ba156d8ba20a86a5",
+    "snippet": "29: class Payments:\n30:     def __init__(self, store, settings):\n31:         self.store = store\n32:         self.settings = settings\n33: \n34:     def enqueue(self, p, rid):\n35:         p.require(\"finance\")\n36:         if (\n37:             not self.settings.payment_url.startswith(\"https://\")\n38:             or not self.settings.payment_key\n39:             or not self.settings.payment_webhook_secret\n40:         ):\n41:             raise ValueError(\n42:                 \"External payment provider must be configured before execution\"\n43:             )\n44:         with self.store.tx() as c:\n45:             row = c.execute(\n46:                 \"SELECT * FROM refunds WHERE tenant=? AND id=?\", (p.tenant, rid)\n47:             ).fetchone()\n48:             if not row:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/payments.py"
+  },
+  "intent": {
+    "id": "intent",
+    "path": "core/intent_recognizer.py",
+    "symbol": "IntentRecognizer.recognize",
+    "line": 174,
+    "end_line": 223,
+    "sha256": "ce3dfb4eef87ab7f84bec3d2ed8df1a1fa8ab959de57b044438a9636dd808d95",
+    "snippet": "174:     async def recognize(\n175:         self,\n176:         message: str,\n177:         history: Optional[List[Dict[str, str]]] = None,\n178:     ) -> IntentResult:\n179:         \"\"\"\n180:         识别用户意图。\n181: \n182:         history 格式：[{\"role\": \"user\"/\"assistant\", \"content\": \"...\"}]\n183:         \"\"\"\n184:         key = self._cache_key(message, history)\n185:         if key in self._cache:\n186:             self.cache_hits += 1\n187:             return self._cache[key]\n188:         self.cache_misses += 1\n189: \n190:         t0 = time.monotonic()\n191: \n192:         # LLM 和 Embedding 并行（Embedding 不可用时跳过）\n193:         llm_task = asyncio.create_task(self._llm_recognize(message, history))",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/core/intent_recognizer.py"
+  },
+  "ivote": {
+    "id": "ivote",
+    "path": "core/intent_recognizer.py",
+    "symbol": "IntentRecognizer._vote",
+    "line": 343,
+    "end_line": 376,
+    "sha256": "ce3dfb4eef87ab7f84bec3d2ed8df1a1fa8ab959de57b044438a9636dd808d95",
+    "snippet": "343:     def _vote(self, llm: Dict, emb: Dict, pat: Dict) -> tuple[IntentCategory, float, Dict[str, float]]:\n344:         \"\"\"加权投票。返回最终意图、融合置信度和各路来源得分。\"\"\"\n345:         source_scores = {\n346:             \"llm\": float(llm.get(\"confidence\", 0.0) or 0.0),\n347:             \"embedding\": float(emb.get(\"confidence\", 0.0) or 0.0),\n348:             \"pattern\": float(pat.get(\"confidence\", 0.0) or 0.0),\n349:         }\n350:         if llm.get(\"failed\"):\n351:             if emb.get(\"intent\") != IntentCategory.OTHER and emb.get(\"confidence\", 0.0) > 0:\n352:                 return emb[\"intent\"], source_scores[\"embedding\"], source_scores\n353:             if pat.get(\"intent\") != IntentCategory.OTHER and pat.get(\"confidence\", 0.0) > 0:\n354:                 return pat[\"intent\"], source_scores[\"pattern\"], source_scores\n355:             return IntentCategory.OTHER, 0.0, source_scores\n356: \n357:         if self._embedding_enabled:\n358:             weights = [(llm, 0.7), (emb, 0.2), (pat, 0.1)]\n359:         else:\n360:             weights = [(llm, 0.85), (pat, 0.15)]\n361:         scores: Dict[IntentCategory, float] = {}\n362:         for result, w in weights:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/core/intent_recognizer.py"
+  },
+  "api": {
+    "id": "api",
+    "path": "supportflow/api.py",
+    "symbol": "create_app",
+    "line": 89,
+    "end_line": 399,
+    "sha256": "eac0e8ee73efc21fae064afbeb7278c18407766cca7ee0e66c017ba5aac399ef",
+    "snippet": "89: def create_app(settings=None, model=None, variant=\"multi\"):\n90:     settings = settings or Settings.from_env()\n91:     store = Store(settings.db_path)\n92:     merchant = Merchant(store)\n93:     model = model or Model(settings)\n94:     kb = Knowledge(store, settings, model)\n95:     service = ChatService(store, settings, model, kb, Tools(store, kb))\n96:     mcp = build_mcp(service)\n97: \n98:     @asynccontextmanager\n99:     async def lifespan(app):\n100:         async with mcp.session_manager.run():\n101:             yield\n102:         await service.close()\n103: \n104:     app = FastAPI(title=\"SupportFlow\", version=\"2.0.0\", lifespan=lifespan)\n105:     source_root = Path(__file__).resolve().parents[1]\n106:     build_files = sorted((source_root / \"supportflow\").glob(\"*.py\")) + sorted((source_root / \"frontend\").glob(\"*\"))\n107:     runtime_info = {\n108:         \"application\": app.title, \"version\": app.version,",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/supportflow/api.py"
+  },
+  "verify": {
+    "id": "verify",
+    "path": "evaluation/full_chain.py",
+    "symbol": "verify",
+    "line": 47,
+    "end_line": 189,
+    "sha256": "42a76b49398f6929944e9c99d25cb1327c05c40ef4cbab3fd2b29c9b9f4bb60e",
+    "snippet": "47: def verify(case, responses, store, p):\n48:     e = case[\"expected\"]\n49:     checks = {}\n50:     tools = [\n51:         t\n52:         for r in responses\n53:         for t in r.get(\"trace\", {}).get(\"tools\", [])\n54:         if t[\"success\"]\n55:     ]\n56:     checks[\"required_tools\"] = set(e[\"tools\"]).issubset({t[\"name\"] for t in tools})\n57:     checks[\"http_success\"] = (\n58:         bool(responses)\n59:         and len(responses) == len(case.get(\"turns\", [None]))\n60:         and all(r.get(\"_http_status\") == 200 for r in responses)\n61:     )\n62:     checks[\"agent_success\"] = all(\n63:         not any(f.startswith(\"agent:\") for f in r.get(\"trace\", {}).get(\"failures\", []))\n64:         for r in responses\n65:     )\n66:     terminal = {\"completed\", \"denied\"}",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/evaluation/full_chain.py"
+  },
+  "fullrun": {
+    "id": "fullrun",
+    "path": "evaluation/full_chain.py",
+    "symbol": "run_case",
+    "line": 212,
+    "end_line": 382,
+    "sha256": "42a76b49398f6929944e9c99d25cb1327c05c40ef4cbab3fd2b29c9b9f4bb60e",
+    "snippet": "212: async def run_case(case, variant, args, out):\n213:     settings = Settings.from_env().model_copy(\n214:         update={\n215:             \"db_path\": str(out / f\"{case['id']}-{variant}.sqlite3\"),\n216:             \"chroma_path\": str(out / \"chroma\"),\n217:         }\n218:     )\n219:     app = create_app(settings, variant=variant)\n220:     service = app.state.service\n221:     store = service.store\n222:     tenant = \"eval-\" + case[\"id\"] + \"-\" + variant\n223:     p = Principal(tenant, case[\"id\"])\n224:     await prepare_fixture(service, case, p)\n225:     token = store.issue_token(p, ttl=86400)\n226:     staff = store.issue_token(\n227:         Principal(tenant, \"staff\", frozenset({\"staff\"})), ttl=86400\n228:     )\n229:     headers = {\"Authorization\": \"Bearer \" + token}\n230:     responses = []\n231:     latencies = []",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/evaluation/full_chain.py"
+  },
+  "publicmap": {
+    "id": "publicmap",
+    "path": "evaluation/public_intents.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 126,
+    "sha256": "d5f88482723bf688f922c7c002a38e56641240182026293feabae7284d1eb931",
+    "snippet": "1: \"\"\"Public dataset intent evaluation only; never merge with transaction success metrics.\"\"\"\n2: \n3: import argparse\n4: import asyncio\n5: from collections import Counter\n6: import hashlib\n7: import json\n8: from pathlib import Path\n9: import sys\n10: import time\n11: \n12: sys.path.insert(0, str(Path(__file__).resolve().parents[1]))\n13: import httpx\n14: from supportflow.api import create_app\n15: from supportflow.contracts import Settings, Principal\n16: \n17: # Explicit many-to-one ontology mapping; ambiguous labels excluded rather than relabelled OTHER.\n18: MAP = {\n19:     \"cancel_order\": \"request\",\n20:     \"change_order\": \"request\",",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/evaluation/public_intents.py"
+  },
+  "compare": {
+    "id": "compare",
+    "path": "evaluation/compare_runs.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 61,
+    "sha256": "99492c862659a777d5b89be784a0d551fe44125ec23dca0aa265e5ea5a806c8c",
+    "snippet": "1: \"\"\"Explicit immutable report comparison; 5% is a configured gate, not proof of significance.\"\"\"\n2: \n3: import argparse\n4: import json\n5: from pathlib import Path\n6: \n7: \n8: def compare(old, new, threshold=0.05):\n9:     for key in [\"dataset_sha256\", \"evaluated_tasks\", \"transport\", \"concurrency_tasks\"]:\n10:         if old[key] != new[key]:\n11:             raise ValueError(\"Incomparable report field: \" + key)\n12:     if old[\"settings\"][\"storage\"] != new[\"settings\"][\"storage\"]:\n13:         raise ValueError(\"Storage backend differs\")\n14:     events = []\n15:     for arm in [\"single\", \"multi\"]:\n16:         for metric, higher in [\n17:             (\"completion_rate\", True),\n18:             (\"request_p95_ms\", False),\n19:             (\"mean_model_cost\", False),\n20:         ]:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/evaluation/compare_runs.py"
+  },
+  "fullscript": {
+    "id": "fullscript",
+    "path": "scripts/run_full_evaluation.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 463,
+    "sha256": "85d2cd3d23b06789d40efbc8dc138859ee741ce3a6a263312ab256fd06df5c28",
+    "snippet": "1: \"\"\"Unattended frozen GLM evaluation. Checkpoint each result, resume without cherry-picking.\n2: \n3: Runs all three splits; acceptance is exposed when executed. No model-based Judge.\n4: Business concurrency two; one concurrent serial public-intent stream.\n5: \"\"\"\n6: \n7: import argparse\n8: import asyncio\n9: from collections import Counter, defaultdict\n10: from dataclasses import asdict\n11: from datetime import datetime, timezone\n12: import hashlib\n13: import json\n14: import os\n15: from pathlib import Path\n16: import random\n17: import shutil\n18: import statistics\n19: import sys\n20: import time",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/scripts/run_full_evaluation.py"
+  },
+  "audit": {
+    "id": "audit",
+    "path": "评测结果/GLM-1200复核/audit.json",
+    "symbol": "",
+    "line": 1,
+    "end_line": 243,
+    "sha256": "88931a9e2a7e79c9b2cb1adfbad6929e0500b69e6d54b18f77e1e4ae06b54e40",
+    "snippet": "1: {\n2:   \"status\": \"completed_and_audited\",\n3:   \"source_snapshot_hashes_verified\": 52,\n4:   \"business_cases\": 600,\n5:   \"business_executions\": 1200,\n6:   \"public_executions\": 1200,\n7:   \"source_intents\": 20,\n8:   \"observed_project_labels\": 10,\n9:   \"fixed_mapping_labels\": 11,\n10:   \"public_accuracy\": 0.6383333333333333,\n11:   \"public_macro_f1_fixed_mapping\": 0.6786013430639989,\n12:   \"public_macro_f1_observed_labels\": 0.7464614773703988,\n13:   \"absent_project_labels\": [\n14:     \"order_status\"\n15:   ],\n16:   \"public_http_errors\": 0,\n17:   \"public_model_failures\": 0,\n18:   \"original_completed\": {\n19:     \"single\": 405,\n20:     \"multi\": 527",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/评测结果/GLM-1200复核/audit.json"
+  },
+  "auditread": {
+    "id": "auditread",
+    "path": "评测结果/GLM-1200复核/README.md",
+    "symbol": "",
+    "line": 1,
+    "end_line": 28,
+    "sha256": "fd1ffcb310dc19dc922e8c4c56abb4f2ba88f3ba88aafc92b801e9488b29d9d3",
+    "snippet": "1: # GLM 完成结果与简历口径复核\n2: \n3: 2026-09-09：补完中断后剩余15次业务执行，最终600条业务任务×2方案＝1,200次；公开意图1,200条。两者均完成。52项冻结源码/数据哈希已核对，逐例身份唯一、双方案配对完整，汇总与原始记录一致。未运行验证或验收集。\n4: \n5: | 口径 | single | multi |\n6: |---|---:|---:|\n7: | 原始自动评分，600条业务任务 | 405/600（67.50%） | 527/600（87.83%） |\n8: | 复核评分，600条业务任务 | 406/600（67.67%） | 528/600（88.00%） |\n9: | 复核评分，150条复合子集 | 85/150（56.67%） | 125/150（83.33%） |\n10: | 整体HTTP请求P95 | 8.45秒 | 12.78秒 |\n11: | 整体每任务模型费用估算 | 0.00445元 | 0.00669元 |\n12: | 仅复合子集HTTP请求P95 | 13.43秒 | 14.35秒 |\n13: | 仅复合子集每任务模型费用估算 | 0.00508元 | 0.00843元 |\n14: \n15: 复核仅移除v3-14-001中两个方案均不适用的登录401检查：用户询问500排障，但订单号ORD101401触发了旧检查。真正的错误码使用`(?<![A-Za-z0-9])401(?![A-Za-z0-9])`识别。未重新调用模型，也未修改原始结果；逐项变化见audit.json。其他失败全部保留，未根据得分挑选样本。\n16: \n17: 公开样本命中766/1,200，准确率63.83%，HTTP错误和已记录模型失败均为0。该子集覆盖20类源意图、10类映射后意图；固定11类映射口径的宏F1为0.6786，其中order_status本次无样本。只对实际出现的10类计算宏F1为0.7465，两个口径不得混写。不能称为27类完整意图评测。\n18: \n19: 600条业务任务来自24个模板族，其中复合150条来自6族，不是600个独立自然语言场景。仍存在精确金额/部分退款表达识别问题，以及未创建申请却声称已提交的回复；关键词门槛不证明全部语义正确。这是开发回归结果，不能声称生产或企业验收通过。\n20: ",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/评测结果/GLM-1200复核/README.md"
+  },
+  "publicreport": {
+    "id": "publicreport",
+    "path": "artifacts/glm-full-20260909/report.json",
+    "symbol": "",
+    "line": 1,
+    "end_line": 802,
+    "sha256": "5c726e6df5b685a2690dc96aabf60c97e9a3f37a0615ba053eb0e4aad2d14f72",
+    "snippet": "1: {\n2:   \"model\": \"glm-4.5-air\",\n3:   \"manifest\": \"manifest.json\",\n4:   \"business\": {\n5:     \"development\": {\n6:       \"single\": {\n7:         \"tasks\": 600,\n8:         \"completed\": 405,\n9:         \"completion_rate\": 0.675,\n10:         \"completion_wilson_95\": [\n11:           0.6365116881409014,\n12:           0.7112616351942249\n13:         ],\n14:         \"family_count\": 24,\n15:         \"family_macro_completion\": 0.675,\n16:         \"interval_caveat\": \"Instance Wilson interval assumes independence; parameterized instances are correlated. Use family-level analysis, which still does not prove semantic independence.\",\n17:         \"task_p95_ms\": 10380.421599999863,\n18:         \"request_p95_ms\": 8453.40589999978,\n19:         \"mean_input_tokens\": 5041.126666666667,\n20:         \"mean_output_tokens\": 199.42166666666665,",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/artifacts/glm-full-20260909/report.json"
+  },
+  "datacard": {
+    "id": "datacard",
+    "path": "evaluation/datasets/trial-v3/README.md",
+    "symbol": "",
+    "line": 1,
+    "end_line": 80,
+    "sha256": "49e83231e75ebdf2fea1c430b16dadcec028c2c5a15e01cf72370aefbeb2840c",
+    "snippet": "1: # SupportFlow 试用验收数据卡 v3\n2: \n3: 准备日期：2026-09-09。用途是模拟向企业交付客服原型时的分层验证；当前没有企业提供的数据、真实合作或企业验收签字。数量是本项目的工程起步方案，不是行业统一标准。数据已生成不表示模型已通过这些任务。\n4: \n5: ## 规模和分区\n6: \n7: | 数据 | 开发 | 验证 | 验收保留 | 合计 |\n8: |---|---:|---:|---:|---:|\n9: | 中文可执行业务任务 | 600 | 200 | 400 | 1,200 |\n10: | 中文场景模板族 | 24 | 8 | 16 | 48 |\n11: | 中文客户消息轮次 | 700 | 225 | 800 | 1,725 |\n12: | Bitext 英文意图样本 | 1,620 | 540 | 540 | 2,700 |\n13: | 其中纳入现有标签映射 | 1,440 | 480 | 480 | 2,400 |\n14: \n15: 业务任务覆盖订单、退款、复合查询、复合写操作、人工工单、多轮记忆、政策咨询、异常与权限八组，每组150条。每个模板族有25个订单/金额参数实例，金额覆盖1分、整数边界、精确到分、全额和超额；其他场景覆盖三项诉求、15轮历史、跨用户/租户和注入知识库不可用。\n16: \n17: **1,200条是48个模板族的参数化实例，不是1,200个独立自然语言场景。** 同族整体分区，没有把同一句话换订单号后随机分散到开发和验收集。规范化去实体、去金额后也检查跨区重复。不同族仍可能语义相似；同一作者知道全部场景设计，所以“验收保留”不能宣传为第三方独立盲测。\n18: \n19: `smoke.json` 是开发集内的8条集成样本，不另加到1,200条总数。原24条及旧扩展8条继续作为历史开发回归，旧成绩不能迁移为新数据成绩。\n20: ",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/evaluation/datasets/trial-v3/README.md"
+  },
+  "guide": {
+    "id": "guide",
+    "path": "SUPPORTFLOW.md",
+    "symbol": "",
+    "line": 1,
+    "end_line": 197,
+    "sha256": "466547896fd8d0f414a20bff3ef88c1fada9757481fd128a05b8a65ae923c2bf",
+    "snippet": "1: # SupportFlow v2：运行、业务闭环与实测\n2: \n3: 默认入口现在是 `api.main:app`，HTTP、MCP 和评测共享 `supportflow/` 中的业务层。旧 API 源码存为 `api/legacy_main.py.txt`，不会作为可运行入口导入。原 `mcp/` 两个文件是旧本地工具实现；新版 `mcp` Python 包名属于官方 SDK，新业务工具在 `supportflow/tools.py`，避免同名导入冲突。\n4: \n5: ## 本地启动\n6: \n7: ### 网页界面\n8: \n9: 启动服务后打开 `http://127.0.0.1:8002/`（GLM）或 `http://127.0.0.1:8000/`（本地模型）。前端与 API 由同一个服务提供，无需单独安装 Node 依赖。\n10: \n11: 客户端仅保留对话界面。本机沙箱启用 `SF_LOCAL_DEMO_ACCESS=true` 后，自动连接固定演示用户 alice，无需登录或导入凭证，过期自动续接。该用户可查询 demo 租户的全部未删除订单；对话中说「查询全部订单」即可查看列表。普通客户 API 凭证仍按原订单归属隔离。\n12: \n13: 界面支持多轮聊天、新建和切换会话、复制回复、订单查询、退款记录。失败请求沿用原请求 ID 重试。接口文档仍在 `/docs`。\n14: \n15: 每条新答复上方的「执行过程」与答复正文独立。展开后可看实际记录的上下文读取、意图识别、记忆召回、任务分派、工具成功/失败、检索词、重排状态与资料来源。记录在请求结束后返回，不是实时流，也不展示模型私有推理。旧会话未保存该字段时不补造执行记录。答复正文保留业务结果、待审核/失败状态与下一步，知识 ID 收到资料详情中。\n16: \n17: `GET /health` 的 `runtime` 返回当前进程的应用版本、模型、思考开关、编排模式和启动时计算的源码摘要；页面右上角展示模型名，悬停可查看版本与摘要。摘要用于核对本地运行代码，不代表上游最新发布版本。\n18: \n19: 本次选用 **GLM-4.5-Air**。私有配置已保存在 Git 忽略的 `.runtime/glm.env`；模型密钥不写入代码和报告。启动这个配置：\n20: ",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/SUPPORTFLOW.md"
+  },
+  "compose": {
+    "id": "compose",
+    "path": "compose.supportflow.yml",
+    "symbol": "",
+    "line": 1,
+    "end_line": 36,
+    "sha256": "42e7e7ff2ca38d5e8baa7ece8ebe8dfb524cdb62841c106b6938309e46362d0e",
+    "snippet": "1: services:\n2:   redis:\n3:     image: redis:7.4-alpine\n4:     command: [\"redis-server\", \"--appendonly\", \"yes\", \"--requirepass\", \"${SF_REDIS_PASSWORD:?Set SF_REDIS_PASSWORD}\"]\n5:     volumes: [\"sf-redis:/data\"]\n6:     healthcheck:\n7:       test: [\"CMD-SHELL\", \"redis-cli -a \\\"$$REDIS_PASSWORD\\\" ping | grep PONG\"]\n8:       interval: 10s\n9:       timeout: 3s\n10:       retries: 5\n11:     environment:\n12:       REDIS_PASSWORD: ${SF_REDIS_PASSWORD:?Set SF_REDIS_PASSWORD}\n13:   app:\n14:     build:\n15:       context: .\n16:       target: production\n17:     ports: [\"127.0.0.1:8000:8000\"]\n18:     extra_hosts: [\"host.docker.internal:host-gateway\"]\n19:     environment:\n20:       SF_DB_PATH: /app/data/supportflow.sqlite3",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/compose.supportflow.yml"
+  },
+  "plantest": {
+    "id": "plantest",
+    "path": "tests/test_supportflow_planning.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 263,
+    "sha256": "27f874af1ed7d3747c691269046db1eeeca4f597d23a526c0ff696fdbd11cdb4",
+    "snippet": "1: import asyncio\n2: import json\n3: from types import SimpleNamespace\n4: \n5: import httpx\n6: import pytest\n7: \n8: from agents.agent_orchestrator import AgentType, Request\n9: from supportflow.contracts import Settings, Principal, ToolCall, Trace\n10: from supportflow.model import Model, active_trace\n11: from supportflow.planning import plan_tasks, render_tasks, scope_message\n12: from supportflow.service import ToolAgent, job\n13: from supportflow.store import Store\n14: from supportflow.tools import Tools\n15: from evaluation.full_chain import verify\n16: from supportflow.pricing import estimate_call\n17: \n18: \n19: def test_glm_cost_uses_each_call_output_tier():\n20:     s = Settings(pricing_profile=\"glm-air-20260908\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/tests/test_supportflow_planning.py"
+  },
+  "tooltest": {
+    "id": "tooltest",
+    "path": "tests/test_supportflow_tools.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 119,
+    "sha256": "75808f4b5eebf67fc5023e1b752c9353dd8dbf36f6fe32fc2d2770ab0e7abe79",
+    "snippet": "1: import pytest\n2: from jsonschema import ValidationError\n3: from supportflow.contracts import Principal, Trace\n4: from supportflow.store import Store\n5: from supportflow.tools import Tools\n6: from supportflow.model import active_trace\n7: \n8: \n9: class FakeKnowledge:\n10:     def __init__(self):\n11:         self.revision = \"v1\"\n12:         self.calls = 0\n13:         self.fail = False\n14: \n15:     def version(self, tenant):\n16:         return self.revision\n17: \n18:     async def retrieve(self, tenant, query, advanced=True):\n19:         self.calls += 1\n20:         if self.fail:",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/tests/test_supportflow_tools.py"
+  },
+  "mcptest": {
+    "id": "mcptest",
+    "path": "tests/test_supportflow_mcp.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 65,
+    "sha256": "73f4463214ad5cd8cb24d2d9b14284d391069313fba5e6e254dce5b64e1ff6c7",
+    "snippet": "1: import asyncio\n2: import socket\n3: import httpx\n4: import pytest\n5: import uvicorn\n6: from mcp import ClientSession\n7: from mcp.client.streamable_http import streamable_http_client\n8: from supportflow.api import create_app\n9: from supportflow.contracts import Principal, Settings\n10: \n11: \n12: @pytest.mark.asyncio\n13: async def test_real_mcp_http_handshake_tools_and_auth(tmp_path):\n14:     app = create_app(\n15:         Settings(db_path=str(tmp_path / \"mcp.sqlite\"), model_backend=\"fixture\")\n16:     )\n17:     store = app.state.store\n18:     p = Principal(\"t\", \"alice\")\n19:     admin = Principal(\"t\", \"admin\", frozenset({\"admin\"}))\n20:     store.seed_order(admin, \"ORD1001\", 5000, \"alice\")",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/tests/test_supportflow_mcp.py"
+  },
+  "paymenttest": {
+    "id": "paymenttest",
+    "path": "tests/test_supportflow_payments.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 103,
+    "sha256": "500e2a3fab638f617a69554bfa7afa9105fdb1e294115bf607425a0604062ad8",
+    "snippet": "1: import hashlib\n2: import hmac\n3: import json\n4: import time\n5: import httpx\n6: import pytest\n7: from supportflow.contracts import Principal, Settings\n8: from supportflow.store import Store\n9: from supportflow.payments import Payments\n10: \n11: \n12: @pytest.mark.asyncio\n13: async def test_outbox_signed_settlement_and_replay(tmp_path):\n14:     s = Store(tmp_path / \"payments.sqlite\")\n15:     a = Principal(\"t\", \"admin\", frozenset({\"admin\"}))\n16:     p = Principal(\"t\", \"alice\")\n17:     s.seed_order(a, \"ORD1\", 1000, \"alice\")\n18:     r = s.refund_request(p, \"ORD1\", 500, \"test\", \"key\")\n19:     s.approve_refund(a, r[\"id\"])\n20:     cfg = Settings(",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/tests/test_supportflow_payments.py"
+  },
+  "skilltest": {
+    "id": "skilltest",
+    "path": "tests/test_supportflow_skills.py",
+    "symbol": "",
+    "line": 1,
+    "end_line": 37,
+    "sha256": "66e82cefe7a59d6d3edc30daca2728340c1c3cb73d99a472643870864f861f74",
+    "snippet": "1: from core.skill_loader import SkillManager\n2: from core.intent_recognizer import IntentRecognizer\n3: \n4: \n5: def test_skill_reload_and_agent_scope(tmp_path):\n6:     path = tmp_path / \"SKILL.md\"\n7:     path.write_text(\n8:         \"---\\nname: refund policy\\nagents: billing\\nkeywords: 退款，账单\\n---\\n# Policy\\n第一版待审核。\",\n9:         encoding=\"utf-8\",\n10:     )\n11:     manager = SkillManager(str(tmp_path))\n12:     manager.load()\n13:     assert \"第一版\" in manager.prompt_for(\"退款\", \"billing\")\n14:     assert not manager.prompt_for(\"退款\", \"technical\")\n15:     path.write_text(\n16:         path.read_text(encoding=\"utf-8\").replace(\"第一版\", \"第二版\"), encoding=\"utf-8\"\n17:     )\n18:     manager.reload()\n19:     assert \"第二版\" in manager.prompt_for(\"账单\", \"billing\")\n20: ",
+    "absolute_path": "C:/Users/A0005232/Downloads/EchoMind所有代码+简历1（人已满，不可申请）_____ (1)/EchoMind所有代码+简历/EchoMind/tests/test_supportflow_skills.py"
+  }
+}

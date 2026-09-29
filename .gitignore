@@ -52,3 +52,7 @@ Thumbs.db
 *~
 *.bak
 docker-compose(1).yml
+
+# Local scratch files and duplicate document archives
+/tmp/
+/*.zip

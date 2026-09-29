@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fc"><title>supportFlow · 智能客服</title>
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css?v=20260928-product"><script src="/assets/execution.js?v=20260928-product" defer></script><script src="/assets/session.js?v=3" defer></script><script src="/assets/app.js?v=20260928-product" defer></script>
+</head>
+<body>
+  <div class="app">
+    <button class="scrim" id="scrim" aria-label="关闭侧栏" hidden></button>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="/" aria-label="supportFlow 首页"><img src="/assets/logo.svg" alt="" width="32" height="32"><span>supportFlow<span class="brand-dot">.</span></span></a>
+      <button class="new-chat" id="new-chat"><span data-icon="plus"></span>新对话<span class="shortcut">＋</span></button>
+      <nav aria-label="工作区">
+        <button class="nav-item active" id="chat-nav"><span data-icon="chat"></span>对话</button>
+        <a class="nav-item merchant-link" href="/admin" target="_blank" rel="noopener"><span data-icon="settings"></span>商户后台<span class="external-arrow">↗</span></a>
+        <a class="nav-item" href="/lab" target="_blank" rel="noopener"><span data-icon="file"></span>能力工作台<span class="external-arrow">↗</span></a>
+      </nav>
+      <a class="nav-item" href="/desk" target="_blank" rel="noopener"><span data-icon="chat"></span>客服工作台<span class="external-arrow">↗</span></a><div class="history-label">最近对话</div>
+      <div class="history" id="history"><p class="empty-history">暂无对话</p></div>
+      <div class="sidebar-bottom">
+        <div class="service"><span class="status-dot" id="status-dot"></span><span id="service-status">连接中</span><span class="mode" id="mode"></span></div>
+      </div>
+    </aside>
+    <main>
+      <header class="topbar"><div class="topbar-left"><button class="icon-button menu-toggle" id="menu-toggle" aria-label="打开侧栏"><span data-icon="menu"></span></button><span id="page-title">智能客服</span></div><span class="assistant-badge"><span class="tiny-spark">✧</span> supportFlow</span></header>
+      <section class="chat-view" id="chat-view" aria-label="客服对话">
+        <div class="scroll-area" id="scroll-area">
+          <div class="welcome" id="welcome">
+            <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit-dot"></div><div class="hero-mark"><img src="/assets/logo.svg" alt="" width="58" height="58"></div><span class="spark spark-one">✧</span><span class="spark spark-two">✦</span></div>
+            <h1>有什么可以帮你？</h1>
+            <p class="welcome-subtitle">订单、退款、使用问题，都可以问我。</p>
+            <div class="suggestions">
+              <button class="suggestion" data-prompt="查询全部订单"><span class="suggestion-icon lavender" data-icon="box"></span><strong>查订单</strong><span class="suggestion-caption">查看订单状态 <span>↗</span></span></button>
+              <button class="suggestion" data-prompt="退款需要满足什么条件？"><span class="suggestion-icon peach" data-icon="return"></span><strong>问退款</strong><span class="suggestion-caption">了解退款规则 <span>↗</span></span></button>
+              <button class="suggestion" data-prompt="登录失败，该怎么处理？"><span class="suggestion-icon mint" data-icon="help"></span><strong>解决问题</strong><span class="suggestion-caption">获取使用帮助 <span>↗</span></span></button>
+            </div>
+          </div>
+          <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+        </div>
+        <div class="composer-wrap"><div id="notice" class="notice" role="status" hidden></div><form id="composer" class="composer"><textarea id="message" rows="1" maxlength="6000" aria-label="输入消息" placeholder="说说你遇到的问题…"></textarea><div class="composer-footer"><span class="composer-label"><span data-icon="spark"></span> supportFlow</span><div class="send-group"><button type="submit" class="send-button" id="send" aria-label="发送消息" disabled><span data-icon="arrow"></span></button></div></div></form></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+
