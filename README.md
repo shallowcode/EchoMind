@@ -1,6 +1,6 @@
 # supportFlow 使用指南
 
-> **2026-10-20：v3.1 转向 AI 应用后端。** Go 后端新增 LLM 网关（流式、多供应商故障转移、首字超时、熔断）、客服 Copilot（SSE 建议回复、JSON 结构化摘要）、租户 token 预算与调用计量、异步知识入库队列，客服工作台新增「AI 助手」与「AI 运营」。设计与验证见 [Go AI 应用后端](docs/AI_APP_BACKEND.md)，简历写法见 [AI 应用开发方向简历](docs/RESUME_AI_APP.md)。
+> **2026-10-20：v3.1 转向 AI 应用后端。** Go 后端新增 LLM 网关（流式、多供应商故障转移、首字超时、熔断）、客服 Copilot（SSE 建议回复、JSON 结构化摘要）、租户 token 预算与调用计量、异步知识入库队列，客服工作台新增「AI 助手」与「AI 运营」。设计与验证见 [Go AI 应用后端](docs/AI_APP_BACKEND.md)，简历写法见 [AI 应用开发方向简历](docs/RESUME_AI_APP.md)，从看懂项目到讲清每条 bullet 见 [学习与讲解指南](docs/AI_APP_学习与讲解指南.md)。
 
 > **简历对应版本（2026-10-10 核对）：** 使用 `python scripts/start_resume.py` 启动独立 Python/FastAPI + ChromaDB + Redis 沙箱；部署配置为 `compose.supportflow.yml`、`.env.resume.example`。公开数据可通过 `python scripts/prepare_public_intents.py --download` 恢复。功能差异、历史证据及验证范围见 [简历与实现对照](docs/RESUME_ALIGNMENT.md)。下方 Go 产品版是后续扩展入口。
 
