@@ -102,11 +102,15 @@ def create_app(settings=None, model=None, variant="multi"):
 
     @asynccontextmanager
     async def lifespan(app):
-        async with mcp.session_manager.run():
-            yield
-        await service.close()
-        if settings.business_url:
-            store.close()
+        try:
+            if settings.require_memory_services and not (await service.memory_status())["ready"]:
+                raise RuntimeError("Resume profile requires reachable ChromaDB and Redis services")
+            async with mcp.session_manager.run():
+                yield
+        finally:
+            await service.close()
+            if settings.business_url:
+                store.close()
 
     app = FastAPI(title="SupportFlow", version="3.0.0" if settings.business_url else "2.0.0", lifespan=lifespan)
     source_root = Path(__file__).resolve().parents[1]
@@ -115,6 +119,9 @@ def create_app(settings=None, model=None, variant="multi"):
         "application": app.title, "version": app.version,
         "model": settings.model_name, "thinking": settings.model_thinking,
         "orchestration": variant,
+        "storage": settings.storage,
+        "chroma_mode": settings.chroma_mode if settings.storage == "chroma" else None,
+        "working_memory": "redis" if settings.redis_url else "sql",
         "build": hashlib.sha256(b"".join(p.read_bytes() for p in build_files if p.is_file())).hexdigest()[:12],
     }
     app.state.service = service
@@ -184,6 +191,13 @@ def create_app(settings=None, model=None, variant="multi"):
     @app.get("/health")
     async def health():
         return {"status": "alive", "business_mode": settings.business_mode, "runtime": runtime_info}
+
+    @app.get("/ready")
+    async def ready():
+        memory = await service.memory_status()
+        return JSONResponse({"status": "ready" if memory["ready"] else "unavailable",
+                             "memory": memory, "runtime": runtime_info},
+                            status_code=200 if memory["ready"] else 503)
 
     @app.get("/auth/me")
     async def me(p=Depends(identity)):

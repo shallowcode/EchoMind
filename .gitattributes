@@ -1,0 +1,8 @@
+# Frozen evaluation files are hashed byte-for-byte; Windows must retain LF.
+evaluation/datasets/supportflow-v1.json text eol=lf
+evaluation/datasets/trial-v3/development.json text eol=lf
+evaluation/datasets/trial-v3/validation.json text eol=lf
+evaluation/datasets/trial-v3/acceptance.json text eol=lf
+evaluation/datasets/trial-v3/smoke.json text eol=lf
+evaluation/datasets/trial-v3/manifest.json text eol=lf
+evaluation/datasets/trial-v3/public-manifest.json text eol=lf

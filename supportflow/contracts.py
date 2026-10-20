@@ -88,7 +88,12 @@ class Settings(BaseModel):
     max_tool_rounds: int = 3
     storage: Literal["sqlite", "chroma"] = "sqlite"
     chroma_path: str = "data/supportflow-chroma"
+    chroma_mode: Literal["embedded", "http"] = "embedded"
+    chroma_host: str = "localhost"
+    chroma_port: int = Field(default=8001, ge=1, le=65535)
+    chroma_ssl: bool = False
     redis_url: str = ""
+    require_memory_services: bool = False
     skills_dir: str = "skills"
     token_ttl: int = 3600
     model_input_price: float | None = None

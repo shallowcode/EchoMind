@@ -22,6 +22,7 @@ from supportflow.planning import plan_tasks, render_tasks, scope_message, TECHNI
 from supportflow.presentation import clean_answer, execution_view
 from supportflow.refunds import resolve_refund, resolve_refund_status, validate_refund_call
 from supportflow.order_reference import match_order
+from supportflow.working_memory import WorkingMemory
 
 job = contextvars.ContextVar("job")
 
@@ -448,8 +449,30 @@ class ChatService:
             import redis.asyncio as redis
 
             self.redis = redis.from_url(
-                settings.redis_url, decode_responses=True, socket_timeout=2
+                settings.redis_url, decode_responses=True, socket_timeout=2,
+                socket_connect_timeout=2,
             )
+
+    async def memory_status(self):
+        status = {"knowledge": "lexical", "working_memory": "sql"}
+        if self.knowledge.client:
+            try:
+                await asyncio.to_thread(self.knowledge.client.heartbeat)
+                status["knowledge"] = "chroma_" + self.settings.chroma_mode
+            except Exception:
+                status["knowledge"] = "unavailable"
+        if self.redis:
+            try:
+                await self.redis.ping()
+                status["working_memory"] = "redis"
+            except Exception:
+                status["working_memory"] = "unavailable"
+        status["ready"] = (
+            status["knowledge"] != "unavailable" and status["working_memory"] != "unavailable"
+            and (not self.settings.require_memory_services
+                 or (status["knowledge"].startswith("chroma_") and status["working_memory"] == "redis"))
+        )
+        return status
 
     async def close(self):
         if self.redis:
@@ -515,16 +538,10 @@ class ChatService:
                 # Cache is checked against authoritative turn version before being consumed.
                 if self.redis:
                     try:
-                        await self.redis.setex(
-                            "sf:" + p.tenant + ":" + conv,
-                            86400,
-                            json.dumps(
-                                {
-                                    "turn": state["turn"],
-                                    "history": self.store.history(p, conv),
-                                }
-                            ),
+                        await WorkingMemory.save(
+                            self.redis, p, conv, state, self.store.history(p, conv),
                         )
+                        trace.memory["redis_written"] = True
                     except Exception:
                         trace.failures.append("redis_projection")
                 if state.get("summary"):
@@ -555,19 +572,16 @@ class ChatService:
 
     async def _run(self, p, body, conv, state, variant, trace):
         history = self.store.history(p, conv)
+        trace.memory["working_backend"] = "sql"
         if self.redis:
             try:
-                cached = json.loads(
-                    await self.redis.get("sf:" + p.tenant + ":" + conv) or "{}"
-                )
-                # Compare contents as well: human resolutions can arrive between chat turns.
-                if (
-                    cached.get("turn") == state.get("turn")
-                    and cached.get("history") == history
-                ):
-                    history = cached["history"]
+                history, cache_status = await WorkingMemory.read(self.redis, p, conv, state, history)
+                trace.memory["redis_cache"] = cache_status
+                if cache_status == "hit":
+                    trace.memory["working_backend"] = "redis"
             except Exception:
                 trace.failures.append("redis_read")
+                trace.memory["redis_cache"] = "unavailable"
         trace.events.append({"title": "读取上下文", "detail": f"读取 {len(history)} 条历史消息", "status": "completed"})
         trace.memory["history"] = copy.deepcopy(history)
         intent = await self.router.recognize_intent(body.message, history)

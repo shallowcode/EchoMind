@@ -53,13 +53,41 @@ def test_workbench_local_access_hot_edit_and_ticket_closure(tmp_path):
         assert '已修复登录配置' in app.state.store.history(p, 'demo-conv')[-1]['content']
 
 
-def test_archived_evaluation_is_recomputed():
-    r = evaluation_report(str(Path(__file__).resolve().parents[1]))
-    assert r['evaluated'] == 1200 and r['source_classes'] == 20
-    assert len(r['records']) == sum(x['n'] for x in r['confusion']) == 1200
+def test_archived_evaluation_is_recomputed(tmp_path):
+    # Test recomputation from known predictions, independent of private archives.
+    directory = tmp_path / 'artifacts/glm-full-20260909'
+    records = directory / 'records'
+    records.mkdir(parents=True)
+    rows = [
+        {'label': 'get_refund', 'expected': 'refund', 'predicted': 'refund'},
+        {'label': 'get_refund', 'expected': 'refund', 'predicted': 'order_status'},
+        {'label': 'track_order', 'expected': 'order_status', 'predicted': 'order_status'},
+    ]
+    for i, row in enumerate(rows):
+        (records / f'public-{i}.json').write_text(json.dumps(row), encoding='utf-8')
+    report = {'model': 'synthetic-test', 'public': {'all': {'evaluated': 3, 'accuracy': 2 / 3,
+              'macro_f1': 2 / 3, 'per_class_f1': {'refund': 2 / 3, 'order_status': 2 / 3}}}}
+    (directory / 'report.json').write_text(json.dumps(report), encoding='utf-8')
+    manifest = directory / 'source/evaluation/datasets/trial-v3/public-manifest.json'
+    manifest.parent.mkdir(parents=True)
+    manifest.write_text(json.dumps({'source': 'synthetic-test', 'license': 'test',
+                                   'revision': 'test', 'source_sha256': 'test'}), encoding='utf-8')
+    evaluation_report.cache_clear()
+    r = evaluation_report(str(tmp_path))
+    assert r['evaluated'] == 3 and r['source_classes'] == 2
+    assert len(r['records']) == sum(x['n'] for x in r['confusion']) == 3
     assert r['report_verified']
-    assert r['accuracy'] == pytest.approx(766 / 1200)
-    assert r['macro_f1'] == pytest.approx(.6786013430639989)
+    assert r['accuracy'] == pytest.approx(2 / 3)
+    assert r['macro_f1'] == pytest.approx(2 / 3)
+    report['public']['all']['accuracy'] = 1
+    (directory / 'report.json').write_text(json.dumps(report), encoding='utf-8')
+    evaluation_report.cache_clear()
+    assert not evaluation_report(str(tmp_path))['report_verified']
+
+
+def test_missing_archive_never_claims_verified_results(tmp_path):
+    evaluation_report.cache_clear()
+    assert evaluation_report(str(tmp_path)) == {'available': False, 'reason': '未找到评测归档'}
 
 
 def test_compound_trace_records_parallelism_and_isolated_inputs(tmp_path):

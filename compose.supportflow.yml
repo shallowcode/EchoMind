@@ -1,8 +1,14 @@
 services:
+  chromadb:
+    image: chromadb/chroma:1.5.9
+    ports: ["127.0.0.1:8001:8000"]
+    command: ["run", "--host", "0.0.0.0", "--port", "8000", "--path", "/data"]
+    volumes: ["sf-chroma:/data"]
   redis:
     image: redis:7.4-alpine
     command: ["redis-server", "--appendonly", "yes", "--requirepass", "${SF_REDIS_PASSWORD:?Set SF_REDIS_PASSWORD}"]
     volumes: ["sf-redis:/data"]
+    ports: ["127.0.0.1:6379:6379"]
     healthcheck:
       test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep PONG"]
       interval: 10s
@@ -19,18 +25,34 @@ services:
     environment:
       SF_DB_PATH: /app/data/supportflow.sqlite3
       SF_STORAGE: chroma
+      SF_CHROMA_MODE: http
+      SF_CHROMA_HOST: chromadb
+      SF_CHROMA_PORT: 8000
       SF_CHROMA_PATH: /app/data/supportflow-chroma
       SF_REDIS_URL: redis://:${SF_REDIS_PASSWORD}@redis:6379/0
+      SF_REQUIRE_MEMORY_SERVICES: "true"
       SF_MODEL_BACKEND: ${SF_MODEL_BACKEND:-compatible}
-      SF_MODEL_URL: ${SF_MODEL_URL:-http://host.docker.internal:8081/v1}
-      SF_MODEL_NAME: ${SF_MODEL_NAME:-Qwen3-1.7B-Q8_0}
+      SF_MODEL_URL: ${SF_MODEL_URL:-https://open.bigmodel.cn/api/paas/v4}
+      SF_MODEL_NAME: ${SF_MODEL_NAME:-glm-4.5-air}
       SF_MODEL_KEY: ${SF_MODEL_KEY:-}
-      SF_LOCAL_CHAT_TEMPLATE: ${SF_LOCAL_CHAT_TEMPLATE:-true}
+      SF_LOCAL_CHAT_TEMPLATE: ${SF_LOCAL_CHAT_TEMPLATE:-false}
+      SF_SUPPORTS_JSON_SCHEMA: ${SF_SUPPORTS_JSON_SCHEMA:-false}
+      SF_MODEL_THINKING: ${SF_MODEL_THINKING:-disabled}
+      SF_LOCAL_DEMO_ACCESS: "true"
+      SF_MAX_INFLIGHT: 2
+      SF_BUSINESS_URL: ""
       SF_PUBLIC_URL: ${SF_PUBLIC_URL:-http://localhost:8000}
       SF_BUSINESS_MODE: sandbox
     volumes: ["sf-data:/app/data", "./skills:/app/skills:ro"]
     depends_on:
       redis: {condition: service_healthy}
+      chromadb: {condition: service_started}
+    command: ["python", "scripts/start_resume.py", "--host", "0.0.0.0"]
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/ready"]
+      start_period: 90s
 volumes:
   sf-data:
   sf-redis:
+  sf-chroma:

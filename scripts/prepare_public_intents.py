@@ -4,19 +4,22 @@ Use one representative per near-duplicate cluster; split only after clustering.
 Raw/derived Bitext text stays under .runtime with source/license metadata.
 """
 
-from collections import defaultdict
+import argparse
 import csv
 import hashlib
+import io
 import json
-from pathlib import Path
 import random
 import re
 import sys
+import urllib.request
+from collections import defaultdict
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from scripts.build_supportflow_dataset import REV, URL
 from scripts.build_acceptance_dataset import write_frozen
+from scripts.build_supportflow_dataset import REV, URL
 
 
 def normalize(text):
@@ -56,11 +59,45 @@ def representatives(rows):
     return list(groups.values())
 
 
-def main():
-    raw_path = ROOT / ".runtime/datasets/bitext.csv"
+SOURCE_SHA256 = "6f81102b0100b97b8468eb04368033a23206bf1fde9d53500d5806ec1001a434"
+
+
+def prepare_source(download=False):
+    directory = ROOT / ".runtime/datasets"
+    raw_path = directory / "bitext.csv"
+    if not raw_path.exists():
+        if not download:
+            raise FileNotFoundError("Run scripts/prepare_public_intents.py --download to restore the pinned public data")
+        directory.mkdir(parents=True, exist_ok=True)
+        with urllib.request.urlopen(URL, timeout=60) as response:
+            raw = response.read()
+        if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
+            raise ValueError("Downloaded source hash does not match the historical revision")
+        raw_path.write_bytes(raw)
+    raw = raw_path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
+        raise ValueError("Public source hash changed; fetch the pinned revision first")
+    # Reconstruct the originally exposed 54-example sample before cluster filtering.
+    old_path = directory / "bitext-sample.json"
+    if not old_path.exists():
+        rows = list(csv.DictReader(io.StringIO(raw.decode("utf-8-sig"))))
+        rng = random.Random(20260908)
+        examples = []
+        for label in sorted({r["intent"] for r in rows}):
+            subset = [r for r in rows if r["intent"] == label]
+            rng.shuffle(subset)
+            examples.extend({"message": r["instruction"], "label": label} for r in subset[:2])
+        write_frozen(old_path, {"source": URL, "revision": REV, "license": "CDLA-Sharing-1.0",
+                               "source_sha256": SOURCE_SHA256, "seed": 20260908,
+                               "purpose": "Historical exposure filter; not new model results", "examples": examples})
+    return raw_path
+
+
+def main(download=False):
+    raw_path = prepare_source(download)
     raw = raw_path.read_bytes()
     digest = hashlib.sha256(raw).hexdigest()
-    if digest != "6f81102b0100b97b8468eb04368033a23206bf1fde9d53500d5806ec1001a434":
+    if digest != SOURCE_SHA256:
         raise ValueError("Public source hash changed; fetch the pinned revision first")
     old = json.loads(
         (ROOT / ".runtime/datasets/bitext-sample.json").read_text(encoding="utf-8")
@@ -137,7 +174,13 @@ def main():
             "count": len(rows),
             "sha256": sha,
         }
-    write_frozen(ROOT / "evaluation/datasets/trial-v3/public-manifest.json", manifest)
+    manifest_path = ROOT / "evaluation/datasets/trial-v3/public-manifest.json"
+    if manifest_path.exists():
+        # Git may use CRLF for the tracked manifest; retain its bytes and hash.
+        if json.loads(manifest_path.read_text(encoding="utf-8")) != manifest:
+            raise ValueError("Restored dataset differs from the historical manifest; create a new version")
+    else:
+        write_frozen(manifest_path, manifest)
     print(
         json.dumps(
             {"sampled": manifest["sampled"], "splits": manifest["splits"]},
@@ -148,4 +191,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--download", action="store_true", help="Restore pinned public CSV and exposure sample if missing; no model calls")
+    main(parser.parse_args().download)

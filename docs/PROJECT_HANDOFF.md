@@ -1,5 +1,7 @@
 # 项目结构与数据格式
 
+> **2026-10-10 简历对照：** 独立 FastAPI 入口为 `scripts/start_resume.py`，使用真实 ChromaDB/Redis；Go 产品入口另见 `GO_PRODUCT.md`。公开意图数据已按固定版本恢复，本机仍缺历史全量逐例预测。详见 [简历与实现对照](RESUME_ALIGNMENT.md)。
+
 此文档供首次接手本项目的开发者或 AI 阅读。当前可运行主线是 **SupportFlow v2**，历史 EchoMind 实现也保留在仓库中。请以代码、当前接口 schema 和测试为准，旧版 README 后续章节作为历史参考。
 
 ## 阅读顺序与业务结构

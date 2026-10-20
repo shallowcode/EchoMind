@@ -45,7 +45,15 @@ class Knowledge:
         if settings.storage == "chroma":
             import chromadb
 
-            self.client = chromadb.PersistentClient(path=settings.chroma_path)
+            if settings.chroma_mode == "http":
+                self.client = chromadb.HttpClient(
+                    host=settings.chroma_host,
+                    port=settings.chroma_port,
+                    ssl=settings.chroma_ssl,
+                )
+                self.client.heartbeat()
+            else:
+                self.client = chromadb.PersistentClient(path=settings.chroma_path)
             self.collection = self.client.get_or_create_collection(
                 "supportflow_knowledge", metadata={"hnsw:space": "cosine"}
             )
@@ -115,6 +123,27 @@ class Knowledge:
         if not count:
             for d in POLICIES:
                 self.add(tenant, d["id"], d["title"], d["content"])
+        elif self.client:
+            # A new HTTP server has no index even when the SQL source is populated.
+            self.reindex(tenant)
+
+    def reindex(self, tenant):
+        """Explicit rebuild from SQL; never requires the previous vector directory."""
+        if not self.client:
+            raise ValueError("Reindex requires SF_STORAGE=chroma")
+        with self.store.tx() as c:
+            rows = [dict(r) for r in c.execute(
+                "SELECT * FROM knowledge WHERE tenant=?", (tenant,)
+            )]
+        self.collection.delete(where={"tenant": tenant})
+        if rows:
+            self.collection.upsert(
+                ids=[r["id"].rsplit(":", 1)[-1] for r in rows],
+                documents=[r["content"] for r in rows],
+                metadatas=[{"tenant": tenant, "doc_id": r["id"].rsplit(":", 1)[0],
+                            "title": r["title"], "version": r["version"]} for r in rows],
+            )
+        return {"chunks": len(rows), "backend": self.settings.chroma_mode}
 
     def version(self, tenant):
         with self.store.tx() as c:
@@ -130,7 +159,7 @@ class Knowledge:
             )
             with self.store.tx() as c:
                 valid = {
-                    row["id"].split(":", 1)[-1]
+                    row["id"].rsplit(":", 1)[-1]
                     for row in c.execute(
                         "SELECT id FROM knowledge WHERE tenant=?", (tenant,)
                     )

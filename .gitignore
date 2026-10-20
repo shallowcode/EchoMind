@@ -16,6 +16,7 @@ venv/
 !.env.example
 !.env.example.env
 !.env.supportflow.example
+!.env.resume.example
 
 # 数据目录
 data/*

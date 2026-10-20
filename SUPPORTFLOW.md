@@ -1,5 +1,7 @@
 # SupportFlow：运行、业务闭环与实测
 
+> **简历演示入口：** `python scripts/start_resume.py` 使用独立 FastAPI + ChromaDB + Redis，不需要 Go。配置和指标证据见 [简历与实现对照](docs/RESUME_ALIGNMENT.md)。下面的 Go 入口属于产品扩展；历史评测数字不能当作当前版本新成绩。
+
 > 当前默认启动架构为 **Go 业务服务 + Python AI worker（v3）**。请优先阅读 [Go 产品版运行指南](docs/GO_PRODUCT.md)，运行 `python scripts/start_product.py`。`scripts/start_glm.py` 默认同样启动 v3。下面的单 Python 进程、旧账本路径与令牌文件说明适用于显式 `--legacy` 模式；AI 编排与评测说明仍可参考。
 
 默认入口现在是 `api.main:app`，HTTP、MCP 和评测共享 `supportflow/` 中的业务层。旧 API 源码存为 `api/legacy_main.py.txt`，不会作为可运行入口导入。原 `mcp/` 两个文件是旧本地工具实现；新版 `mcp` Python 包名属于官方 SDK，新业务工具在 `supportflow/tools.py`，避免同名导入冲突。
