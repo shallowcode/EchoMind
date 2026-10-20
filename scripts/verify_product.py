@@ -1,6 +1,7 @@
 """Exercise real Go HTTP + Python RPC boundaries using a uniquely named sandbox order."""
 import argparse
 import json
+import time
 import uuid
 import httpx
 
@@ -73,6 +74,22 @@ def verify(url):
     headers = {'Accept': 'application/json, text/event-stream', 'MCP-Protocol-Version': '2025-03-26'}
     rpc = call('POST', '/mcp/', merchant, {'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call', 'params': {'name': 'order_list', 'arguments': {}}}, headers=headers)
     assert not rpc['result'].get('isError'), rpc
+    with client.stream('POST', f'/copilot/conversations/{conv}/suggest', headers={'Authorization': 'Bearer ' + operator}) as stream:
+        assert stream.status_code == 200 and stream.headers['content-type'].startswith('text/event-stream')
+        names = [line[7:] for line in stream.iter_lines() if line.startswith('event: ')]
+    assert names.count('delta') >= 1 and names[-1] == 'done', names
+    summary = call('POST', f'/copilot/conversations/{conv}/summary', operator)
+    assert summary['summary']['intent'] and summary['meta']['prompt_version'].startswith('summary@')
+    call('POST', f'/copilot/conversations/{conv}/suggest', customer, expected=403)
+    job = call('POST', '/knowledge/jobs', operator, {'doc_id': 'verify-' + suffix, 'title': '验收文档', 'content': '验收段落一。\n\n验收段落二。'}, 202)['job']
+    for _ in range(60):
+        state = call('GET', '/knowledge/jobs/' + job['id'], operator)
+        if state['status'] in ('succeeded', 'failed'):
+            break
+        time.sleep(0.5)
+    assert state['status'] == 'succeeded', state
+    usage = call('GET', '/usage?days=1', operator)
+    assert usage['total']['requests'] >= 2 and any(f['feature'] == 'suggest_reply' for f in usage['by_feature'])
     user = 'verify_' + suffix
     call('POST', '/users', operator, {'user': user, 'name': '验收客户', 'password': 'test-only-password-123', 'roles': ['customer']}, 201)
     account = call('POST', '/auth/login', body={'tenant': 'demo', 'user': user, 'password': 'test-only-password-123'})
@@ -83,7 +100,8 @@ def verify(url):
     call('POST', '/merchant/orders/' + order_id + '/restore', merchant)
     client.close()
     print(json.dumps({'result': 'passed', 'order': order_id, 'conversation': conv,
-                      'checks': ['live order state', 'refund approval/settlement', 'idempotent replay', 'human takeover/reply/resume', 'SSE', 'MCP', 'knowledge/audit', 'account ownership/revocation', 'delete/restore']}, ensure_ascii=False))
+                      'checks': ['live order state', 'refund approval/settlement', 'idempotent replay', 'human takeover/reply/resume', 'SSE', 'MCP', 'knowledge/audit', 'account ownership/revocation', 'delete/restore',
+                                 'copilot SSE/summary', 'async knowledge ingestion', 'usage metering']}, ensure_ascii=False))
 
 
 if __name__ == '__main__':

@@ -197,13 +197,18 @@ func (t *transaction) mode(p Principal, conv string) Data {
 	return r
 }
 func (s *Store) Run(ctx context.Context, p Principal, op string, a Data) (any, error) {
+	return s.within(ctx, func(t *transaction) (any, error) { return t.run(p, op, a) })
+}
+
+// within runs fn in one transaction; a business error or any failed statement rolls everything back.
+func (s *Store) within(ctx context.Context, fn func(*transaction) (any, error)) (any, error) {
 	tx, err := s.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return nil, err
 	}
 	defer tx.Rollback()
 	t := &transaction{tx: tx, ctx: ctx}
-	v, err := t.run(p, op, a)
+	v, err := fn(t)
 	if err != nil {
 		return nil, err
 	}

@@ -1,5 +1,7 @@
 # supportFlow 使用指南
 
+> **2026-10-20：v3.1 转向 AI 应用后端。** Go 后端新增 LLM 网关（流式、多供应商故障转移、首字超时、熔断）、客服 Copilot（SSE 建议回复、JSON 结构化摘要）、租户 token 预算与调用计量、异步知识入库队列，客服工作台新增「AI 助手」与「AI 运营」。设计与验证见 [Go AI 应用后端](docs/AI_APP_BACKEND.md)，简历写法见 [AI 应用开发方向简历](docs/RESUME_AI_APP.md)。
+
 > **简历对应版本（2026-10-10 核对）：** 使用 `python scripts/start_resume.py` 启动独立 Python/FastAPI + ChromaDB + Redis 沙箱；部署配置为 `compose.supportflow.yml`、`.env.resume.example`。公开数据可通过 `python scripts/prepare_public_intents.py --download` 恢复。功能差异、历史证据及验证范围见 [简历与实现对照](docs/RESUME_ALIGNMENT.md)。下方 Go 产品版是后续扩展入口。
 
 > **2026-09-28：Go + Python 产品版已落地。** Go 负责订单、退款、会话、人工客服、账号权限与审计，Python 负责 Agent、RAG 与记忆。启动：`python scripts/start_product.py`；入口：`http://127.0.0.1:8002/`、`/admin`、`/desk`。详见 [Go 产品架构与运行指南](docs/GO_PRODUCT.md)。下文旧版部署与架构说明保留作历史参考。

@@ -12,6 +12,15 @@ services:
       SF_ADMIN_TENANT: ${SF_ADMIN_TENANT:-demo}
       SF_ADMIN_USER: ${SF_ADMIN_USER:-admin}
       SF_ADMIN_PASSWORD: ${SF_ADMIN_PASSWORD:?Set an initial admin password of 10-72 bytes}
+      # Go LLM gateway for Copilot. SF_LLM_PROVIDERS (JSON, priority order) adds fallback routes.
+      SF_MODEL_BACKEND: compatible
+      SF_MODEL_URL: ${SF_MODEL_URL:?Set model endpoint}
+      SF_MODEL_KEY: ${SF_MODEL_KEY:?Set model API key}
+      SF_MODEL_NAME: ${SF_MODEL_NAME:-glm-4.5-air}
+      SF_LLM_PROVIDERS: ${SF_LLM_PROVIDERS:-}
+      SF_FALLBACK_KEY: ${SF_FALLBACK_KEY:-}
+      SF_LLM_RPM: ${SF_LLM_RPM:-30}
+      SF_LLM_DAILY_TOKENS: ${SF_LLM_DAILY_TOKENS:-500000}
     volumes: ["product-business:/app/data"]
     restart: unless-stopped
   ai:

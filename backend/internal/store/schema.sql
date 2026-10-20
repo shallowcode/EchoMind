@@ -32,3 +32,11 @@ INSERT OR IGNORE INTO conversation_modes(tenant,conv,mode,assignee,version,updat
 SELECT DISTINCT tenant,conv,'waiting','',0,unixepoch() FROM tickets
 WHERE status IN ('open','assigned') AND NOT EXISTS(SELECT 1 FROM schema_migrations WHERE version=2);
 INSERT OR IGNORE INTO schema_migrations VALUES(2,unixepoch());
+-- Model gateway metering: one row per AI call (cached replays included with zero tokens).
+CREATE TABLE IF NOT EXISTS llm_usage (id INTEGER PRIMARY KEY AUTOINCREMENT,tenant TEXT NOT NULL,actor TEXT NOT NULL,feature TEXT NOT NULL,provider TEXT NOT NULL,model TEXT NOT NULL,prompt_version TEXT NOT NULL,status TEXT NOT NULL,prompt_tokens INTEGER NOT NULL,completion_tokens INTEGER NOT NULL,latency_ms INTEGER NOT NULL,ttft_ms INTEGER NOT NULL,cached INTEGER NOT NULL DEFAULT 0,estimated INTEGER NOT NULL DEFAULT 0,created REAL NOT NULL);
+CREATE INDEX IF NOT EXISTS llm_usage_tenant_created ON llm_usage(tenant,created);
+-- Durable knowledge ingestion queue with leases, part checkpoints, retry schedule and dead letters.
+CREATE TABLE IF NOT EXISTS ingest_jobs (id TEXT PRIMARY KEY,tenant TEXT NOT NULL,actor TEXT NOT NULL,principal TEXT NOT NULL,doc_id TEXT NOT NULL,title TEXT NOT NULL,content TEXT NOT NULL,content_hash TEXT NOT NULL,parts INTEGER NOT NULL,done_parts INTEGER NOT NULL DEFAULT 0,status TEXT NOT NULL,attempts INTEGER NOT NULL DEFAULT 0,next_run REAL NOT NULL,lease_until REAL NOT NULL DEFAULT 0,last_error TEXT NOT NULL DEFAULT '',created REAL NOT NULL,updated REAL NOT NULL);
+CREATE INDEX IF NOT EXISTS ingest_jobs_queue ON ingest_jobs(status,next_run);
+CREATE INDEX IF NOT EXISTS ingest_jobs_doc ON ingest_jobs(tenant,doc_id,content_hash);
+INSERT OR IGNORE INTO schema_migrations VALUES(3,unixepoch());

@@ -21,22 +21,33 @@ import (
 	"sync/atomic"
 	"time"
 
+	"supportflow/backend/internal/copilot"
+	"supportflow/backend/internal/ingest"
+	"supportflow/backend/internal/llm"
+	"supportflow/backend/internal/quota"
 	"supportflow/backend/internal/store"
 )
 
 type Config struct {
 	AIURL, ServiceKey, Frontend string
 	Demo                        bool
+	// Router is the Go model gateway used by Copilot; nil disables AI-assist endpoints.
+	Router      *llm.Router
+	RPM         int
+	DailyTokens int64
 }
 type Server struct {
 	Store     *store.Store
 	Config    Config
+	Copilot   *copilot.Service
+	Ingest    *ingest.Queue
 	proxy     *httputil.ReverseProxy
 	requests  atomic.Int64
 	failures  atomic.Int64
 	mu        sync.Mutex
 	logins    map[string]attempt
 	chatSlots chan struct{}
+	aiClient  *http.Client
 }
 type attempt struct {
 	n     int
@@ -60,11 +71,18 @@ func New(s *store.Store, c Config) (*Server, error) {
 		r.Header.Del("X-SupportFlow-Principal")
 	}
 	p.Transport = &http.Transport{Proxy: http.ProxyFromEnvironment, ResponseHeaderTimeout: 240 * time.Second, IdleConnTimeout: 60 * time.Second, MaxIdleConnsPerHost: 16}
+	a.aiClient = &http.Client{Transport: p.Transport}
 	p.ErrorHandler = func(w http.ResponseWriter, r *http.Request, e error) {
 		a.failures.Add(1)
 		writeError(w, &store.Error{Status: 503, Code: "ai_unavailable", Message: "AI 服务暂不可用，可重试或转人工"})
 	}
 	a.proxy = p
+	if c.Router == nil {
+		c.Router = llm.NewRouter()
+		a.Config.Router = c.Router
+	}
+	a.Copilot = copilot.New(s, c.Router, quota.New(c.RPM, c.DailyTokens, s.TokensSince))
+	a.Ingest = ingest.New(s, a.sendKnowledge)
 	return a, nil
 }
 func jsonOut(w http.ResponseWriter, status int, v any) {
@@ -153,7 +171,7 @@ func (a *Server) route(w http.ResponseWriter, r *http.Request) error {
 		defer cancel()
 		req, _ := http.NewRequestWithContext(ctx, "GET", a.Config.AIURL+"/health", nil)
 		resp, err := http.DefaultClient.Do(req)
-		v := store.Data{"status": "alive", "business_mode": "sandbox", "demo": a.Config.Demo, "ai_status": "unavailable", "runtime": store.Data{"application": "supportFlow", "version": "3.0.0", "backend": "Go", "ai": "Python"}}
+		v := store.Data{"status": "alive", "business_mode": "sandbox", "demo": a.Config.Demo, "ai_status": "unavailable", "llm_gateway": a.Config.Router.Status(), "runtime": store.Data{"application": "supportFlow", "version": "3.1.0", "backend": "Go", "ai": "Python"}}
 		if err == nil {
 			defer resp.Body.Close()
 			var worker store.Data
@@ -161,7 +179,7 @@ func (a *Server) route(w http.ResponseWriter, r *http.Request) error {
 				if info, ok := worker["runtime"].(map[string]any); ok {
 					info["backend"] = "Go"
 					info["ai"] = "Python"
-					info["version"] = "3.0.0"
+					info["version"] = "3.1.0"
 					v["runtime"] = info
 				}
 				v["ai_status"] = "ready"
@@ -285,10 +303,34 @@ func (a *Server) route(w http.ResponseWriter, r *http.Request) error {
 		}
 		w.Header().Set("Content-Type", "text/plain; version=0.0.4")
 		fmt.Fprintf(w, "# TYPE supportflow_go_requests_total counter\nsupportflow_go_requests_total %d\n# TYPE supportflow_go_failures_total counter\nsupportflow_go_failures_total %d\n", a.requests.Load(), a.failures.Load())
+		a.Config.Router.WriteMetrics(w)
+		if depth, err := a.Store.QueueDepth(r.Context()); err == nil {
+			fmt.Fprint(w, "# TYPE supportflow_ingest_jobs gauge\n")
+			for _, status := range []string{"queued", "running", "succeeded", "failed"} {
+				fmt.Fprintf(w, "supportflow_ingest_jobs{status=%q} %d\n", status, depth[status])
+			}
+		}
 		return nil
 	}
 	if path == "/chat" && r.Method == "POST" {
 		return a.chat(w, r, p)
+	}
+	if strings.HasPrefix(path, "/copilot/") {
+		return a.copilot(w, r, p)
+	}
+	if path == "/usage" && r.Method == "GET" {
+		v, err := a.Store.UsageReport(r.Context(), p, int(store.Integer(r.URL.Query().Get("days"), 7)))
+		if err != nil {
+			return err
+		}
+		spent, reserved := a.Copilot.Limiter.Snapshot(p.Tenant)
+		v["budget"] = store.Data{"daily_tokens": a.Config.DailyTokens, "spent_today": spent, "reserved": reserved, "rpm": a.Config.RPM}
+		v["gateway"] = a.Config.Router.Status()
+		jsonOut(w, 200, v)
+		return nil
+	}
+	if path == "/knowledge/jobs" || strings.HasPrefix(path, "/knowledge/jobs/") {
+		return a.knowledgeJobs(w, r, p)
 	}
 	if path == "/stats" && r.Method == "GET" {
 		return a.run(w, r, p, "stats", store.Data{})

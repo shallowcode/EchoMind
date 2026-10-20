@@ -1,5 +1,7 @@
 # supportFlow v3：Go 业务后端 + Python AI
 
+> v3.1 在 Go 中加入 LLM 网关、Copilot、用量计量与异步知识入库，见 [Go AI 应用后端](AI_APP_BACKEND.md)。
+
 这版保留原有 Agent、RAG、记忆和执行过程展示，把业务数据的读写统一到 Go，补上人工客服工作台、持久化会话、实时消息和正式账号。
 
 ## 启动与入口
@@ -107,6 +109,9 @@ docker compose -f compose.product.yml up --build -d
 | `GET/POST /tickets`、`GET/PATCH /tickets/{id}` | 工单查询、创建、流转 |
 | `GET /stats`、`GET /audit`、`GET /metrics` | 业务统计、审计、Go 请求指标 |
 | `POST /mcp/` | 已认证的 MCP 统一工具服务，经 Go 代理 |
+| `POST /copilot/conversations/{id}/suggest`、`/summary` | 客服；建议回复 SSE 流式，交接摘要结构化 JSON（v3.1） |
+| `GET /usage` | 客服/运维；AI 调用量、tokens、缓存命中、P50/P95、预算（v3.1） |
+| `GET/POST /knowledge/jobs`、`GET /knowledge/jobs/{id}`、`POST .../{id}/retry` | 异步知识入库任务（v3.1） |
 
 ## 验证与面试演示
 
